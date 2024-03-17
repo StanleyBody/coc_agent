@@ -1,3 +1,12 @@
 # coc_member_manager
-commit-type = [feat, fix, docs, style, refactor, test, chore]
-commit message format: [Date] [commit-type](Component|Scope|feature): Title | Short Description
+## Coding Style
+
+### Commit Message
+
+```txt
+[commit-type](Component|Scope|feature): Title | Short Description
+- Detail Description
+- Detail Description
+
+# commit-type = [feat, fix, docs, style, refactor, test, chore]
+```
