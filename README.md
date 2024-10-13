@@ -1,4 +1,6 @@
 # coc_member_manager
+## Coding Style
+
 ### Commit Message
 
 ```txt
