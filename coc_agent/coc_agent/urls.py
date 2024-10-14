@@ -27,11 +27,11 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('catalog/', include('catalog.urls')),
+    path('home/', include('home.urls')),
 ]
 
 urlpatterns += [
-    path('', RedirectView.as_view(url='/catalog/')),
+    path('', RedirectView.as_view(url='/home/')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
