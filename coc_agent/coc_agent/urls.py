@@ -26,8 +26,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 ]
 
-urlpatterns += [
+urlpatterns = [
     path('home/', include('home.urls')),
+    path('contactUs/', include('contactUs.urls')),
 ]
 
 urlpatterns += [
