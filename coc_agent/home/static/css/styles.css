@@ -39,6 +39,26 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+/* Sign in 按鈕樣式 */
+.sign-in-btn {
+    background-color: transparent;
+    border: 2px solid #5cb85c;
+    color: #5cb85c;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.sign-in-btn:hover {
+    background-color: #5cb85c;
+    color: white;
+}
+
 /* 橫幅區域 */
 .hero {
     background: url('/static/images/cover.jpg') no-repeat center bottom/cover;
