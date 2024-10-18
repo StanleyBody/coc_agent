@@ -29,6 +29,7 @@ urlpatterns = [
 urlpatterns = [
     path('home/', include('home.urls')),
     path('contact_us/', include('contact_us.urls')),
+    path('coming_soon/',include('coming_soon.urls')),
 ]
 
 urlpatterns += [

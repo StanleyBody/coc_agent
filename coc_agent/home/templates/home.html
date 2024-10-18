@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clash of Clans 社區</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_styles.css' %}">
 </head>
 <body>
     <header>
@@ -13,14 +13,14 @@
         <nav>
             <ul>
                 <li><a href="#">首頁</a></li>
-                <li><a href="#">攻略影片</a></li>
-                <li><a href="#">升級資訊</a></li>
-                <li><a href="#">玩家/部落查詢</a></li>
-                <li><a href="#">活動公告</a></li>
+                <li><a href="{% url 'coming_soon' %}">攻略影片</a></li>
+                <li><a href="{% url 'coming_soon' %}">升級資訊</a></li>
+                <li><a href="{% url 'coming_soon' %}">玩家/部落查詢</a></li>
+                <li><a href="{% url 'coming_soon' %}">活動公告</a></li>
                 <li><a href="{% url 'contact_us' %}">聯繫我們</a></li>
             </ul>
         </nav>
-        <button class="sign-in-btn">Sign in</button>
+        <a href="{% url 'coming_soon' %}" class="sign-in-btn">Sign in</a>
     </header>
 
     <section class="hero">

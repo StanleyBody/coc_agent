@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "home.apps.HomeConfig",
     "contact_us.apps.Contact_usConfig",
+    "coming_soon.apps.ComingSoonConfig",
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home/static'),
     os.path.join(BASE_DIR, 'contact_us/static'),
+    os.path.join(BASE_DIR, 'coming_soon/static'),
 ]
 
 # Default primary key field type

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/cs_styles.css' %}">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="coming-soon-container">
+        <h1>Coming Soon</h1>
+        <p>Our website is under construction. Stay tuned for something amazing!</p>
+        <div class="countdown-timer">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>Days</p>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>Hours</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+        </div>
+        <form class="subscribe-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Notify Me</button>
+        </form>
+        <footer>
+            <p>Follow us on:</p>
+            <div class="social-media">
+                <a href="#"><img src="{% static 'images/youtube.png' %}" alt="YouTube"></a>
+                <a href="#"><img src="{% static 'images/facebook.png' %}" alt="Facebook"></a>
+                <a href="#"><img src="{% static 'images/instagram.png' %}" alt="Instagram"></a>
+                <a href="#"><img src="{% static 'images/twitter.png' %}" alt="Twitter"></a>
+                <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="LinkedIn"></a>
+            </div>
+        </footer>
+    </div>
+    <script src="{% static 'javascript/cs_script.js' %}"></script>
+</body>
+</html>
