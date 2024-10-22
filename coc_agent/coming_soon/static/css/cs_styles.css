@@ -1,8 +1,16 @@
+
+@font-face {
+    font-family: 'coc_font'; /* 自訂字體名稱 */
+    src: url('/static/fonts/Clash_Regular.otf') format('opentype'); /* 加載 .otf 字體 */
+    font-weight: normal; /* 可選，設置字體粗細 */
+    font-style: normal;  /* 可選，設置字體樣式 */
+}
+
 /* style.css */
 body {
     margin: 0;
     padding: 0;
-    background: url('/static/images/background.jpg') no-repeat center center/cover;
+    background: url('/static/images/Loading_Screen_2022_Clan_Capital.png') no-repeat center center/cover;
     font-family: 'Poppins', sans-serif;
     color: #fff;
     display: flex;
@@ -12,6 +20,7 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
+    font-family: 'coc_font', sans-serif;
 }
 
 .background-overlay {
