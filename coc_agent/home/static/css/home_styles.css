@@ -22,26 +22,42 @@ h1, h2, h3 {
 
 /* 標題與導航欄 */
 header {
-    background: #2980b9;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+    display: flex; /* 使用 Flexbox 佈局 */
+    justify-content: space-between; /* 左右兩端對齊 */
+    align-items: center; /* 垂直居中對齊 */
+    padding: 0 20px; /* 左右內邊距 */
+    height: 60px; /* 調整 header 高度變扁 */
+    background-color: #2a7db0; /* 背景色 */
 }
+
+/* 左側的 "Clash of Clans 社區" 標題樣式 */
+header h1 {
+    font-size: 24px;
+    margin: 0; /* 移除默認的 margin */
+}
+
+/* 導航菜單樣式 */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 導航列和 Sign in 按鈕之間的間距 */
+}
+
 
 nav ul {
-    list-style: none;
-    padding: 0;
+    display: flex; /* 將 ul 設置為水平排列 */
+    list-style: none; /* 移除列表樣式 */
+    margin: 0; /* 移除默認的 margin */
+    padding: 0; /* 移除內邊距 */
+    gap: 20px; /* 導航連結之間的間距 */
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
+/* 導航連結樣式 */
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 nav ul li a:hover {
@@ -50,30 +66,20 @@ nav ul li a:hover {
 
 /* Sign in 按鈕樣式 */
 .sign-in-btn {
+    padding: 5px 10px;
+    border: 2px solid #8be000; /* 綠色邊框 */
+    color: #8be000; /* 字體顏色 */
     background-color: transparent;
-    border: 2px solid #5cb85c;
-    color: #5cb85c;
-    text-decoration: none ;
-    padding: 8px 16px;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    display: inline-block;
-    text-decoration: none; 
-    
+    text-align: center;
+    transition: background-color 0.3s ease;
+    text-decoration: none;  
 }
 
 .sign-in-btn:hover {
-    background-color: #5cb85c;
-    color: white;
-    text-decoration: none;
-}
-a.sign-in-btn, a.sign-in-btn:hover {
-    text-decoration: none !important;
+    background-color: #8be000;
+    color: #2a7db0; /* 當懸停時顏色變換 */
 }
 
 /* 橫幅區域 */
