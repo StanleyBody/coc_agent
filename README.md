@@ -11,3 +11,11 @@
 # commit-type = [feat, fix, docs, style, refactor, test, chore]
 ```
 References: https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html
+
+
+
+## How to run
+install django
+cd to the project
+python manage.py runserver
+
