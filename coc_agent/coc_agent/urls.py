@@ -20,16 +20,13 @@ from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
-from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-]
-
-urlpatterns = [
     path('home/', include('home.urls')),
     path('contact_us/', include('contact_us.urls')),
     path('coming_soon/',include('coming_soon.urls')),
+    path('upgrade_info/', include('upgrade_info.urls')),
 ]
 
 urlpatterns += [

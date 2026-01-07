@@ -1,51 +1,96 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <meta name="description" content="此功能即將推出 - Clash of Clans 社區">
+    <title>即將推出 | Clash of Clans 社區</title>
     <link rel="stylesheet" href="{% static 'css/cs_styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 </head>
-<body>
+<body data-theme="dark">
+    <!-- 背景層 -->
     <div class="background-overlay"></div>
+    
+    <!-- 浮動粒子 -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- 主容器 -->
     <div class="coming-soon-container">
-        <h1>Coming Soon</h1>
-        <p>Our website is under construction. Stay tuned for something amazing!</p>
+        <!-- 返回首頁連結 -->
+        <a href="{% url 'index' %}" class="back-link">
+            ← 返回首頁
+        </a>
+        
+        <h1>即將推出</h1>
+        <p class="subtitle">我們正在努力開發精彩的新功能，敬請期待！</p>
+        
+        <!-- 倒數計時器 -->
         <div class="countdown-timer">
             <div class="time-box">
                 <span id="days">00</span>
-                <p>Days</p>
+                <p>天</p>
             </div>
             <div class="time-box">
                 <span id="hours">00</span>
-                <p>Hours</p>
+                <p>時</p>
             </div>
             <div class="time-box">
                 <span id="minutes">00</span>
-                <p>Minutes</p>
+                <p>分</p>
             </div>
             <div class="time-box">
                 <span id="seconds">00</span>
-                <p>Seconds</p>
+                <p>秒</p>
             </div>
         </div>
-        <form class="subscribe-form">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Notify Me</button>
+        
+        <!-- 訂閱表單 -->
+        <form class="subscribe-form" onsubmit="handleSubscribe(event)">
+            <input type="email" placeholder="輸入您的電子郵件" required>
+            <button type="submit">訂閱通知</button>
         </form>
+        
+        <!-- 社群連結 -->
         <footer>
-            <p>Follow us on:</p>
+            <p>關注我們的社群：</p>
             <div class="social-media">
-                <a href="#"><img src="{% static 'images/youtube.png' %}" alt="YouTube"></a>
-                <a href="#"><img src="{% static 'images/facebook.png' %}" alt="Facebook"></a>
-                <a href="#"><img src="{% static 'images/instagram.png' %}" alt="Instagram"></a>
-                <a href="#"><img src="{% static 'images/twitter.png' %}" alt="Twitter"></a>
-                <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="LinkedIn"></a>
+                <a href="#" aria-label="YouTube">
+                    <img src="{% static 'images/youtube.png' %}" alt="YouTube">
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <img src="{% static 'images/facebook.png' %}" alt="Facebook">
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="{% static 'images/instagram.png' %}" alt="Instagram">
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <img src="{% static 'images/twitter.png' %}" alt="Twitter">
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <img src="{% static 'images/linkedin.png' %}" alt="LinkedIn">
+                </a>
             </div>
         </footer>
     </div>
+    
+    <!-- 主題切換按鈕 -->
+    <button class="theme-toggle" id="themeToggle" aria-label="切換深淺色主題">
+        <span class="moon-icon">🌙</span>
+        <span class="sun-icon">☀️</span>
+    </button>
+
     <script src="{% static 'javascript/cs_script.js' %}"></script>
 </body>
 </html>

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "home.apps.HomeConfig",
     "contact_us.apps.Contact_usConfig",
     "coming_soon.apps.ComingSoonConfig",
+    "upgrade_info.apps.UpgradeInfoConfig",
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home/static'),
     os.path.join(BASE_DIR, 'contact_us/static'),
     os.path.join(BASE_DIR, 'coming_soon/static'),
+    os.path.join(BASE_DIR, 'upgrade_info/static'),
 ]
 
 # Default primary key field type

@@ -1,0 +1,7484 @@
+{
+  "building_categories": [
+    {
+      "id": 1,
+      "name": "防禦建築",
+      "name_en": "Defense",
+      "icon": "🛡️",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name": "資源建築",
+      "name_en": "Resources",
+      "icon": "💰",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name": "軍事建築",
+      "name_en": "Army",
+      "icon": "⚔️",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name": "其他建築",
+      "name_en": "Other",
+      "icon": "🏠",
+      "order": 4
+    }
+  ],
+  "troop_types": [
+    {
+      "id": 1,
+      "name": "聖水兵種",
+      "name_en": "Elixir Troops",
+      "icon": "💧",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name": "暗黑兵種",
+      "name_en": "Dark Troops",
+      "icon": "⚫",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name": "法術",
+      "name_en": "Spells",
+      "icon": "✨",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name": "攻城機器",
+      "name_en": "Siege Machines",
+      "icon": "🏰",
+      "order": 4
+    }
+  ],
+  "buildings": [
+    {
+      "id": 1,
+      "name": "加農砲",
+      "name_en": "Cannon",
+      "category_id": 1,
+      "max_level": 22,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 120,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 2000
+        },
+        {
+          "level": 2,
+          "build_time": 168,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 3000
+        },
+        {
+          "level": 3,
+          "build_time": 235,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 4500
+        },
+        {
+          "level": 4,
+          "build_time": 329,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 6750
+        },
+        {
+          "level": 5,
+          "build_time": 460,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 10125
+        },
+        {
+          "level": 6,
+          "build_time": 645,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 15187
+        },
+        {
+          "level": 7,
+          "build_time": 903,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 22781
+        },
+        {
+          "level": 8,
+          "build_time": 1264,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 34171
+        },
+        {
+          "level": 9,
+          "build_time": 1770,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 51257
+        },
+        {
+          "level": 10,
+          "build_time": 2479,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 76886
+        },
+        {
+          "level": 11,
+          "build_time": 3471,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 115330
+        },
+        {
+          "level": 12,
+          "build_time": 4859,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "gold_cost": 172995
+        },
+        {
+          "level": 13,
+          "build_time": 6803,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "gold_cost": 259492
+        },
+        {
+          "level": 14,
+          "build_time": 9524,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "gold_cost": 389239
+        },
+        {
+          "level": 15,
+          "build_time": 13334,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "gold_cost": 583858
+        },
+        {
+          "level": 16,
+          "build_time": 18668,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "gold_cost": 875787
+        },
+        {
+          "level": 17,
+          "build_time": 26135,
+          "th_required": 6,
+          "hp": 2100,
+          "dps": 93,
+          "gold_cost": 1313681
+        },
+        {
+          "level": 18,
+          "build_time": 36589,
+          "th_required": 6,
+          "hp": 2200,
+          "dps": 98,
+          "gold_cost": 1970522
+        },
+        {
+          "level": 19,
+          "build_time": 51225,
+          "th_required": 7,
+          "hp": 2300,
+          "dps": 103,
+          "gold_cost": 2955783
+        },
+        {
+          "level": 20,
+          "build_time": 71715,
+          "th_required": 7,
+          "hp": 2400,
+          "dps": 108,
+          "gold_cost": 4433675
+        },
+        {
+          "level": 21,
+          "build_time": 100401,
+          "th_required": 7,
+          "hp": 2500,
+          "dps": 113,
+          "gold_cost": 6650513
+        },
+        {
+          "level": 22,
+          "build_time": 140562,
+          "th_required": 8,
+          "hp": 2600,
+          "dps": 118,
+          "gold_cost": 9975770
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "箭塔",
+      "name_en": "Archer Tower",
+      "category_id": 1,
+      "max_level": 22,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 180,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 3000
+        },
+        {
+          "level": 2,
+          "build_time": 251,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 4500
+        },
+        {
+          "level": 3,
+          "build_time": 352,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 6750
+        },
+        {
+          "level": 4,
+          "build_time": 493,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 10125
+        },
+        {
+          "level": 5,
+          "build_time": 691,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 15187
+        },
+        {
+          "level": 6,
+          "build_time": 968,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 22781
+        },
+        {
+          "level": 7,
+          "build_time": 1355,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 34171
+        },
+        {
+          "level": 8,
+          "build_time": 1897,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 51257
+        },
+        {
+          "level": 9,
+          "build_time": 2656,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 76886
+        },
+        {
+          "level": 10,
+          "build_time": 3718,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 115330
+        },
+        {
+          "level": 11,
+          "build_time": 5206,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 172995
+        },
+        {
+          "level": 12,
+          "build_time": 7289,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "gold_cost": 259492
+        },
+        {
+          "level": 13,
+          "build_time": 10204,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "gold_cost": 389239
+        },
+        {
+          "level": 14,
+          "build_time": 14286,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "gold_cost": 583858
+        },
+        {
+          "level": 15,
+          "build_time": 20001,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "gold_cost": 875787
+        },
+        {
+          "level": 16,
+          "build_time": 28002,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "gold_cost": 1313681
+        },
+        {
+          "level": 17,
+          "build_time": 39203,
+          "th_required": 6,
+          "hp": 2100,
+          "dps": 93,
+          "gold_cost": 1970522
+        },
+        {
+          "level": 18,
+          "build_time": 54884,
+          "th_required": 6,
+          "hp": 2200,
+          "dps": 98,
+          "gold_cost": 2955783
+        },
+        {
+          "level": 19,
+          "build_time": 76838,
+          "th_required": 7,
+          "hp": 2300,
+          "dps": 103,
+          "gold_cost": 4433675
+        },
+        {
+          "level": 20,
+          "build_time": 107573,
+          "th_required": 7,
+          "hp": 2400,
+          "dps": 108,
+          "gold_cost": 6650513
+        },
+        {
+          "level": 21,
+          "build_time": 150602,
+          "th_required": 7,
+          "hp": 2500,
+          "dps": 113,
+          "gold_cost": 9975770
+        },
+        {
+          "level": 22,
+          "build_time": 210844,
+          "th_required": 8,
+          "hp": 2600,
+          "dps": 118,
+          "gold_cost": 14963655
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "迫擊砲",
+      "name_en": "Mortar",
+      "category_id": 1,
+      "max_level": 16,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 240,
+          "th_required": 2,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 4000
+        },
+        {
+          "level": 2,
+          "build_time": 336,
+          "th_required": 2,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 6000
+        },
+        {
+          "level": 3,
+          "build_time": 470,
+          "th_required": 2,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 9000
+        },
+        {
+          "level": 4,
+          "build_time": 658,
+          "th_required": 3,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 13500
+        },
+        {
+          "level": 5,
+          "build_time": 921,
+          "th_required": 3,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 20250
+        },
+        {
+          "level": 6,
+          "build_time": 1290,
+          "th_required": 3,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 30375
+        },
+        {
+          "level": 7,
+          "build_time": 1807,
+          "th_required": 4,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 45562
+        },
+        {
+          "level": 8,
+          "build_time": 2529,
+          "th_required": 4,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 68343
+        },
+        {
+          "level": 9,
+          "build_time": 3541,
+          "th_required": 4,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 102515
+        },
+        {
+          "level": 10,
+          "build_time": 4958,
+          "th_required": 5,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 153773
+        },
+        {
+          "level": 11,
+          "build_time": 6942,
+          "th_required": 5,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 230660
+        },
+        {
+          "level": 12,
+          "build_time": 9718,
+          "th_required": 5,
+          "hp": 1600,
+          "dps": 68,
+          "gold_cost": 345990
+        },
+        {
+          "level": 13,
+          "build_time": 13606,
+          "th_required": 6,
+          "hp": 1700,
+          "dps": 73,
+          "gold_cost": 518985
+        },
+        {
+          "level": 14,
+          "build_time": 19049,
+          "th_required": 6,
+          "hp": 1800,
+          "dps": 78,
+          "gold_cost": 778478
+        },
+        {
+          "level": 15,
+          "build_time": 26668,
+          "th_required": 6,
+          "hp": 1900,
+          "dps": 83,
+          "gold_cost": 1167717
+        },
+        {
+          "level": 16,
+          "build_time": 37336,
+          "th_required": 7,
+          "hp": 2000,
+          "dps": 88,
+          "gold_cost": 1751575
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "防空火箭",
+      "name_en": "Air Defense",
+      "category_id": 1,
+      "max_level": 14,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 300,
+          "th_required": 2,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 5000
+        },
+        {
+          "level": 2,
+          "build_time": 420,
+          "th_required": 2,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 7500
+        },
+        {
+          "level": 3,
+          "build_time": 587,
+          "th_required": 2,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 11250
+        },
+        {
+          "level": 4,
+          "build_time": 823,
+          "th_required": 3,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 16875
+        },
+        {
+          "level": 5,
+          "build_time": 1152,
+          "th_required": 3,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 25312
+        },
+        {
+          "level": 6,
+          "build_time": 1613,
+          "th_required": 3,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 37968
+        },
+        {
+          "level": 7,
+          "build_time": 2258,
+          "th_required": 4,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 56953
+        },
+        {
+          "level": 8,
+          "build_time": 3162,
+          "th_required": 4,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 85429
+        },
+        {
+          "level": 9,
+          "build_time": 4427,
+          "th_required": 4,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 128144
+        },
+        {
+          "level": 10,
+          "build_time": 6198,
+          "th_required": 5,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 192216
+        },
+        {
+          "level": 11,
+          "build_time": 8677,
+          "th_required": 5,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 288325
+        },
+        {
+          "level": 12,
+          "build_time": 12148,
+          "th_required": 5,
+          "hp": 1600,
+          "dps": 68,
+          "gold_cost": 432487
+        },
+        {
+          "level": 13,
+          "build_time": 17008,
+          "th_required": 6,
+          "hp": 1700,
+          "dps": 73,
+          "gold_cost": 648731
+        },
+        {
+          "level": 14,
+          "build_time": 23811,
+          "th_required": 6,
+          "hp": 1800,
+          "dps": 78,
+          "gold_cost": 973097
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "法師塔",
+      "name_en": "Wizard Tower",
+      "category_id": 1,
+      "max_level": 16,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 360,
+          "th_required": 2,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 6000
+        },
+        {
+          "level": 2,
+          "build_time": 503,
+          "th_required": 2,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 9000
+        },
+        {
+          "level": 3,
+          "build_time": 705,
+          "th_required": 2,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 13500
+        },
+        {
+          "level": 4,
+          "build_time": 987,
+          "th_required": 3,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 20250
+        },
+        {
+          "level": 5,
+          "build_time": 1382,
+          "th_required": 3,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 30375
+        },
+        {
+          "level": 6,
+          "build_time": 1936,
+          "th_required": 3,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 45562
+        },
+        {
+          "level": 7,
+          "build_time": 2710,
+          "th_required": 4,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 68343
+        },
+        {
+          "level": 8,
+          "build_time": 3794,
+          "th_required": 4,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 102515
+        },
+        {
+          "level": 9,
+          "build_time": 5312,
+          "th_required": 4,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 153773
+        },
+        {
+          "level": 10,
+          "build_time": 7437,
+          "th_required": 5,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 230660
+        },
+        {
+          "level": 11,
+          "build_time": 10413,
+          "th_required": 5,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 345990
+        },
+        {
+          "level": 12,
+          "build_time": 14578,
+          "th_required": 5,
+          "hp": 1600,
+          "dps": 68,
+          "gold_cost": 518985
+        },
+        {
+          "level": 13,
+          "build_time": 20409,
+          "th_required": 6,
+          "hp": 1700,
+          "dps": 73,
+          "gold_cost": 778478
+        },
+        {
+          "level": 14,
+          "build_time": 28573,
+          "th_required": 6,
+          "hp": 1800,
+          "dps": 78,
+          "gold_cost": 1167717
+        },
+        {
+          "level": 15,
+          "build_time": 40003,
+          "th_required": 6,
+          "hp": 1900,
+          "dps": 83,
+          "gold_cost": 1751575
+        },
+        {
+          "level": 16,
+          "build_time": 56004,
+          "th_required": 7,
+          "hp": 2000,
+          "dps": 88,
+          "gold_cost": 2627363
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "電磁塔",
+      "name_en": "Inferno Tower",
+      "category_id": 1,
+      "max_level": 10,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 420,
+          "th_required": 3,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 7000
+        },
+        {
+          "level": 2,
+          "build_time": 588,
+          "th_required": 3,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 10500
+        },
+        {
+          "level": 3,
+          "build_time": 823,
+          "th_required": 3,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 15750
+        },
+        {
+          "level": 4,
+          "build_time": 1152,
+          "th_required": 4,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 23625
+        },
+        {
+          "level": 5,
+          "build_time": 1613,
+          "th_required": 4,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 35437
+        },
+        {
+          "level": 6,
+          "build_time": 2258,
+          "th_required": 4,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 53156
+        },
+        {
+          "level": 7,
+          "build_time": 3162,
+          "th_required": 5,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 79734
+        },
+        {
+          "level": 8,
+          "build_time": 4427,
+          "th_required": 5,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 119601
+        },
+        {
+          "level": 9,
+          "build_time": 6198,
+          "th_required": 5,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 179402
+        },
+        {
+          "level": 10,
+          "build_time": 8677,
+          "th_required": 6,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 269103
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "X連弩",
+      "name_en": "X-Bow",
+      "category_id": 1,
+      "max_level": 11,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 480,
+          "th_required": 3,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 8000
+        },
+        {
+          "level": 2,
+          "build_time": 672,
+          "th_required": 3,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 12000
+        },
+        {
+          "level": 3,
+          "build_time": 940,
+          "th_required": 3,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 18000
+        },
+        {
+          "level": 4,
+          "build_time": 1317,
+          "th_required": 4,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 27000
+        },
+        {
+          "level": 5,
+          "build_time": 1843,
+          "th_required": 4,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 40500
+        },
+        {
+          "level": 6,
+          "build_time": 2581,
+          "th_required": 4,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 60750
+        },
+        {
+          "level": 7,
+          "build_time": 3614,
+          "th_required": 5,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 91125
+        },
+        {
+          "level": 8,
+          "build_time": 5059,
+          "th_required": 5,
+          "hp": 1200,
+          "dps": 48,
+          "gold_cost": 136687
+        },
+        {
+          "level": 9,
+          "build_time": 7083,
+          "th_required": 5,
+          "hp": 1300,
+          "dps": 53,
+          "gold_cost": 205031
+        },
+        {
+          "level": 10,
+          "build_time": 9917,
+          "th_required": 6,
+          "hp": 1400,
+          "dps": 58,
+          "gold_cost": 307546
+        },
+        {
+          "level": 11,
+          "build_time": 13884,
+          "th_required": 6,
+          "hp": 1500,
+          "dps": 63,
+          "gold_cost": 461320
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "天鷹火砲",
+      "name_en": "Eagle Artillery",
+      "category_id": 1,
+      "max_level": 7,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 540,
+          "th_required": 3,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 9000
+        },
+        {
+          "level": 2,
+          "build_time": 756,
+          "th_required": 3,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 13500
+        },
+        {
+          "level": 3,
+          "build_time": 1058,
+          "th_required": 3,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 20250
+        },
+        {
+          "level": 4,
+          "build_time": 1481,
+          "th_required": 4,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 30375
+        },
+        {
+          "level": 5,
+          "build_time": 2074,
+          "th_required": 4,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 45562
+        },
+        {
+          "level": 6,
+          "build_time": 2904,
+          "th_required": 4,
+          "hp": 1000,
+          "dps": 38,
+          "gold_cost": 68343
+        },
+        {
+          "level": 7,
+          "build_time": 4065,
+          "th_required": 5,
+          "hp": 1100,
+          "dps": 43,
+          "gold_cost": 102515
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "地獄之塔",
+      "name_en": "Scattershot",
+      "category_id": 1,
+      "max_level": 5,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 600,
+          "th_required": 4,
+          "hp": 500,
+          "dps": 13,
+          "gold_cost": 10000
+        },
+        {
+          "level": 2,
+          "build_time": 840,
+          "th_required": 4,
+          "hp": 600,
+          "dps": 18,
+          "gold_cost": 15000
+        },
+        {
+          "level": 3,
+          "build_time": 1175,
+          "th_required": 4,
+          "hp": 700,
+          "dps": 23,
+          "gold_cost": 22500
+        },
+        {
+          "level": 4,
+          "build_time": 1646,
+          "th_required": 5,
+          "hp": 800,
+          "dps": 28,
+          "gold_cost": 33750
+        },
+        {
+          "level": 5,
+          "build_time": 2304,
+          "th_required": 5,
+          "hp": 900,
+          "dps": 33,
+          "gold_cost": 50625
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "金礦",
+      "name_en": "Gold Mine",
+      "category_id": 2,
+      "max_level": 16,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 600,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 10000
+        },
+        {
+          "level": 2,
+          "build_time": 810,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 14000
+        },
+        {
+          "level": 3,
+          "build_time": 1093,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 19599
+        },
+        {
+          "level": 4,
+          "build_time": 1476,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 27439
+        },
+        {
+          "level": 5,
+          "build_time": 1992,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 38415
+        },
+        {
+          "level": 6,
+          "build_time": 2690,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 53782
+        },
+        {
+          "level": 7,
+          "build_time": 3632,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 75295
+        },
+        {
+          "level": 8,
+          "build_time": 4903,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 105413
+        },
+        {
+          "level": 9,
+          "build_time": 6619,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 147578
+        },
+        {
+          "level": 10,
+          "build_time": 8936,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 206610
+        },
+        {
+          "level": 11,
+          "build_time": 12063,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 289254
+        },
+        {
+          "level": 12,
+          "build_time": 16286,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 404956
+        },
+        {
+          "level": 13,
+          "build_time": 21986,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 566939
+        },
+        {
+          "level": 14,
+          "build_time": 29681,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 793714
+        },
+        {
+          "level": 15,
+          "build_time": 40070,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "elixir_cost": 1111200
+        },
+        {
+          "level": 16,
+          "build_time": 54095,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "elixir_cost": 1555680
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "聖水收集器",
+      "name_en": "Elixir Collector",
+      "category_id": 2,
+      "max_level": 16,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 630,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 10500
+        },
+        {
+          "level": 2,
+          "build_time": 850,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 14699
+        },
+        {
+          "level": 3,
+          "build_time": 1148,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 20579
+        },
+        {
+          "level": 4,
+          "build_time": 1550,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 28811
+        },
+        {
+          "level": 5,
+          "build_time": 2092,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 40336
+        },
+        {
+          "level": 6,
+          "build_time": 2824,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 56471
+        },
+        {
+          "level": 7,
+          "build_time": 3813,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 79060
+        },
+        {
+          "level": 8,
+          "build_time": 5148,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 110684
+        },
+        {
+          "level": 9,
+          "build_time": 6950,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 154957
+        },
+        {
+          "level": 10,
+          "build_time": 9383,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 216940
+        },
+        {
+          "level": 11,
+          "build_time": 12667,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 303717
+        },
+        {
+          "level": 12,
+          "build_time": 17100,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 425204
+        },
+        {
+          "level": 13,
+          "build_time": 23085,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 595286
+        },
+        {
+          "level": 14,
+          "build_time": 31165,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 833400
+        },
+        {
+          "level": 15,
+          "build_time": 42073,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "elixir_cost": 1166760
+        },
+        {
+          "level": 16,
+          "build_time": 56799,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "elixir_cost": 1633465
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "暗黑聖水鑽井",
+      "name_en": "Dark Elixir Drill",
+      "category_id": 2,
+      "max_level": 10,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 660,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 11000
+        },
+        {
+          "level": 2,
+          "build_time": 891,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 15399
+        },
+        {
+          "level": 3,
+          "build_time": 1202,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 21559
+        },
+        {
+          "level": 4,
+          "build_time": 1623,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 30183
+        },
+        {
+          "level": 5,
+          "build_time": 2192,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 42257
+        },
+        {
+          "level": 6,
+          "build_time": 2959,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 59160
+        },
+        {
+          "level": 7,
+          "build_time": 3995,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 82824
+        },
+        {
+          "level": 8,
+          "build_time": 5393,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 115954
+        },
+        {
+          "level": 9,
+          "build_time": 7281,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 162336
+        },
+        {
+          "level": 10,
+          "build_time": 9829,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 227271
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "金幣儲存庫",
+      "name_en": "Gold Storage",
+      "category_id": 2,
+      "max_level": 17,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 690,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 11500
+        },
+        {
+          "level": 2,
+          "build_time": 931,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 16099
+        },
+        {
+          "level": 3,
+          "build_time": 1257,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 22539
+        },
+        {
+          "level": 4,
+          "build_time": 1697,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 31555
+        },
+        {
+          "level": 5,
+          "build_time": 2291,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 44178
+        },
+        {
+          "level": 6,
+          "build_time": 3093,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 61849
+        },
+        {
+          "level": 7,
+          "build_time": 4176,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 86589
+        },
+        {
+          "level": 8,
+          "build_time": 5638,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 121225
+        },
+        {
+          "level": 9,
+          "build_time": 7612,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 169715
+        },
+        {
+          "level": 10,
+          "build_time": 10276,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 237602
+        },
+        {
+          "level": 11,
+          "build_time": 13873,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 332642
+        },
+        {
+          "level": 12,
+          "build_time": 18729,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 465699
+        },
+        {
+          "level": 13,
+          "build_time": 25284,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 651979
+        },
+        {
+          "level": 14,
+          "build_time": 34134,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 912771
+        },
+        {
+          "level": 15,
+          "build_time": 46080,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "elixir_cost": 1277880
+        },
+        {
+          "level": 16,
+          "build_time": 62209,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "elixir_cost": 1789033
+        },
+        {
+          "level": 17,
+          "build_time": 83982,
+          "th_required": 6,
+          "hp": 2100,
+          "dps": 93,
+          "elixir_cost": 2504646
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "聖水儲存庫",
+      "name_en": "Elixir Storage",
+      "category_id": 2,
+      "max_level": 17,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 720,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 12000
+        },
+        {
+          "level": 2,
+          "build_time": 972,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 16800
+        },
+        {
+          "level": 3,
+          "build_time": 1312,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 23519
+        },
+        {
+          "level": 4,
+          "build_time": 1771,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 32927
+        },
+        {
+          "level": 5,
+          "build_time": 2391,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 46099
+        },
+        {
+          "level": 6,
+          "build_time": 3228,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 64538
+        },
+        {
+          "level": 7,
+          "build_time": 4358,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 90354
+        },
+        {
+          "level": 8,
+          "build_time": 5883,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 126496
+        },
+        {
+          "level": 9,
+          "build_time": 7943,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 177094
+        },
+        {
+          "level": 10,
+          "build_time": 10723,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 247932
+        },
+        {
+          "level": 11,
+          "build_time": 14476,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 347105
+        },
+        {
+          "level": 12,
+          "build_time": 19543,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 485947
+        },
+        {
+          "level": 13,
+          "build_time": 26383,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 680326
+        },
+        {
+          "level": 14,
+          "build_time": 35618,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 952457
+        },
+        {
+          "level": 15,
+          "build_time": 48084,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "elixir_cost": 1333440
+        },
+        {
+          "level": 16,
+          "build_time": 64914,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "elixir_cost": 1866817
+        },
+        {
+          "level": 17,
+          "build_time": 87634,
+          "th_required": 6,
+          "hp": 2100,
+          "dps": 93,
+          "elixir_cost": 2613544
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "兵營",
+      "name_en": "Barracks",
+      "category_id": 3,
+      "max_level": 17,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 1800,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 30000
+        },
+        {
+          "level": 2,
+          "build_time": 2520,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 43500
+        },
+        {
+          "level": 3,
+          "build_time": 3527,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 63075
+        },
+        {
+          "level": 4,
+          "build_time": 4939,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 91458
+        },
+        {
+          "level": 5,
+          "build_time": 6914,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 132615
+        },
+        {
+          "level": 6,
+          "build_time": 9680,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 192292
+        },
+        {
+          "level": 7,
+          "build_time": 13553,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 278823
+        },
+        {
+          "level": 8,
+          "build_time": 18974,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 404293
+        },
+        {
+          "level": 9,
+          "build_time": 26564,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 586226
+        },
+        {
+          "level": 10,
+          "build_time": 37189,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 850028
+        },
+        {
+          "level": 11,
+          "build_time": 52065,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 1232540
+        },
+        {
+          "level": 12,
+          "build_time": 72892,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 1787184
+        },
+        {
+          "level": 13,
+          "build_time": 102049,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 2591416
+        },
+        {
+          "level": 14,
+          "build_time": 142868,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 3757554
+        },
+        {
+          "level": 15,
+          "build_time": 200016,
+          "th_required": 5,
+          "hp": 1900,
+          "dps": 83,
+          "elixir_cost": 5448453
+        },
+        {
+          "level": 16,
+          "build_time": 280022,
+          "th_required": 6,
+          "hp": 2000,
+          "dps": 88,
+          "elixir_cost": 7900258
+        },
+        {
+          "level": 17,
+          "build_time": 392031,
+          "th_required": 6,
+          "hp": 2100,
+          "dps": 93,
+          "elixir_cost": 11455374
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "暗黑兵營",
+      "name_en": "Dark Barracks",
+      "category_id": 3,
+      "max_level": 11,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 1860,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 31000
+        },
+        {
+          "level": 2,
+          "build_time": 2604,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 44950
+        },
+        {
+          "level": 3,
+          "build_time": 3645,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 65177
+        },
+        {
+          "level": 4,
+          "build_time": 5103,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 94507
+        },
+        {
+          "level": 5,
+          "build_time": 7145,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 137035
+        },
+        {
+          "level": 6,
+          "build_time": 10003,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 198701
+        },
+        {
+          "level": 7,
+          "build_time": 14004,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 288117
+        },
+        {
+          "level": 8,
+          "build_time": 19606,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 417770
+        },
+        {
+          "level": 9,
+          "build_time": 27449,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 605767
+        },
+        {
+          "level": 10,
+          "build_time": 38429,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 878362
+        },
+        {
+          "level": 11,
+          "build_time": 53801,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 1273625
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "實驗室",
+      "name_en": "Laboratory",
+      "category_id": 3,
+      "max_level": 14,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 1920,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 32000
+        },
+        {
+          "level": 2,
+          "build_time": 2688,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 46400
+        },
+        {
+          "level": 3,
+          "build_time": 3763,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 67280
+        },
+        {
+          "level": 4,
+          "build_time": 5268,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 97556
+        },
+        {
+          "level": 5,
+          "build_time": 7375,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 141456
+        },
+        {
+          "level": 6,
+          "build_time": 10326,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 205111
+        },
+        {
+          "level": 7,
+          "build_time": 14456,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 297411
+        },
+        {
+          "level": 8,
+          "build_time": 20239,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 431246
+        },
+        {
+          "level": 9,
+          "build_time": 28335,
+          "th_required": 3,
+          "hp": 1300,
+          "dps": 53,
+          "elixir_cost": 625308
+        },
+        {
+          "level": 10,
+          "build_time": 39669,
+          "th_required": 4,
+          "hp": 1400,
+          "dps": 58,
+          "elixir_cost": 906696
+        },
+        {
+          "level": 11,
+          "build_time": 55536,
+          "th_required": 4,
+          "hp": 1500,
+          "dps": 63,
+          "elixir_cost": 1314710
+        },
+        {
+          "level": 12,
+          "build_time": 77751,
+          "th_required": 4,
+          "hp": 1600,
+          "dps": 68,
+          "elixir_cost": 1906329
+        },
+        {
+          "level": 13,
+          "build_time": 108852,
+          "th_required": 5,
+          "hp": 1700,
+          "dps": 73,
+          "elixir_cost": 2764177
+        },
+        {
+          "level": 14,
+          "build_time": 152393,
+          "th_required": 5,
+          "hp": 1800,
+          "dps": 78,
+          "elixir_cost": 4008058
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "法術工廠",
+      "name_en": "Spell Factory",
+      "category_id": 3,
+      "max_level": 8,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 1980,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 33000
+        },
+        {
+          "level": 2,
+          "build_time": 2772,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 47850
+        },
+        {
+          "level": 3,
+          "build_time": 3880,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 69382
+        },
+        {
+          "level": 4,
+          "build_time": 5433,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 100604
+        },
+        {
+          "level": 5,
+          "build_time": 7606,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 145876
+        },
+        {
+          "level": 6,
+          "build_time": 10648,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 211521
+        },
+        {
+          "level": 7,
+          "build_time": 14908,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 306705
+        },
+        {
+          "level": 8,
+          "build_time": 20871,
+          "th_required": 3,
+          "hp": 1200,
+          "dps": 48,
+          "elixir_cost": 444723
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "攻城機器工廠",
+      "name_en": "Workshop",
+      "category_id": 3,
+      "max_level": 7,
+      "levels": [
+        {
+          "level": 1,
+          "build_time": 2040,
+          "th_required": 1,
+          "hp": 500,
+          "dps": 13,
+          "elixir_cost": 34000
+        },
+        {
+          "level": 2,
+          "build_time": 2856,
+          "th_required": 1,
+          "hp": 600,
+          "dps": 18,
+          "elixir_cost": 49300
+        },
+        {
+          "level": 3,
+          "build_time": 3998,
+          "th_required": 1,
+          "hp": 700,
+          "dps": 23,
+          "elixir_cost": 71485
+        },
+        {
+          "level": 4,
+          "build_time": 5597,
+          "th_required": 2,
+          "hp": 800,
+          "dps": 28,
+          "elixir_cost": 103653
+        },
+        {
+          "level": 5,
+          "build_time": 7836,
+          "th_required": 2,
+          "hp": 900,
+          "dps": 33,
+          "elixir_cost": 150297
+        },
+        {
+          "level": 6,
+          "build_time": 10971,
+          "th_required": 2,
+          "hp": 1000,
+          "dps": 38,
+          "elixir_cost": 217930
+        },
+        {
+          "level": 7,
+          "build_time": 15360,
+          "th_required": 3,
+          "hp": 1100,
+          "dps": 43,
+          "elixir_cost": 315999
+        }
+      ]
+    }
+  ],
+  "heroes": [
+    {
+      "id": 1,
+      "name": "蠻王",
+      "name_en": "Barbarian King",
+      "max_level": 100,
+      "unlock_th": 7,
+      "levels": [
+        {
+          "level": 1,
+          "dark_elixir_cost": 15000,
+          "upgrade_time": 14400,
+          "th_required": 7,
+          "hp": 1580,
+          "dps": 108,
+          "ability_damage": 215
+        },
+        {
+          "level": 2,
+          "dark_elixir_cost": 20000,
+          "upgrade_time": 28800,
+          "th_required": 7,
+          "hp": 1660,
+          "dps": 116,
+          "ability_damage": 230
+        },
+        {
+          "level": 3,
+          "dark_elixir_cost": 25000,
+          "upgrade_time": 43200,
+          "th_required": 7,
+          "hp": 1740,
+          "dps": 124,
+          "ability_damage": 245
+        },
+        {
+          "level": 4,
+          "dark_elixir_cost": 30000,
+          "upgrade_time": 57600,
+          "th_required": 7,
+          "hp": 1820,
+          "dps": 132,
+          "ability_damage": 260
+        },
+        {
+          "level": 5,
+          "dark_elixir_cost": 35000,
+          "upgrade_time": 72000,
+          "th_required": 7,
+          "hp": 1900,
+          "dps": 140,
+          "ability_damage": 275
+        },
+        {
+          "level": 6,
+          "dark_elixir_cost": 40000,
+          "upgrade_time": 86400,
+          "th_required": 7,
+          "hp": 1980,
+          "dps": 148,
+          "ability_damage": 290
+        },
+        {
+          "level": 7,
+          "dark_elixir_cost": 45000,
+          "upgrade_time": 100800,
+          "th_required": 7,
+          "hp": 2060,
+          "dps": 156,
+          "ability_damage": 305
+        },
+        {
+          "level": 8,
+          "dark_elixir_cost": 50000,
+          "upgrade_time": 115200,
+          "th_required": 7,
+          "hp": 2140,
+          "dps": 164,
+          "ability_damage": 320
+        },
+        {
+          "level": 9,
+          "dark_elixir_cost": 55000,
+          "upgrade_time": 129600,
+          "th_required": 7,
+          "hp": 2220,
+          "dps": 172,
+          "ability_damage": 335
+        },
+        {
+          "level": 10,
+          "dark_elixir_cost": 60000,
+          "upgrade_time": 144000,
+          "th_required": 7,
+          "hp": 2300,
+          "dps": 180,
+          "ability_damage": 350
+        },
+        {
+          "level": 11,
+          "dark_elixir_cost": 65000,
+          "upgrade_time": 158400,
+          "th_required": 8,
+          "hp": 2380,
+          "dps": 188,
+          "ability_damage": 365
+        },
+        {
+          "level": 12,
+          "dark_elixir_cost": 70000,
+          "upgrade_time": 172800,
+          "th_required": 8,
+          "hp": 2460,
+          "dps": 196,
+          "ability_damage": 380
+        },
+        {
+          "level": 13,
+          "dark_elixir_cost": 75000,
+          "upgrade_time": 187200,
+          "th_required": 8,
+          "hp": 2540,
+          "dps": 204,
+          "ability_damage": 395
+        },
+        {
+          "level": 14,
+          "dark_elixir_cost": 80000,
+          "upgrade_time": 201600,
+          "th_required": 8,
+          "hp": 2620,
+          "dps": 212,
+          "ability_damage": 410
+        },
+        {
+          "level": 15,
+          "dark_elixir_cost": 85000,
+          "upgrade_time": 216000,
+          "th_required": 8,
+          "hp": 2700,
+          "dps": 220,
+          "ability_damage": 425
+        },
+        {
+          "level": 16,
+          "dark_elixir_cost": 90000,
+          "upgrade_time": 230400,
+          "th_required": 8,
+          "hp": 2780,
+          "dps": 228,
+          "ability_damage": 440
+        },
+        {
+          "level": 17,
+          "dark_elixir_cost": 95000,
+          "upgrade_time": 244800,
+          "th_required": 8,
+          "hp": 2860,
+          "dps": 236,
+          "ability_damage": 455
+        },
+        {
+          "level": 18,
+          "dark_elixir_cost": 100000,
+          "upgrade_time": 259200,
+          "th_required": 8,
+          "hp": 2940,
+          "dps": 244,
+          "ability_damage": 470
+        },
+        {
+          "level": 19,
+          "dark_elixir_cost": 105000,
+          "upgrade_time": 273600,
+          "th_required": 8,
+          "hp": 3020,
+          "dps": 252,
+          "ability_damage": 485
+        },
+        {
+          "level": 20,
+          "dark_elixir_cost": 110000,
+          "upgrade_time": 288000,
+          "th_required": 8,
+          "hp": 3100,
+          "dps": 260,
+          "ability_damage": 500
+        },
+        {
+          "level": 21,
+          "dark_elixir_cost": 115000,
+          "upgrade_time": 302400,
+          "th_required": 9,
+          "hp": 3180,
+          "dps": 268,
+          "ability_damage": 515
+        },
+        {
+          "level": 22,
+          "dark_elixir_cost": 120000,
+          "upgrade_time": 316800,
+          "th_required": 9,
+          "hp": 3260,
+          "dps": 276,
+          "ability_damage": 530
+        },
+        {
+          "level": 23,
+          "dark_elixir_cost": 125000,
+          "upgrade_time": 331200,
+          "th_required": 9,
+          "hp": 3340,
+          "dps": 284,
+          "ability_damage": 545
+        },
+        {
+          "level": 24,
+          "dark_elixir_cost": 130000,
+          "upgrade_time": 345600,
+          "th_required": 9,
+          "hp": 3420,
+          "dps": 292,
+          "ability_damage": 560
+        },
+        {
+          "level": 25,
+          "dark_elixir_cost": 135000,
+          "upgrade_time": 360000,
+          "th_required": 9,
+          "hp": 3500,
+          "dps": 300,
+          "ability_damage": 575
+        },
+        {
+          "level": 26,
+          "dark_elixir_cost": 140000,
+          "upgrade_time": 374400,
+          "th_required": 9,
+          "hp": 3580,
+          "dps": 308,
+          "ability_damage": 590
+        },
+        {
+          "level": 27,
+          "dark_elixir_cost": 145000,
+          "upgrade_time": 388800,
+          "th_required": 9,
+          "hp": 3660,
+          "dps": 316,
+          "ability_damage": 605
+        },
+        {
+          "level": 28,
+          "dark_elixir_cost": 150000,
+          "upgrade_time": 403200,
+          "th_required": 9,
+          "hp": 3740,
+          "dps": 324,
+          "ability_damage": 620
+        },
+        {
+          "level": 29,
+          "dark_elixir_cost": 155000,
+          "upgrade_time": 417600,
+          "th_required": 9,
+          "hp": 3820,
+          "dps": 332,
+          "ability_damage": 635
+        },
+        {
+          "level": 30,
+          "dark_elixir_cost": 160000,
+          "upgrade_time": 432000,
+          "th_required": 9,
+          "hp": 3900,
+          "dps": 340,
+          "ability_damage": 650
+        },
+        {
+          "level": 31,
+          "dark_elixir_cost": 165000,
+          "upgrade_time": 446400,
+          "th_required": 10,
+          "hp": 3980,
+          "dps": 348,
+          "ability_damage": 665
+        },
+        {
+          "level": 32,
+          "dark_elixir_cost": 170000,
+          "upgrade_time": 460800,
+          "th_required": 10,
+          "hp": 4060,
+          "dps": 356,
+          "ability_damage": 680
+        },
+        {
+          "level": 33,
+          "dark_elixir_cost": 175000,
+          "upgrade_time": 475200,
+          "th_required": 10,
+          "hp": 4140,
+          "dps": 364,
+          "ability_damage": 695
+        },
+        {
+          "level": 34,
+          "dark_elixir_cost": 180000,
+          "upgrade_time": 489600,
+          "th_required": 10,
+          "hp": 4220,
+          "dps": 372,
+          "ability_damage": 710
+        },
+        {
+          "level": 35,
+          "dark_elixir_cost": 185000,
+          "upgrade_time": 504000,
+          "th_required": 10,
+          "hp": 4300,
+          "dps": 380,
+          "ability_damage": 725
+        },
+        {
+          "level": 36,
+          "dark_elixir_cost": 190000,
+          "upgrade_time": 518400,
+          "th_required": 10,
+          "hp": 4380,
+          "dps": 388,
+          "ability_damage": 740
+        },
+        {
+          "level": 37,
+          "dark_elixir_cost": 195000,
+          "upgrade_time": 532800,
+          "th_required": 10,
+          "hp": 4460,
+          "dps": 396,
+          "ability_damage": 755
+        },
+        {
+          "level": 38,
+          "dark_elixir_cost": 200000,
+          "upgrade_time": 547200,
+          "th_required": 10,
+          "hp": 4540,
+          "dps": 404,
+          "ability_damage": 770
+        },
+        {
+          "level": 39,
+          "dark_elixir_cost": 205000,
+          "upgrade_time": 561600,
+          "th_required": 10,
+          "hp": 4620,
+          "dps": 412,
+          "ability_damage": 785
+        },
+        {
+          "level": 40,
+          "dark_elixir_cost": 210000,
+          "upgrade_time": 576000,
+          "th_required": 10,
+          "hp": 4700,
+          "dps": 420,
+          "ability_damage": 800
+        },
+        {
+          "level": 41,
+          "dark_elixir_cost": 215000,
+          "upgrade_time": 590400,
+          "th_required": 11,
+          "hp": 4780,
+          "dps": 428,
+          "ability_damage": 815
+        },
+        {
+          "level": 42,
+          "dark_elixir_cost": 220000,
+          "upgrade_time": 604800,
+          "th_required": 11,
+          "hp": 4860,
+          "dps": 436,
+          "ability_damage": 830
+        },
+        {
+          "level": 43,
+          "dark_elixir_cost": 225000,
+          "upgrade_time": 619200,
+          "th_required": 11,
+          "hp": 4940,
+          "dps": 444,
+          "ability_damage": 845
+        },
+        {
+          "level": 44,
+          "dark_elixir_cost": 230000,
+          "upgrade_time": 633600,
+          "th_required": 11,
+          "hp": 5020,
+          "dps": 452,
+          "ability_damage": 860
+        },
+        {
+          "level": 45,
+          "dark_elixir_cost": 235000,
+          "upgrade_time": 648000,
+          "th_required": 11,
+          "hp": 5100,
+          "dps": 460,
+          "ability_damage": 875
+        },
+        {
+          "level": 46,
+          "dark_elixir_cost": 240000,
+          "upgrade_time": 662400,
+          "th_required": 11,
+          "hp": 5180,
+          "dps": 468,
+          "ability_damage": 890
+        },
+        {
+          "level": 47,
+          "dark_elixir_cost": 245000,
+          "upgrade_time": 676800,
+          "th_required": 11,
+          "hp": 5260,
+          "dps": 476,
+          "ability_damage": 905
+        },
+        {
+          "level": 48,
+          "dark_elixir_cost": 250000,
+          "upgrade_time": 691200,
+          "th_required": 11,
+          "hp": 5340,
+          "dps": 484,
+          "ability_damage": 920
+        },
+        {
+          "level": 49,
+          "dark_elixir_cost": 255000,
+          "upgrade_time": 705600,
+          "th_required": 11,
+          "hp": 5420,
+          "dps": 492,
+          "ability_damage": 935
+        },
+        {
+          "level": 50,
+          "dark_elixir_cost": 260000,
+          "upgrade_time": 720000,
+          "th_required": 11,
+          "hp": 5500,
+          "dps": 500,
+          "ability_damage": 950
+        },
+        {
+          "level": 51,
+          "dark_elixir_cost": 265000,
+          "upgrade_time": 734400,
+          "th_required": 12,
+          "hp": 5580,
+          "dps": 508,
+          "ability_damage": 965
+        },
+        {
+          "level": 52,
+          "dark_elixir_cost": 270000,
+          "upgrade_time": 748800,
+          "th_required": 12,
+          "hp": 5660,
+          "dps": 516,
+          "ability_damage": 980
+        },
+        {
+          "level": 53,
+          "dark_elixir_cost": 275000,
+          "upgrade_time": 763200,
+          "th_required": 12,
+          "hp": 5740,
+          "dps": 524,
+          "ability_damage": 995
+        },
+        {
+          "level": 54,
+          "dark_elixir_cost": 280000,
+          "upgrade_time": 777600,
+          "th_required": 12,
+          "hp": 5820,
+          "dps": 532,
+          "ability_damage": 1010
+        },
+        {
+          "level": 55,
+          "dark_elixir_cost": 285000,
+          "upgrade_time": 792000,
+          "th_required": 12,
+          "hp": 5900,
+          "dps": 540,
+          "ability_damage": 1025
+        },
+        {
+          "level": 56,
+          "dark_elixir_cost": 290000,
+          "upgrade_time": 806400,
+          "th_required": 12,
+          "hp": 5980,
+          "dps": 548,
+          "ability_damage": 1040
+        },
+        {
+          "level": 57,
+          "dark_elixir_cost": 295000,
+          "upgrade_time": 820800,
+          "th_required": 12,
+          "hp": 6060,
+          "dps": 556,
+          "ability_damage": 1055
+        },
+        {
+          "level": 58,
+          "dark_elixir_cost": 300000,
+          "upgrade_time": 835200,
+          "th_required": 12,
+          "hp": 6140,
+          "dps": 564,
+          "ability_damage": 1070
+        },
+        {
+          "level": 59,
+          "dark_elixir_cost": 305000,
+          "upgrade_time": 849600,
+          "th_required": 12,
+          "hp": 6220,
+          "dps": 572,
+          "ability_damage": 1085
+        },
+        {
+          "level": 60,
+          "dark_elixir_cost": 310000,
+          "upgrade_time": 864000,
+          "th_required": 12,
+          "hp": 6300,
+          "dps": 580,
+          "ability_damage": 1100
+        },
+        {
+          "level": 61,
+          "dark_elixir_cost": 315000,
+          "upgrade_time": 878400,
+          "th_required": 13,
+          "hp": 6380,
+          "dps": 588,
+          "ability_damage": 1115
+        },
+        {
+          "level": 62,
+          "dark_elixir_cost": 320000,
+          "upgrade_time": 892800,
+          "th_required": 13,
+          "hp": 6460,
+          "dps": 596,
+          "ability_damage": 1130
+        },
+        {
+          "level": 63,
+          "dark_elixir_cost": 325000,
+          "upgrade_time": 907200,
+          "th_required": 13,
+          "hp": 6540,
+          "dps": 604,
+          "ability_damage": 1145
+        },
+        {
+          "level": 64,
+          "dark_elixir_cost": 330000,
+          "upgrade_time": 921600,
+          "th_required": 13,
+          "hp": 6620,
+          "dps": 612,
+          "ability_damage": 1160
+        },
+        {
+          "level": 65,
+          "dark_elixir_cost": 335000,
+          "upgrade_time": 936000,
+          "th_required": 13,
+          "hp": 6700,
+          "dps": 620,
+          "ability_damage": 1175
+        },
+        {
+          "level": 66,
+          "dark_elixir_cost": 340000,
+          "upgrade_time": 950400,
+          "th_required": 13,
+          "hp": 6780,
+          "dps": 628,
+          "ability_damage": 1190
+        },
+        {
+          "level": 67,
+          "dark_elixir_cost": 345000,
+          "upgrade_time": 964800,
+          "th_required": 13,
+          "hp": 6860,
+          "dps": 636,
+          "ability_damage": 1205
+        },
+        {
+          "level": 68,
+          "dark_elixir_cost": 350000,
+          "upgrade_time": 979200,
+          "th_required": 13,
+          "hp": 6940,
+          "dps": 644,
+          "ability_damage": 1220
+        },
+        {
+          "level": 69,
+          "dark_elixir_cost": 355000,
+          "upgrade_time": 993600,
+          "th_required": 13,
+          "hp": 7020,
+          "dps": 652,
+          "ability_damage": 1235
+        },
+        {
+          "level": 70,
+          "dark_elixir_cost": 360000,
+          "upgrade_time": 1008000,
+          "th_required": 13,
+          "hp": 7100,
+          "dps": 660,
+          "ability_damage": 1250
+        },
+        {
+          "level": 71,
+          "dark_elixir_cost": 365000,
+          "upgrade_time": 1022400,
+          "th_required": 14,
+          "hp": 7180,
+          "dps": 668,
+          "ability_damage": 1265
+        },
+        {
+          "level": 72,
+          "dark_elixir_cost": 370000,
+          "upgrade_time": 1036800,
+          "th_required": 14,
+          "hp": 7260,
+          "dps": 676,
+          "ability_damage": 1280
+        },
+        {
+          "level": 73,
+          "dark_elixir_cost": 375000,
+          "upgrade_time": 1051200,
+          "th_required": 14,
+          "hp": 7340,
+          "dps": 684,
+          "ability_damage": 1295
+        },
+        {
+          "level": 74,
+          "dark_elixir_cost": 380000,
+          "upgrade_time": 1065600,
+          "th_required": 14,
+          "hp": 7420,
+          "dps": 692,
+          "ability_damage": 1310
+        },
+        {
+          "level": 75,
+          "dark_elixir_cost": 385000,
+          "upgrade_time": 1080000,
+          "th_required": 14,
+          "hp": 7500,
+          "dps": 700,
+          "ability_damage": 1325
+        },
+        {
+          "level": 76,
+          "dark_elixir_cost": 390000,
+          "upgrade_time": 1094400,
+          "th_required": 14,
+          "hp": 7580,
+          "dps": 708,
+          "ability_damage": 1340
+        },
+        {
+          "level": 77,
+          "dark_elixir_cost": 395000,
+          "upgrade_time": 1108800,
+          "th_required": 14,
+          "hp": 7660,
+          "dps": 716,
+          "ability_damage": 1355
+        },
+        {
+          "level": 78,
+          "dark_elixir_cost": 400000,
+          "upgrade_time": 1123200,
+          "th_required": 14,
+          "hp": 7740,
+          "dps": 724,
+          "ability_damage": 1370
+        },
+        {
+          "level": 79,
+          "dark_elixir_cost": 405000,
+          "upgrade_time": 1137600,
+          "th_required": 14,
+          "hp": 7820,
+          "dps": 732,
+          "ability_damage": 1385
+        },
+        {
+          "level": 80,
+          "dark_elixir_cost": 410000,
+          "upgrade_time": 1152000,
+          "th_required": 14,
+          "hp": 7900,
+          "dps": 740,
+          "ability_damage": 1400
+        },
+        {
+          "level": 81,
+          "dark_elixir_cost": 415000,
+          "upgrade_time": 1166400,
+          "th_required": 15,
+          "hp": 7980,
+          "dps": 748,
+          "ability_damage": 1415
+        },
+        {
+          "level": 82,
+          "dark_elixir_cost": 420000,
+          "upgrade_time": 1180800,
+          "th_required": 15,
+          "hp": 8060,
+          "dps": 756,
+          "ability_damage": 1430
+        },
+        {
+          "level": 83,
+          "dark_elixir_cost": 425000,
+          "upgrade_time": 1195200,
+          "th_required": 15,
+          "hp": 8140,
+          "dps": 764,
+          "ability_damage": 1445
+        },
+        {
+          "level": 84,
+          "dark_elixir_cost": 430000,
+          "upgrade_time": 1209600,
+          "th_required": 15,
+          "hp": 8220,
+          "dps": 772,
+          "ability_damage": 1460
+        },
+        {
+          "level": 85,
+          "dark_elixir_cost": 435000,
+          "upgrade_time": 1224000,
+          "th_required": 15,
+          "hp": 8300,
+          "dps": 780,
+          "ability_damage": 1475
+        },
+        {
+          "level": 86,
+          "dark_elixir_cost": 440000,
+          "upgrade_time": 1238400,
+          "th_required": 15,
+          "hp": 8380,
+          "dps": 788,
+          "ability_damage": 1490
+        },
+        {
+          "level": 87,
+          "dark_elixir_cost": 445000,
+          "upgrade_time": 1252800,
+          "th_required": 15,
+          "hp": 8460,
+          "dps": 796,
+          "ability_damage": 1505
+        },
+        {
+          "level": 88,
+          "dark_elixir_cost": 450000,
+          "upgrade_time": 1267200,
+          "th_required": 15,
+          "hp": 8540,
+          "dps": 804,
+          "ability_damage": 1520
+        },
+        {
+          "level": 89,
+          "dark_elixir_cost": 455000,
+          "upgrade_time": 1281600,
+          "th_required": 15,
+          "hp": 8620,
+          "dps": 812,
+          "ability_damage": 1535
+        },
+        {
+          "level": 90,
+          "dark_elixir_cost": 460000,
+          "upgrade_time": 1296000,
+          "th_required": 15,
+          "hp": 8700,
+          "dps": 820,
+          "ability_damage": 1550
+        },
+        {
+          "level": 91,
+          "dark_elixir_cost": 465000,
+          "upgrade_time": 1310400,
+          "th_required": 16,
+          "hp": 8780,
+          "dps": 828,
+          "ability_damage": 1565
+        },
+        {
+          "level": 92,
+          "dark_elixir_cost": 470000,
+          "upgrade_time": 1324800,
+          "th_required": 16,
+          "hp": 8860,
+          "dps": 836,
+          "ability_damage": 1580
+        },
+        {
+          "level": 93,
+          "dark_elixir_cost": 475000,
+          "upgrade_time": 1339200,
+          "th_required": 16,
+          "hp": 8940,
+          "dps": 844,
+          "ability_damage": 1595
+        },
+        {
+          "level": 94,
+          "dark_elixir_cost": 480000,
+          "upgrade_time": 1353600,
+          "th_required": 16,
+          "hp": 9020,
+          "dps": 852,
+          "ability_damage": 1610
+        },
+        {
+          "level": 95,
+          "dark_elixir_cost": 485000,
+          "upgrade_time": 1368000,
+          "th_required": 16,
+          "hp": 9100,
+          "dps": 860,
+          "ability_damage": 1625
+        },
+        {
+          "level": 96,
+          "dark_elixir_cost": 490000,
+          "upgrade_time": 1382400,
+          "th_required": 16,
+          "hp": 9180,
+          "dps": 868,
+          "ability_damage": 1640
+        },
+        {
+          "level": 97,
+          "dark_elixir_cost": 495000,
+          "upgrade_time": 1396800,
+          "th_required": 16,
+          "hp": 9260,
+          "dps": 876,
+          "ability_damage": 1655
+        },
+        {
+          "level": 98,
+          "dark_elixir_cost": 500000,
+          "upgrade_time": 1411200,
+          "th_required": 16,
+          "hp": 9340,
+          "dps": 884,
+          "ability_damage": 1670
+        },
+        {
+          "level": 99,
+          "dark_elixir_cost": 505000,
+          "upgrade_time": 1425600,
+          "th_required": 16,
+          "hp": 9420,
+          "dps": 892,
+          "ability_damage": 1685
+        },
+        {
+          "level": 100,
+          "dark_elixir_cost": 510000,
+          "upgrade_time": 1440000,
+          "th_required": 16,
+          "hp": 9500,
+          "dps": 900,
+          "ability_damage": 1700
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "弓箭女皇",
+      "name_en": "Archer Queen",
+      "max_level": 100,
+      "unlock_th": 9,
+      "levels": [
+        {
+          "level": 1,
+          "dark_elixir_cost": 15000,
+          "upgrade_time": 14400,
+          "th_required": 9,
+          "hp": 1580,
+          "dps": 108,
+          "ability_damage": 215
+        },
+        {
+          "level": 2,
+          "dark_elixir_cost": 20000,
+          "upgrade_time": 28800,
+          "th_required": 9,
+          "hp": 1660,
+          "dps": 116,
+          "ability_damage": 230
+        },
+        {
+          "level": 3,
+          "dark_elixir_cost": 25000,
+          "upgrade_time": 43200,
+          "th_required": 9,
+          "hp": 1740,
+          "dps": 124,
+          "ability_damage": 245
+        },
+        {
+          "level": 4,
+          "dark_elixir_cost": 30000,
+          "upgrade_time": 57600,
+          "th_required": 9,
+          "hp": 1820,
+          "dps": 132,
+          "ability_damage": 260
+        },
+        {
+          "level": 5,
+          "dark_elixir_cost": 35000,
+          "upgrade_time": 72000,
+          "th_required": 9,
+          "hp": 1900,
+          "dps": 140,
+          "ability_damage": 275
+        },
+        {
+          "level": 6,
+          "dark_elixir_cost": 40000,
+          "upgrade_time": 86400,
+          "th_required": 9,
+          "hp": 1980,
+          "dps": 148,
+          "ability_damage": 290
+        },
+        {
+          "level": 7,
+          "dark_elixir_cost": 45000,
+          "upgrade_time": 100800,
+          "th_required": 9,
+          "hp": 2060,
+          "dps": 156,
+          "ability_damage": 305
+        },
+        {
+          "level": 8,
+          "dark_elixir_cost": 50000,
+          "upgrade_time": 115200,
+          "th_required": 9,
+          "hp": 2140,
+          "dps": 164,
+          "ability_damage": 320
+        },
+        {
+          "level": 9,
+          "dark_elixir_cost": 55000,
+          "upgrade_time": 129600,
+          "th_required": 9,
+          "hp": 2220,
+          "dps": 172,
+          "ability_damage": 335
+        },
+        {
+          "level": 10,
+          "dark_elixir_cost": 60000,
+          "upgrade_time": 144000,
+          "th_required": 9,
+          "hp": 2300,
+          "dps": 180,
+          "ability_damage": 350
+        },
+        {
+          "level": 11,
+          "dark_elixir_cost": 65000,
+          "upgrade_time": 158400,
+          "th_required": 10,
+          "hp": 2380,
+          "dps": 188,
+          "ability_damage": 365
+        },
+        {
+          "level": 12,
+          "dark_elixir_cost": 70000,
+          "upgrade_time": 172800,
+          "th_required": 10,
+          "hp": 2460,
+          "dps": 196,
+          "ability_damage": 380
+        },
+        {
+          "level": 13,
+          "dark_elixir_cost": 75000,
+          "upgrade_time": 187200,
+          "th_required": 10,
+          "hp": 2540,
+          "dps": 204,
+          "ability_damage": 395
+        },
+        {
+          "level": 14,
+          "dark_elixir_cost": 80000,
+          "upgrade_time": 201600,
+          "th_required": 10,
+          "hp": 2620,
+          "dps": 212,
+          "ability_damage": 410
+        },
+        {
+          "level": 15,
+          "dark_elixir_cost": 85000,
+          "upgrade_time": 216000,
+          "th_required": 10,
+          "hp": 2700,
+          "dps": 220,
+          "ability_damage": 425
+        },
+        {
+          "level": 16,
+          "dark_elixir_cost": 90000,
+          "upgrade_time": 230400,
+          "th_required": 10,
+          "hp": 2780,
+          "dps": 228,
+          "ability_damage": 440
+        },
+        {
+          "level": 17,
+          "dark_elixir_cost": 95000,
+          "upgrade_time": 244800,
+          "th_required": 10,
+          "hp": 2860,
+          "dps": 236,
+          "ability_damage": 455
+        },
+        {
+          "level": 18,
+          "dark_elixir_cost": 100000,
+          "upgrade_time": 259200,
+          "th_required": 10,
+          "hp": 2940,
+          "dps": 244,
+          "ability_damage": 470
+        },
+        {
+          "level": 19,
+          "dark_elixir_cost": 105000,
+          "upgrade_time": 273600,
+          "th_required": 10,
+          "hp": 3020,
+          "dps": 252,
+          "ability_damage": 485
+        },
+        {
+          "level": 20,
+          "dark_elixir_cost": 110000,
+          "upgrade_time": 288000,
+          "th_required": 10,
+          "hp": 3100,
+          "dps": 260,
+          "ability_damage": 500
+        },
+        {
+          "level": 21,
+          "dark_elixir_cost": 115000,
+          "upgrade_time": 302400,
+          "th_required": 11,
+          "hp": 3180,
+          "dps": 268,
+          "ability_damage": 515
+        },
+        {
+          "level": 22,
+          "dark_elixir_cost": 120000,
+          "upgrade_time": 316800,
+          "th_required": 11,
+          "hp": 3260,
+          "dps": 276,
+          "ability_damage": 530
+        },
+        {
+          "level": 23,
+          "dark_elixir_cost": 125000,
+          "upgrade_time": 331200,
+          "th_required": 11,
+          "hp": 3340,
+          "dps": 284,
+          "ability_damage": 545
+        },
+        {
+          "level": 24,
+          "dark_elixir_cost": 130000,
+          "upgrade_time": 345600,
+          "th_required": 11,
+          "hp": 3420,
+          "dps": 292,
+          "ability_damage": 560
+        },
+        {
+          "level": 25,
+          "dark_elixir_cost": 135000,
+          "upgrade_time": 360000,
+          "th_required": 11,
+          "hp": 3500,
+          "dps": 300,
+          "ability_damage": 575
+        },
+        {
+          "level": 26,
+          "dark_elixir_cost": 140000,
+          "upgrade_time": 374400,
+          "th_required": 11,
+          "hp": 3580,
+          "dps": 308,
+          "ability_damage": 590
+        },
+        {
+          "level": 27,
+          "dark_elixir_cost": 145000,
+          "upgrade_time": 388800,
+          "th_required": 11,
+          "hp": 3660,
+          "dps": 316,
+          "ability_damage": 605
+        },
+        {
+          "level": 28,
+          "dark_elixir_cost": 150000,
+          "upgrade_time": 403200,
+          "th_required": 11,
+          "hp": 3740,
+          "dps": 324,
+          "ability_damage": 620
+        },
+        {
+          "level": 29,
+          "dark_elixir_cost": 155000,
+          "upgrade_time": 417600,
+          "th_required": 11,
+          "hp": 3820,
+          "dps": 332,
+          "ability_damage": 635
+        },
+        {
+          "level": 30,
+          "dark_elixir_cost": 160000,
+          "upgrade_time": 432000,
+          "th_required": 11,
+          "hp": 3900,
+          "dps": 340,
+          "ability_damage": 650
+        },
+        {
+          "level": 31,
+          "dark_elixir_cost": 165000,
+          "upgrade_time": 446400,
+          "th_required": 12,
+          "hp": 3980,
+          "dps": 348,
+          "ability_damage": 665
+        },
+        {
+          "level": 32,
+          "dark_elixir_cost": 170000,
+          "upgrade_time": 460800,
+          "th_required": 12,
+          "hp": 4060,
+          "dps": 356,
+          "ability_damage": 680
+        },
+        {
+          "level": 33,
+          "dark_elixir_cost": 175000,
+          "upgrade_time": 475200,
+          "th_required": 12,
+          "hp": 4140,
+          "dps": 364,
+          "ability_damage": 695
+        },
+        {
+          "level": 34,
+          "dark_elixir_cost": 180000,
+          "upgrade_time": 489600,
+          "th_required": 12,
+          "hp": 4220,
+          "dps": 372,
+          "ability_damage": 710
+        },
+        {
+          "level": 35,
+          "dark_elixir_cost": 185000,
+          "upgrade_time": 504000,
+          "th_required": 12,
+          "hp": 4300,
+          "dps": 380,
+          "ability_damage": 725
+        },
+        {
+          "level": 36,
+          "dark_elixir_cost": 190000,
+          "upgrade_time": 518400,
+          "th_required": 12,
+          "hp": 4380,
+          "dps": 388,
+          "ability_damage": 740
+        },
+        {
+          "level": 37,
+          "dark_elixir_cost": 195000,
+          "upgrade_time": 532800,
+          "th_required": 12,
+          "hp": 4460,
+          "dps": 396,
+          "ability_damage": 755
+        },
+        {
+          "level": 38,
+          "dark_elixir_cost": 200000,
+          "upgrade_time": 547200,
+          "th_required": 12,
+          "hp": 4540,
+          "dps": 404,
+          "ability_damage": 770
+        },
+        {
+          "level": 39,
+          "dark_elixir_cost": 205000,
+          "upgrade_time": 561600,
+          "th_required": 12,
+          "hp": 4620,
+          "dps": 412,
+          "ability_damage": 785
+        },
+        {
+          "level": 40,
+          "dark_elixir_cost": 210000,
+          "upgrade_time": 576000,
+          "th_required": 12,
+          "hp": 4700,
+          "dps": 420,
+          "ability_damage": 800
+        },
+        {
+          "level": 41,
+          "dark_elixir_cost": 215000,
+          "upgrade_time": 590400,
+          "th_required": 13,
+          "hp": 4780,
+          "dps": 428,
+          "ability_damage": 815
+        },
+        {
+          "level": 42,
+          "dark_elixir_cost": 220000,
+          "upgrade_time": 604800,
+          "th_required": 13,
+          "hp": 4860,
+          "dps": 436,
+          "ability_damage": 830
+        },
+        {
+          "level": 43,
+          "dark_elixir_cost": 225000,
+          "upgrade_time": 619200,
+          "th_required": 13,
+          "hp": 4940,
+          "dps": 444,
+          "ability_damage": 845
+        },
+        {
+          "level": 44,
+          "dark_elixir_cost": 230000,
+          "upgrade_time": 633600,
+          "th_required": 13,
+          "hp": 5020,
+          "dps": 452,
+          "ability_damage": 860
+        },
+        {
+          "level": 45,
+          "dark_elixir_cost": 235000,
+          "upgrade_time": 648000,
+          "th_required": 13,
+          "hp": 5100,
+          "dps": 460,
+          "ability_damage": 875
+        },
+        {
+          "level": 46,
+          "dark_elixir_cost": 240000,
+          "upgrade_time": 662400,
+          "th_required": 13,
+          "hp": 5180,
+          "dps": 468,
+          "ability_damage": 890
+        },
+        {
+          "level": 47,
+          "dark_elixir_cost": 245000,
+          "upgrade_time": 676800,
+          "th_required": 13,
+          "hp": 5260,
+          "dps": 476,
+          "ability_damage": 905
+        },
+        {
+          "level": 48,
+          "dark_elixir_cost": 250000,
+          "upgrade_time": 691200,
+          "th_required": 13,
+          "hp": 5340,
+          "dps": 484,
+          "ability_damage": 920
+        },
+        {
+          "level": 49,
+          "dark_elixir_cost": 255000,
+          "upgrade_time": 705600,
+          "th_required": 13,
+          "hp": 5420,
+          "dps": 492,
+          "ability_damage": 935
+        },
+        {
+          "level": 50,
+          "dark_elixir_cost": 260000,
+          "upgrade_time": 720000,
+          "th_required": 13,
+          "hp": 5500,
+          "dps": 500,
+          "ability_damage": 950
+        },
+        {
+          "level": 51,
+          "dark_elixir_cost": 265000,
+          "upgrade_time": 734400,
+          "th_required": 14,
+          "hp": 5580,
+          "dps": 508,
+          "ability_damage": 965
+        },
+        {
+          "level": 52,
+          "dark_elixir_cost": 270000,
+          "upgrade_time": 748800,
+          "th_required": 14,
+          "hp": 5660,
+          "dps": 516,
+          "ability_damage": 980
+        },
+        {
+          "level": 53,
+          "dark_elixir_cost": 275000,
+          "upgrade_time": 763200,
+          "th_required": 14,
+          "hp": 5740,
+          "dps": 524,
+          "ability_damage": 995
+        },
+        {
+          "level": 54,
+          "dark_elixir_cost": 280000,
+          "upgrade_time": 777600,
+          "th_required": 14,
+          "hp": 5820,
+          "dps": 532,
+          "ability_damage": 1010
+        },
+        {
+          "level": 55,
+          "dark_elixir_cost": 285000,
+          "upgrade_time": 792000,
+          "th_required": 14,
+          "hp": 5900,
+          "dps": 540,
+          "ability_damage": 1025
+        },
+        {
+          "level": 56,
+          "dark_elixir_cost": 290000,
+          "upgrade_time": 806400,
+          "th_required": 14,
+          "hp": 5980,
+          "dps": 548,
+          "ability_damage": 1040
+        },
+        {
+          "level": 57,
+          "dark_elixir_cost": 295000,
+          "upgrade_time": 820800,
+          "th_required": 14,
+          "hp": 6060,
+          "dps": 556,
+          "ability_damage": 1055
+        },
+        {
+          "level": 58,
+          "dark_elixir_cost": 300000,
+          "upgrade_time": 835200,
+          "th_required": 14,
+          "hp": 6140,
+          "dps": 564,
+          "ability_damage": 1070
+        },
+        {
+          "level": 59,
+          "dark_elixir_cost": 305000,
+          "upgrade_time": 849600,
+          "th_required": 14,
+          "hp": 6220,
+          "dps": 572,
+          "ability_damage": 1085
+        },
+        {
+          "level": 60,
+          "dark_elixir_cost": 310000,
+          "upgrade_time": 864000,
+          "th_required": 14,
+          "hp": 6300,
+          "dps": 580,
+          "ability_damage": 1100
+        },
+        {
+          "level": 61,
+          "dark_elixir_cost": 315000,
+          "upgrade_time": 878400,
+          "th_required": 15,
+          "hp": 6380,
+          "dps": 588,
+          "ability_damage": 1115
+        },
+        {
+          "level": 62,
+          "dark_elixir_cost": 320000,
+          "upgrade_time": 892800,
+          "th_required": 15,
+          "hp": 6460,
+          "dps": 596,
+          "ability_damage": 1130
+        },
+        {
+          "level": 63,
+          "dark_elixir_cost": 325000,
+          "upgrade_time": 907200,
+          "th_required": 15,
+          "hp": 6540,
+          "dps": 604,
+          "ability_damage": 1145
+        },
+        {
+          "level": 64,
+          "dark_elixir_cost": 330000,
+          "upgrade_time": 921600,
+          "th_required": 15,
+          "hp": 6620,
+          "dps": 612,
+          "ability_damage": 1160
+        },
+        {
+          "level": 65,
+          "dark_elixir_cost": 335000,
+          "upgrade_time": 936000,
+          "th_required": 15,
+          "hp": 6700,
+          "dps": 620,
+          "ability_damage": 1175
+        },
+        {
+          "level": 66,
+          "dark_elixir_cost": 340000,
+          "upgrade_time": 950400,
+          "th_required": 15,
+          "hp": 6780,
+          "dps": 628,
+          "ability_damage": 1190
+        },
+        {
+          "level": 67,
+          "dark_elixir_cost": 345000,
+          "upgrade_time": 964800,
+          "th_required": 15,
+          "hp": 6860,
+          "dps": 636,
+          "ability_damage": 1205
+        },
+        {
+          "level": 68,
+          "dark_elixir_cost": 350000,
+          "upgrade_time": 979200,
+          "th_required": 15,
+          "hp": 6940,
+          "dps": 644,
+          "ability_damage": 1220
+        },
+        {
+          "level": 69,
+          "dark_elixir_cost": 355000,
+          "upgrade_time": 993600,
+          "th_required": 15,
+          "hp": 7020,
+          "dps": 652,
+          "ability_damage": 1235
+        },
+        {
+          "level": 70,
+          "dark_elixir_cost": 360000,
+          "upgrade_time": 1008000,
+          "th_required": 15,
+          "hp": 7100,
+          "dps": 660,
+          "ability_damage": 1250
+        },
+        {
+          "level": 71,
+          "dark_elixir_cost": 365000,
+          "upgrade_time": 1022400,
+          "th_required": 16,
+          "hp": 7180,
+          "dps": 668,
+          "ability_damage": 1265
+        },
+        {
+          "level": 72,
+          "dark_elixir_cost": 370000,
+          "upgrade_time": 1036800,
+          "th_required": 16,
+          "hp": 7260,
+          "dps": 676,
+          "ability_damage": 1280
+        },
+        {
+          "level": 73,
+          "dark_elixir_cost": 375000,
+          "upgrade_time": 1051200,
+          "th_required": 16,
+          "hp": 7340,
+          "dps": 684,
+          "ability_damage": 1295
+        },
+        {
+          "level": 74,
+          "dark_elixir_cost": 380000,
+          "upgrade_time": 1065600,
+          "th_required": 16,
+          "hp": 7420,
+          "dps": 692,
+          "ability_damage": 1310
+        },
+        {
+          "level": 75,
+          "dark_elixir_cost": 385000,
+          "upgrade_time": 1080000,
+          "th_required": 16,
+          "hp": 7500,
+          "dps": 700,
+          "ability_damage": 1325
+        },
+        {
+          "level": 76,
+          "dark_elixir_cost": 390000,
+          "upgrade_time": 1094400,
+          "th_required": 16,
+          "hp": 7580,
+          "dps": 708,
+          "ability_damage": 1340
+        },
+        {
+          "level": 77,
+          "dark_elixir_cost": 395000,
+          "upgrade_time": 1108800,
+          "th_required": 16,
+          "hp": 7660,
+          "dps": 716,
+          "ability_damage": 1355
+        },
+        {
+          "level": 78,
+          "dark_elixir_cost": 400000,
+          "upgrade_time": 1123200,
+          "th_required": 16,
+          "hp": 7740,
+          "dps": 724,
+          "ability_damage": 1370
+        },
+        {
+          "level": 79,
+          "dark_elixir_cost": 405000,
+          "upgrade_time": 1137600,
+          "th_required": 16,
+          "hp": 7820,
+          "dps": 732,
+          "ability_damage": 1385
+        },
+        {
+          "level": 80,
+          "dark_elixir_cost": 410000,
+          "upgrade_time": 1152000,
+          "th_required": 16,
+          "hp": 7900,
+          "dps": 740,
+          "ability_damage": 1400
+        },
+        {
+          "level": 81,
+          "dark_elixir_cost": 415000,
+          "upgrade_time": 1166400,
+          "th_required": 17,
+          "hp": 7980,
+          "dps": 748,
+          "ability_damage": 1415
+        },
+        {
+          "level": 82,
+          "dark_elixir_cost": 420000,
+          "upgrade_time": 1180800,
+          "th_required": 17,
+          "hp": 8060,
+          "dps": 756,
+          "ability_damage": 1430
+        },
+        {
+          "level": 83,
+          "dark_elixir_cost": 425000,
+          "upgrade_time": 1195200,
+          "th_required": 17,
+          "hp": 8140,
+          "dps": 764,
+          "ability_damage": 1445
+        },
+        {
+          "level": 84,
+          "dark_elixir_cost": 430000,
+          "upgrade_time": 1209600,
+          "th_required": 17,
+          "hp": 8220,
+          "dps": 772,
+          "ability_damage": 1460
+        },
+        {
+          "level": 85,
+          "dark_elixir_cost": 435000,
+          "upgrade_time": 1224000,
+          "th_required": 17,
+          "hp": 8300,
+          "dps": 780,
+          "ability_damage": 1475
+        },
+        {
+          "level": 86,
+          "dark_elixir_cost": 440000,
+          "upgrade_time": 1238400,
+          "th_required": 17,
+          "hp": 8380,
+          "dps": 788,
+          "ability_damage": 1490
+        },
+        {
+          "level": 87,
+          "dark_elixir_cost": 445000,
+          "upgrade_time": 1252800,
+          "th_required": 17,
+          "hp": 8460,
+          "dps": 796,
+          "ability_damage": 1505
+        },
+        {
+          "level": 88,
+          "dark_elixir_cost": 450000,
+          "upgrade_time": 1267200,
+          "th_required": 17,
+          "hp": 8540,
+          "dps": 804,
+          "ability_damage": 1520
+        },
+        {
+          "level": 89,
+          "dark_elixir_cost": 455000,
+          "upgrade_time": 1281600,
+          "th_required": 17,
+          "hp": 8620,
+          "dps": 812,
+          "ability_damage": 1535
+        },
+        {
+          "level": 90,
+          "dark_elixir_cost": 460000,
+          "upgrade_time": 1296000,
+          "th_required": 17,
+          "hp": 8700,
+          "dps": 820,
+          "ability_damage": 1550
+        },
+        {
+          "level": 91,
+          "dark_elixir_cost": 465000,
+          "upgrade_time": 1310400,
+          "th_required": 18,
+          "hp": 8780,
+          "dps": 828,
+          "ability_damage": 1565
+        },
+        {
+          "level": 92,
+          "dark_elixir_cost": 470000,
+          "upgrade_time": 1324800,
+          "th_required": 18,
+          "hp": 8860,
+          "dps": 836,
+          "ability_damage": 1580
+        },
+        {
+          "level": 93,
+          "dark_elixir_cost": 475000,
+          "upgrade_time": 1339200,
+          "th_required": 18,
+          "hp": 8940,
+          "dps": 844,
+          "ability_damage": 1595
+        },
+        {
+          "level": 94,
+          "dark_elixir_cost": 480000,
+          "upgrade_time": 1353600,
+          "th_required": 18,
+          "hp": 9020,
+          "dps": 852,
+          "ability_damage": 1610
+        },
+        {
+          "level": 95,
+          "dark_elixir_cost": 485000,
+          "upgrade_time": 1368000,
+          "th_required": 18,
+          "hp": 9100,
+          "dps": 860,
+          "ability_damage": 1625
+        },
+        {
+          "level": 96,
+          "dark_elixir_cost": 490000,
+          "upgrade_time": 1382400,
+          "th_required": 18,
+          "hp": 9180,
+          "dps": 868,
+          "ability_damage": 1640
+        },
+        {
+          "level": 97,
+          "dark_elixir_cost": 495000,
+          "upgrade_time": 1396800,
+          "th_required": 18,
+          "hp": 9260,
+          "dps": 876,
+          "ability_damage": 1655
+        },
+        {
+          "level": 98,
+          "dark_elixir_cost": 500000,
+          "upgrade_time": 1411200,
+          "th_required": 18,
+          "hp": 9340,
+          "dps": 884,
+          "ability_damage": 1670
+        },
+        {
+          "level": 99,
+          "dark_elixir_cost": 505000,
+          "upgrade_time": 1425600,
+          "th_required": 18,
+          "hp": 9420,
+          "dps": 892,
+          "ability_damage": 1685
+        },
+        {
+          "level": 100,
+          "dark_elixir_cost": 510000,
+          "upgrade_time": 1440000,
+          "th_required": 18,
+          "hp": 9500,
+          "dps": 900,
+          "ability_damage": 1700
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "大乾爹",
+      "name_en": "Grand Warden",
+      "max_level": 75,
+      "unlock_th": 11,
+      "levels": [
+        {
+          "level": 1,
+          "dark_elixir_cost": 15000,
+          "upgrade_time": 14400,
+          "th_required": 11,
+          "hp": 1580,
+          "dps": 108,
+          "ability_damage": 215
+        },
+        {
+          "level": 2,
+          "dark_elixir_cost": 20000,
+          "upgrade_time": 28800,
+          "th_required": 11,
+          "hp": 1660,
+          "dps": 116,
+          "ability_damage": 230
+        },
+        {
+          "level": 3,
+          "dark_elixir_cost": 25000,
+          "upgrade_time": 43200,
+          "th_required": 11,
+          "hp": 1740,
+          "dps": 124,
+          "ability_damage": 245
+        },
+        {
+          "level": 4,
+          "dark_elixir_cost": 30000,
+          "upgrade_time": 57600,
+          "th_required": 11,
+          "hp": 1820,
+          "dps": 132,
+          "ability_damage": 260
+        },
+        {
+          "level": 5,
+          "dark_elixir_cost": 35000,
+          "upgrade_time": 72000,
+          "th_required": 11,
+          "hp": 1900,
+          "dps": 140,
+          "ability_damage": 275
+        },
+        {
+          "level": 6,
+          "dark_elixir_cost": 40000,
+          "upgrade_time": 86400,
+          "th_required": 11,
+          "hp": 1980,
+          "dps": 148,
+          "ability_damage": 290
+        },
+        {
+          "level": 7,
+          "dark_elixir_cost": 45000,
+          "upgrade_time": 100800,
+          "th_required": 11,
+          "hp": 2060,
+          "dps": 156,
+          "ability_damage": 305
+        },
+        {
+          "level": 8,
+          "dark_elixir_cost": 50000,
+          "upgrade_time": 115200,
+          "th_required": 11,
+          "hp": 2140,
+          "dps": 164,
+          "ability_damage": 320
+        },
+        {
+          "level": 9,
+          "dark_elixir_cost": 55000,
+          "upgrade_time": 129600,
+          "th_required": 11,
+          "hp": 2220,
+          "dps": 172,
+          "ability_damage": 335
+        },
+        {
+          "level": 10,
+          "dark_elixir_cost": 60000,
+          "upgrade_time": 144000,
+          "th_required": 11,
+          "hp": 2300,
+          "dps": 180,
+          "ability_damage": 350
+        },
+        {
+          "level": 11,
+          "dark_elixir_cost": 65000,
+          "upgrade_time": 158400,
+          "th_required": 12,
+          "hp": 2380,
+          "dps": 188,
+          "ability_damage": 365
+        },
+        {
+          "level": 12,
+          "dark_elixir_cost": 70000,
+          "upgrade_time": 172800,
+          "th_required": 12,
+          "hp": 2460,
+          "dps": 196,
+          "ability_damage": 380
+        },
+        {
+          "level": 13,
+          "dark_elixir_cost": 75000,
+          "upgrade_time": 187200,
+          "th_required": 12,
+          "hp": 2540,
+          "dps": 204,
+          "ability_damage": 395
+        },
+        {
+          "level": 14,
+          "dark_elixir_cost": 80000,
+          "upgrade_time": 201600,
+          "th_required": 12,
+          "hp": 2620,
+          "dps": 212,
+          "ability_damage": 410
+        },
+        {
+          "level": 15,
+          "dark_elixir_cost": 85000,
+          "upgrade_time": 216000,
+          "th_required": 12,
+          "hp": 2700,
+          "dps": 220,
+          "ability_damage": 425
+        },
+        {
+          "level": 16,
+          "dark_elixir_cost": 90000,
+          "upgrade_time": 230400,
+          "th_required": 12,
+          "hp": 2780,
+          "dps": 228,
+          "ability_damage": 440
+        },
+        {
+          "level": 17,
+          "dark_elixir_cost": 95000,
+          "upgrade_time": 244800,
+          "th_required": 12,
+          "hp": 2860,
+          "dps": 236,
+          "ability_damage": 455
+        },
+        {
+          "level": 18,
+          "dark_elixir_cost": 100000,
+          "upgrade_time": 259200,
+          "th_required": 12,
+          "hp": 2940,
+          "dps": 244,
+          "ability_damage": 470
+        },
+        {
+          "level": 19,
+          "dark_elixir_cost": 105000,
+          "upgrade_time": 273600,
+          "th_required": 12,
+          "hp": 3020,
+          "dps": 252,
+          "ability_damage": 485
+        },
+        {
+          "level": 20,
+          "dark_elixir_cost": 110000,
+          "upgrade_time": 288000,
+          "th_required": 12,
+          "hp": 3100,
+          "dps": 260,
+          "ability_damage": 500
+        },
+        {
+          "level": 21,
+          "dark_elixir_cost": 115000,
+          "upgrade_time": 302400,
+          "th_required": 13,
+          "hp": 3180,
+          "dps": 268,
+          "ability_damage": 515
+        },
+        {
+          "level": 22,
+          "dark_elixir_cost": 120000,
+          "upgrade_time": 316800,
+          "th_required": 13,
+          "hp": 3260,
+          "dps": 276,
+          "ability_damage": 530
+        },
+        {
+          "level": 23,
+          "dark_elixir_cost": 125000,
+          "upgrade_time": 331200,
+          "th_required": 13,
+          "hp": 3340,
+          "dps": 284,
+          "ability_damage": 545
+        },
+        {
+          "level": 24,
+          "dark_elixir_cost": 130000,
+          "upgrade_time": 345600,
+          "th_required": 13,
+          "hp": 3420,
+          "dps": 292,
+          "ability_damage": 560
+        },
+        {
+          "level": 25,
+          "dark_elixir_cost": 135000,
+          "upgrade_time": 360000,
+          "th_required": 13,
+          "hp": 3500,
+          "dps": 300,
+          "ability_damage": 575
+        },
+        {
+          "level": 26,
+          "dark_elixir_cost": 140000,
+          "upgrade_time": 374400,
+          "th_required": 13,
+          "hp": 3580,
+          "dps": 308,
+          "ability_damage": 590
+        },
+        {
+          "level": 27,
+          "dark_elixir_cost": 145000,
+          "upgrade_time": 388800,
+          "th_required": 13,
+          "hp": 3660,
+          "dps": 316,
+          "ability_damage": 605
+        },
+        {
+          "level": 28,
+          "dark_elixir_cost": 150000,
+          "upgrade_time": 403200,
+          "th_required": 13,
+          "hp": 3740,
+          "dps": 324,
+          "ability_damage": 620
+        },
+        {
+          "level": 29,
+          "dark_elixir_cost": 155000,
+          "upgrade_time": 417600,
+          "th_required": 13,
+          "hp": 3820,
+          "dps": 332,
+          "ability_damage": 635
+        },
+        {
+          "level": 30,
+          "dark_elixir_cost": 160000,
+          "upgrade_time": 432000,
+          "th_required": 13,
+          "hp": 3900,
+          "dps": 340,
+          "ability_damage": 650
+        },
+        {
+          "level": 31,
+          "dark_elixir_cost": 165000,
+          "upgrade_time": 446400,
+          "th_required": 14,
+          "hp": 3980,
+          "dps": 348,
+          "ability_damage": 665
+        },
+        {
+          "level": 32,
+          "dark_elixir_cost": 170000,
+          "upgrade_time": 460800,
+          "th_required": 14,
+          "hp": 4060,
+          "dps": 356,
+          "ability_damage": 680
+        },
+        {
+          "level": 33,
+          "dark_elixir_cost": 175000,
+          "upgrade_time": 475200,
+          "th_required": 14,
+          "hp": 4140,
+          "dps": 364,
+          "ability_damage": 695
+        },
+        {
+          "level": 34,
+          "dark_elixir_cost": 180000,
+          "upgrade_time": 489600,
+          "th_required": 14,
+          "hp": 4220,
+          "dps": 372,
+          "ability_damage": 710
+        },
+        {
+          "level": 35,
+          "dark_elixir_cost": 185000,
+          "upgrade_time": 504000,
+          "th_required": 14,
+          "hp": 4300,
+          "dps": 380,
+          "ability_damage": 725
+        },
+        {
+          "level": 36,
+          "dark_elixir_cost": 190000,
+          "upgrade_time": 518400,
+          "th_required": 14,
+          "hp": 4380,
+          "dps": 388,
+          "ability_damage": 740
+        },
+        {
+          "level": 37,
+          "dark_elixir_cost": 195000,
+          "upgrade_time": 532800,
+          "th_required": 14,
+          "hp": 4460,
+          "dps": 396,
+          "ability_damage": 755
+        },
+        {
+          "level": 38,
+          "dark_elixir_cost": 200000,
+          "upgrade_time": 547200,
+          "th_required": 14,
+          "hp": 4540,
+          "dps": 404,
+          "ability_damage": 770
+        },
+        {
+          "level": 39,
+          "dark_elixir_cost": 205000,
+          "upgrade_time": 561600,
+          "th_required": 14,
+          "hp": 4620,
+          "dps": 412,
+          "ability_damage": 785
+        },
+        {
+          "level": 40,
+          "dark_elixir_cost": 210000,
+          "upgrade_time": 576000,
+          "th_required": 14,
+          "hp": 4700,
+          "dps": 420,
+          "ability_damage": 800
+        },
+        {
+          "level": 41,
+          "dark_elixir_cost": 215000,
+          "upgrade_time": 590400,
+          "th_required": 15,
+          "hp": 4780,
+          "dps": 428,
+          "ability_damage": 815
+        },
+        {
+          "level": 42,
+          "dark_elixir_cost": 220000,
+          "upgrade_time": 604800,
+          "th_required": 15,
+          "hp": 4860,
+          "dps": 436,
+          "ability_damage": 830
+        },
+        {
+          "level": 43,
+          "dark_elixir_cost": 225000,
+          "upgrade_time": 619200,
+          "th_required": 15,
+          "hp": 4940,
+          "dps": 444,
+          "ability_damage": 845
+        },
+        {
+          "level": 44,
+          "dark_elixir_cost": 230000,
+          "upgrade_time": 633600,
+          "th_required": 15,
+          "hp": 5020,
+          "dps": 452,
+          "ability_damage": 860
+        },
+        {
+          "level": 45,
+          "dark_elixir_cost": 235000,
+          "upgrade_time": 648000,
+          "th_required": 15,
+          "hp": 5100,
+          "dps": 460,
+          "ability_damage": 875
+        },
+        {
+          "level": 46,
+          "dark_elixir_cost": 240000,
+          "upgrade_time": 662400,
+          "th_required": 15,
+          "hp": 5180,
+          "dps": 468,
+          "ability_damage": 890
+        },
+        {
+          "level": 47,
+          "dark_elixir_cost": 245000,
+          "upgrade_time": 676800,
+          "th_required": 15,
+          "hp": 5260,
+          "dps": 476,
+          "ability_damage": 905
+        },
+        {
+          "level": 48,
+          "dark_elixir_cost": 250000,
+          "upgrade_time": 691200,
+          "th_required": 15,
+          "hp": 5340,
+          "dps": 484,
+          "ability_damage": 920
+        },
+        {
+          "level": 49,
+          "dark_elixir_cost": 255000,
+          "upgrade_time": 705600,
+          "th_required": 15,
+          "hp": 5420,
+          "dps": 492,
+          "ability_damage": 935
+        },
+        {
+          "level": 50,
+          "dark_elixir_cost": 260000,
+          "upgrade_time": 720000,
+          "th_required": 15,
+          "hp": 5500,
+          "dps": 500,
+          "ability_damage": 950
+        },
+        {
+          "level": 51,
+          "dark_elixir_cost": 265000,
+          "upgrade_time": 734400,
+          "th_required": 16,
+          "hp": 5580,
+          "dps": 508,
+          "ability_damage": 965
+        },
+        {
+          "level": 52,
+          "dark_elixir_cost": 270000,
+          "upgrade_time": 748800,
+          "th_required": 16,
+          "hp": 5660,
+          "dps": 516,
+          "ability_damage": 980
+        },
+        {
+          "level": 53,
+          "dark_elixir_cost": 275000,
+          "upgrade_time": 763200,
+          "th_required": 16,
+          "hp": 5740,
+          "dps": 524,
+          "ability_damage": 995
+        },
+        {
+          "level": 54,
+          "dark_elixir_cost": 280000,
+          "upgrade_time": 777600,
+          "th_required": 16,
+          "hp": 5820,
+          "dps": 532,
+          "ability_damage": 1010
+        },
+        {
+          "level": 55,
+          "dark_elixir_cost": 285000,
+          "upgrade_time": 792000,
+          "th_required": 16,
+          "hp": 5900,
+          "dps": 540,
+          "ability_damage": 1025
+        },
+        {
+          "level": 56,
+          "dark_elixir_cost": 290000,
+          "upgrade_time": 806400,
+          "th_required": 16,
+          "hp": 5980,
+          "dps": 548,
+          "ability_damage": 1040
+        },
+        {
+          "level": 57,
+          "dark_elixir_cost": 295000,
+          "upgrade_time": 820800,
+          "th_required": 16,
+          "hp": 6060,
+          "dps": 556,
+          "ability_damage": 1055
+        },
+        {
+          "level": 58,
+          "dark_elixir_cost": 300000,
+          "upgrade_time": 835200,
+          "th_required": 16,
+          "hp": 6140,
+          "dps": 564,
+          "ability_damage": 1070
+        },
+        {
+          "level": 59,
+          "dark_elixir_cost": 305000,
+          "upgrade_time": 849600,
+          "th_required": 16,
+          "hp": 6220,
+          "dps": 572,
+          "ability_damage": 1085
+        },
+        {
+          "level": 60,
+          "dark_elixir_cost": 310000,
+          "upgrade_time": 864000,
+          "th_required": 16,
+          "hp": 6300,
+          "dps": 580,
+          "ability_damage": 1100
+        },
+        {
+          "level": 61,
+          "dark_elixir_cost": 315000,
+          "upgrade_time": 878400,
+          "th_required": 17,
+          "hp": 6380,
+          "dps": 588,
+          "ability_damage": 1115
+        },
+        {
+          "level": 62,
+          "dark_elixir_cost": 320000,
+          "upgrade_time": 892800,
+          "th_required": 17,
+          "hp": 6460,
+          "dps": 596,
+          "ability_damage": 1130
+        },
+        {
+          "level": 63,
+          "dark_elixir_cost": 325000,
+          "upgrade_time": 907200,
+          "th_required": 17,
+          "hp": 6540,
+          "dps": 604,
+          "ability_damage": 1145
+        },
+        {
+          "level": 64,
+          "dark_elixir_cost": 330000,
+          "upgrade_time": 921600,
+          "th_required": 17,
+          "hp": 6620,
+          "dps": 612,
+          "ability_damage": 1160
+        },
+        {
+          "level": 65,
+          "dark_elixir_cost": 335000,
+          "upgrade_time": 936000,
+          "th_required": 17,
+          "hp": 6700,
+          "dps": 620,
+          "ability_damage": 1175
+        },
+        {
+          "level": 66,
+          "dark_elixir_cost": 340000,
+          "upgrade_time": 950400,
+          "th_required": 17,
+          "hp": 6780,
+          "dps": 628,
+          "ability_damage": 1190
+        },
+        {
+          "level": 67,
+          "dark_elixir_cost": 345000,
+          "upgrade_time": 964800,
+          "th_required": 17,
+          "hp": 6860,
+          "dps": 636,
+          "ability_damage": 1205
+        },
+        {
+          "level": 68,
+          "dark_elixir_cost": 350000,
+          "upgrade_time": 979200,
+          "th_required": 17,
+          "hp": 6940,
+          "dps": 644,
+          "ability_damage": 1220
+        },
+        {
+          "level": 69,
+          "dark_elixir_cost": 355000,
+          "upgrade_time": 993600,
+          "th_required": 17,
+          "hp": 7020,
+          "dps": 652,
+          "ability_damage": 1235
+        },
+        {
+          "level": 70,
+          "dark_elixir_cost": 360000,
+          "upgrade_time": 1008000,
+          "th_required": 17,
+          "hp": 7100,
+          "dps": 660,
+          "ability_damage": 1250
+        },
+        {
+          "level": 71,
+          "dark_elixir_cost": 365000,
+          "upgrade_time": 1022400,
+          "th_required": 18,
+          "hp": 7180,
+          "dps": 668,
+          "ability_damage": 1265
+        },
+        {
+          "level": 72,
+          "dark_elixir_cost": 370000,
+          "upgrade_time": 1036800,
+          "th_required": 18,
+          "hp": 7260,
+          "dps": 676,
+          "ability_damage": 1280
+        },
+        {
+          "level": 73,
+          "dark_elixir_cost": 375000,
+          "upgrade_time": 1051200,
+          "th_required": 18,
+          "hp": 7340,
+          "dps": 684,
+          "ability_damage": 1295
+        },
+        {
+          "level": 74,
+          "dark_elixir_cost": 380000,
+          "upgrade_time": 1065600,
+          "th_required": 18,
+          "hp": 7420,
+          "dps": 692,
+          "ability_damage": 1310
+        },
+        {
+          "level": 75,
+          "dark_elixir_cost": 385000,
+          "upgrade_time": 1080000,
+          "th_required": 18,
+          "hp": 7500,
+          "dps": 700,
+          "ability_damage": 1325
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "皇家鬥士",
+      "name_en": "Royal Champion",
+      "max_level": 50,
+      "unlock_th": 13,
+      "levels": [
+        {
+          "level": 1,
+          "dark_elixir_cost": 15000,
+          "upgrade_time": 14400,
+          "th_required": 13,
+          "hp": 1580,
+          "dps": 108,
+          "ability_damage": 215
+        },
+        {
+          "level": 2,
+          "dark_elixir_cost": 20000,
+          "upgrade_time": 28800,
+          "th_required": 13,
+          "hp": 1660,
+          "dps": 116,
+          "ability_damage": 230
+        },
+        {
+          "level": 3,
+          "dark_elixir_cost": 25000,
+          "upgrade_time": 43200,
+          "th_required": 13,
+          "hp": 1740,
+          "dps": 124,
+          "ability_damage": 245
+        },
+        {
+          "level": 4,
+          "dark_elixir_cost": 30000,
+          "upgrade_time": 57600,
+          "th_required": 13,
+          "hp": 1820,
+          "dps": 132,
+          "ability_damage": 260
+        },
+        {
+          "level": 5,
+          "dark_elixir_cost": 35000,
+          "upgrade_time": 72000,
+          "th_required": 13,
+          "hp": 1900,
+          "dps": 140,
+          "ability_damage": 275
+        },
+        {
+          "level": 6,
+          "dark_elixir_cost": 40000,
+          "upgrade_time": 86400,
+          "th_required": 13,
+          "hp": 1980,
+          "dps": 148,
+          "ability_damage": 290
+        },
+        {
+          "level": 7,
+          "dark_elixir_cost": 45000,
+          "upgrade_time": 100800,
+          "th_required": 13,
+          "hp": 2060,
+          "dps": 156,
+          "ability_damage": 305
+        },
+        {
+          "level": 8,
+          "dark_elixir_cost": 50000,
+          "upgrade_time": 115200,
+          "th_required": 13,
+          "hp": 2140,
+          "dps": 164,
+          "ability_damage": 320
+        },
+        {
+          "level": 9,
+          "dark_elixir_cost": 55000,
+          "upgrade_time": 129600,
+          "th_required": 13,
+          "hp": 2220,
+          "dps": 172,
+          "ability_damage": 335
+        },
+        {
+          "level": 10,
+          "dark_elixir_cost": 60000,
+          "upgrade_time": 144000,
+          "th_required": 13,
+          "hp": 2300,
+          "dps": 180,
+          "ability_damage": 350
+        },
+        {
+          "level": 11,
+          "dark_elixir_cost": 65000,
+          "upgrade_time": 158400,
+          "th_required": 14,
+          "hp": 2380,
+          "dps": 188,
+          "ability_damage": 365
+        },
+        {
+          "level": 12,
+          "dark_elixir_cost": 70000,
+          "upgrade_time": 172800,
+          "th_required": 14,
+          "hp": 2460,
+          "dps": 196,
+          "ability_damage": 380
+        },
+        {
+          "level": 13,
+          "dark_elixir_cost": 75000,
+          "upgrade_time": 187200,
+          "th_required": 14,
+          "hp": 2540,
+          "dps": 204,
+          "ability_damage": 395
+        },
+        {
+          "level": 14,
+          "dark_elixir_cost": 80000,
+          "upgrade_time": 201600,
+          "th_required": 14,
+          "hp": 2620,
+          "dps": 212,
+          "ability_damage": 410
+        },
+        {
+          "level": 15,
+          "dark_elixir_cost": 85000,
+          "upgrade_time": 216000,
+          "th_required": 14,
+          "hp": 2700,
+          "dps": 220,
+          "ability_damage": 425
+        },
+        {
+          "level": 16,
+          "dark_elixir_cost": 90000,
+          "upgrade_time": 230400,
+          "th_required": 14,
+          "hp": 2780,
+          "dps": 228,
+          "ability_damage": 440
+        },
+        {
+          "level": 17,
+          "dark_elixir_cost": 95000,
+          "upgrade_time": 244800,
+          "th_required": 14,
+          "hp": 2860,
+          "dps": 236,
+          "ability_damage": 455
+        },
+        {
+          "level": 18,
+          "dark_elixir_cost": 100000,
+          "upgrade_time": 259200,
+          "th_required": 14,
+          "hp": 2940,
+          "dps": 244,
+          "ability_damage": 470
+        },
+        {
+          "level": 19,
+          "dark_elixir_cost": 105000,
+          "upgrade_time": 273600,
+          "th_required": 14,
+          "hp": 3020,
+          "dps": 252,
+          "ability_damage": 485
+        },
+        {
+          "level": 20,
+          "dark_elixir_cost": 110000,
+          "upgrade_time": 288000,
+          "th_required": 14,
+          "hp": 3100,
+          "dps": 260,
+          "ability_damage": 500
+        },
+        {
+          "level": 21,
+          "dark_elixir_cost": 115000,
+          "upgrade_time": 302400,
+          "th_required": 15,
+          "hp": 3180,
+          "dps": 268,
+          "ability_damage": 515
+        },
+        {
+          "level": 22,
+          "dark_elixir_cost": 120000,
+          "upgrade_time": 316800,
+          "th_required": 15,
+          "hp": 3260,
+          "dps": 276,
+          "ability_damage": 530
+        },
+        {
+          "level": 23,
+          "dark_elixir_cost": 125000,
+          "upgrade_time": 331200,
+          "th_required": 15,
+          "hp": 3340,
+          "dps": 284,
+          "ability_damage": 545
+        },
+        {
+          "level": 24,
+          "dark_elixir_cost": 130000,
+          "upgrade_time": 345600,
+          "th_required": 15,
+          "hp": 3420,
+          "dps": 292,
+          "ability_damage": 560
+        },
+        {
+          "level": 25,
+          "dark_elixir_cost": 135000,
+          "upgrade_time": 360000,
+          "th_required": 15,
+          "hp": 3500,
+          "dps": 300,
+          "ability_damage": 575
+        },
+        {
+          "level": 26,
+          "dark_elixir_cost": 140000,
+          "upgrade_time": 374400,
+          "th_required": 15,
+          "hp": 3580,
+          "dps": 308,
+          "ability_damage": 590
+        },
+        {
+          "level": 27,
+          "dark_elixir_cost": 145000,
+          "upgrade_time": 388800,
+          "th_required": 15,
+          "hp": 3660,
+          "dps": 316,
+          "ability_damage": 605
+        },
+        {
+          "level": 28,
+          "dark_elixir_cost": 150000,
+          "upgrade_time": 403200,
+          "th_required": 15,
+          "hp": 3740,
+          "dps": 324,
+          "ability_damage": 620
+        },
+        {
+          "level": 29,
+          "dark_elixir_cost": 155000,
+          "upgrade_time": 417600,
+          "th_required": 15,
+          "hp": 3820,
+          "dps": 332,
+          "ability_damage": 635
+        },
+        {
+          "level": 30,
+          "dark_elixir_cost": 160000,
+          "upgrade_time": 432000,
+          "th_required": 15,
+          "hp": 3900,
+          "dps": 340,
+          "ability_damage": 650
+        },
+        {
+          "level": 31,
+          "dark_elixir_cost": 165000,
+          "upgrade_time": 446400,
+          "th_required": 16,
+          "hp": 3980,
+          "dps": 348,
+          "ability_damage": 665
+        },
+        {
+          "level": 32,
+          "dark_elixir_cost": 170000,
+          "upgrade_time": 460800,
+          "th_required": 16,
+          "hp": 4060,
+          "dps": 356,
+          "ability_damage": 680
+        },
+        {
+          "level": 33,
+          "dark_elixir_cost": 175000,
+          "upgrade_time": 475200,
+          "th_required": 16,
+          "hp": 4140,
+          "dps": 364,
+          "ability_damage": 695
+        },
+        {
+          "level": 34,
+          "dark_elixir_cost": 180000,
+          "upgrade_time": 489600,
+          "th_required": 16,
+          "hp": 4220,
+          "dps": 372,
+          "ability_damage": 710
+        },
+        {
+          "level": 35,
+          "dark_elixir_cost": 185000,
+          "upgrade_time": 504000,
+          "th_required": 16,
+          "hp": 4300,
+          "dps": 380,
+          "ability_damage": 725
+        },
+        {
+          "level": 36,
+          "dark_elixir_cost": 190000,
+          "upgrade_time": 518400,
+          "th_required": 16,
+          "hp": 4380,
+          "dps": 388,
+          "ability_damage": 740
+        },
+        {
+          "level": 37,
+          "dark_elixir_cost": 195000,
+          "upgrade_time": 532800,
+          "th_required": 16,
+          "hp": 4460,
+          "dps": 396,
+          "ability_damage": 755
+        },
+        {
+          "level": 38,
+          "dark_elixir_cost": 200000,
+          "upgrade_time": 547200,
+          "th_required": 16,
+          "hp": 4540,
+          "dps": 404,
+          "ability_damage": 770
+        },
+        {
+          "level": 39,
+          "dark_elixir_cost": 205000,
+          "upgrade_time": 561600,
+          "th_required": 16,
+          "hp": 4620,
+          "dps": 412,
+          "ability_damage": 785
+        },
+        {
+          "level": 40,
+          "dark_elixir_cost": 210000,
+          "upgrade_time": 576000,
+          "th_required": 16,
+          "hp": 4700,
+          "dps": 420,
+          "ability_damage": 800
+        },
+        {
+          "level": 41,
+          "dark_elixir_cost": 215000,
+          "upgrade_time": 590400,
+          "th_required": 17,
+          "hp": 4780,
+          "dps": 428,
+          "ability_damage": 815
+        },
+        {
+          "level": 42,
+          "dark_elixir_cost": 220000,
+          "upgrade_time": 604800,
+          "th_required": 17,
+          "hp": 4860,
+          "dps": 436,
+          "ability_damage": 830
+        },
+        {
+          "level": 43,
+          "dark_elixir_cost": 225000,
+          "upgrade_time": 619200,
+          "th_required": 17,
+          "hp": 4940,
+          "dps": 444,
+          "ability_damage": 845
+        },
+        {
+          "level": 44,
+          "dark_elixir_cost": 230000,
+          "upgrade_time": 633600,
+          "th_required": 17,
+          "hp": 5020,
+          "dps": 452,
+          "ability_damage": 860
+        },
+        {
+          "level": 45,
+          "dark_elixir_cost": 235000,
+          "upgrade_time": 648000,
+          "th_required": 17,
+          "hp": 5100,
+          "dps": 460,
+          "ability_damage": 875
+        },
+        {
+          "level": 46,
+          "dark_elixir_cost": 240000,
+          "upgrade_time": 662400,
+          "th_required": 17,
+          "hp": 5180,
+          "dps": 468,
+          "ability_damage": 890
+        },
+        {
+          "level": 47,
+          "dark_elixir_cost": 245000,
+          "upgrade_time": 676800,
+          "th_required": 17,
+          "hp": 5260,
+          "dps": 476,
+          "ability_damage": 905
+        },
+        {
+          "level": 48,
+          "dark_elixir_cost": 250000,
+          "upgrade_time": 691200,
+          "th_required": 17,
+          "hp": 5340,
+          "dps": 484,
+          "ability_damage": 920
+        },
+        {
+          "level": 49,
+          "dark_elixir_cost": 255000,
+          "upgrade_time": 705600,
+          "th_required": 17,
+          "hp": 5420,
+          "dps": 492,
+          "ability_damage": 935
+        },
+        {
+          "level": 50,
+          "dark_elixir_cost": 260000,
+          "upgrade_time": 720000,
+          "th_required": 17,
+          "hp": 5500,
+          "dps": 500,
+          "ability_damage": 950
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "小乖",
+      "name_en": "Minion Prince",
+      "max_level": 45,
+      "unlock_th": 16,
+      "levels": [
+        {
+          "level": 1,
+          "dark_elixir_cost": 15000,
+          "upgrade_time": 14400,
+          "th_required": 16,
+          "hp": 1580,
+          "dps": 108,
+          "ability_damage": 215
+        },
+        {
+          "level": 2,
+          "dark_elixir_cost": 20000,
+          "upgrade_time": 28800,
+          "th_required": 16,
+          "hp": 1660,
+          "dps": 116,
+          "ability_damage": 230
+        },
+        {
+          "level": 3,
+          "dark_elixir_cost": 25000,
+          "upgrade_time": 43200,
+          "th_required": 16,
+          "hp": 1740,
+          "dps": 124,
+          "ability_damage": 245
+        },
+        {
+          "level": 4,
+          "dark_elixir_cost": 30000,
+          "upgrade_time": 57600,
+          "th_required": 16,
+          "hp": 1820,
+          "dps": 132,
+          "ability_damage": 260
+        },
+        {
+          "level": 5,
+          "dark_elixir_cost": 35000,
+          "upgrade_time": 72000,
+          "th_required": 16,
+          "hp": 1900,
+          "dps": 140,
+          "ability_damage": 275
+        },
+        {
+          "level": 6,
+          "dark_elixir_cost": 40000,
+          "upgrade_time": 86400,
+          "th_required": 16,
+          "hp": 1980,
+          "dps": 148,
+          "ability_damage": 290
+        },
+        {
+          "level": 7,
+          "dark_elixir_cost": 45000,
+          "upgrade_time": 100800,
+          "th_required": 16,
+          "hp": 2060,
+          "dps": 156,
+          "ability_damage": 305
+        },
+        {
+          "level": 8,
+          "dark_elixir_cost": 50000,
+          "upgrade_time": 115200,
+          "th_required": 16,
+          "hp": 2140,
+          "dps": 164,
+          "ability_damage": 320
+        },
+        {
+          "level": 9,
+          "dark_elixir_cost": 55000,
+          "upgrade_time": 129600,
+          "th_required": 16,
+          "hp": 2220,
+          "dps": 172,
+          "ability_damage": 335
+        },
+        {
+          "level": 10,
+          "dark_elixir_cost": 60000,
+          "upgrade_time": 144000,
+          "th_required": 16,
+          "hp": 2300,
+          "dps": 180,
+          "ability_damage": 350
+        },
+        {
+          "level": 11,
+          "dark_elixir_cost": 65000,
+          "upgrade_time": 158400,
+          "th_required": 17,
+          "hp": 2380,
+          "dps": 188,
+          "ability_damage": 365
+        },
+        {
+          "level": 12,
+          "dark_elixir_cost": 70000,
+          "upgrade_time": 172800,
+          "th_required": 17,
+          "hp": 2460,
+          "dps": 196,
+          "ability_damage": 380
+        },
+        {
+          "level": 13,
+          "dark_elixir_cost": 75000,
+          "upgrade_time": 187200,
+          "th_required": 17,
+          "hp": 2540,
+          "dps": 204,
+          "ability_damage": 395
+        },
+        {
+          "level": 14,
+          "dark_elixir_cost": 80000,
+          "upgrade_time": 201600,
+          "th_required": 17,
+          "hp": 2620,
+          "dps": 212,
+          "ability_damage": 410
+        },
+        {
+          "level": 15,
+          "dark_elixir_cost": 85000,
+          "upgrade_time": 216000,
+          "th_required": 17,
+          "hp": 2700,
+          "dps": 220,
+          "ability_damage": 425
+        },
+        {
+          "level": 16,
+          "dark_elixir_cost": 90000,
+          "upgrade_time": 230400,
+          "th_required": 17,
+          "hp": 2780,
+          "dps": 228,
+          "ability_damage": 440
+        },
+        {
+          "level": 17,
+          "dark_elixir_cost": 95000,
+          "upgrade_time": 244800,
+          "th_required": 17,
+          "hp": 2860,
+          "dps": 236,
+          "ability_damage": 455
+        },
+        {
+          "level": 18,
+          "dark_elixir_cost": 100000,
+          "upgrade_time": 259200,
+          "th_required": 17,
+          "hp": 2940,
+          "dps": 244,
+          "ability_damage": 470
+        },
+        {
+          "level": 19,
+          "dark_elixir_cost": 105000,
+          "upgrade_time": 273600,
+          "th_required": 17,
+          "hp": 3020,
+          "dps": 252,
+          "ability_damage": 485
+        },
+        {
+          "level": 20,
+          "dark_elixir_cost": 110000,
+          "upgrade_time": 288000,
+          "th_required": 17,
+          "hp": 3100,
+          "dps": 260,
+          "ability_damage": 500
+        },
+        {
+          "level": 21,
+          "dark_elixir_cost": 115000,
+          "upgrade_time": 302400,
+          "th_required": 18,
+          "hp": 3180,
+          "dps": 268,
+          "ability_damage": 515
+        },
+        {
+          "level": 22,
+          "dark_elixir_cost": 120000,
+          "upgrade_time": 316800,
+          "th_required": 18,
+          "hp": 3260,
+          "dps": 276,
+          "ability_damage": 530
+        },
+        {
+          "level": 23,
+          "dark_elixir_cost": 125000,
+          "upgrade_time": 331200,
+          "th_required": 18,
+          "hp": 3340,
+          "dps": 284,
+          "ability_damage": 545
+        },
+        {
+          "level": 24,
+          "dark_elixir_cost": 130000,
+          "upgrade_time": 345600,
+          "th_required": 18,
+          "hp": 3420,
+          "dps": 292,
+          "ability_damage": 560
+        },
+        {
+          "level": 25,
+          "dark_elixir_cost": 135000,
+          "upgrade_time": 360000,
+          "th_required": 18,
+          "hp": 3500,
+          "dps": 300,
+          "ability_damage": 575
+        },
+        {
+          "level": 26,
+          "dark_elixir_cost": 140000,
+          "upgrade_time": 374400,
+          "th_required": 18,
+          "hp": 3580,
+          "dps": 308,
+          "ability_damage": 590
+        },
+        {
+          "level": 27,
+          "dark_elixir_cost": 145000,
+          "upgrade_time": 388800,
+          "th_required": 18,
+          "hp": 3660,
+          "dps": 316,
+          "ability_damage": 605
+        },
+        {
+          "level": 28,
+          "dark_elixir_cost": 150000,
+          "upgrade_time": 403200,
+          "th_required": 18,
+          "hp": 3740,
+          "dps": 324,
+          "ability_damage": 620
+        },
+        {
+          "level": 29,
+          "dark_elixir_cost": 155000,
+          "upgrade_time": 417600,
+          "th_required": 18,
+          "hp": 3820,
+          "dps": 332,
+          "ability_damage": 635
+        },
+        {
+          "level": 30,
+          "dark_elixir_cost": 160000,
+          "upgrade_time": 432000,
+          "th_required": 18,
+          "hp": 3900,
+          "dps": 340,
+          "ability_damage": 650
+        },
+        {
+          "level": 31,
+          "dark_elixir_cost": 165000,
+          "upgrade_time": 446400,
+          "th_required": 18,
+          "hp": 3980,
+          "dps": 348,
+          "ability_damage": 665
+        },
+        {
+          "level": 32,
+          "dark_elixir_cost": 170000,
+          "upgrade_time": 460800,
+          "th_required": 18,
+          "hp": 4060,
+          "dps": 356,
+          "ability_damage": 680
+        },
+        {
+          "level": 33,
+          "dark_elixir_cost": 175000,
+          "upgrade_time": 475200,
+          "th_required": 18,
+          "hp": 4140,
+          "dps": 364,
+          "ability_damage": 695
+        },
+        {
+          "level": 34,
+          "dark_elixir_cost": 180000,
+          "upgrade_time": 489600,
+          "th_required": 18,
+          "hp": 4220,
+          "dps": 372,
+          "ability_damage": 710
+        },
+        {
+          "level": 35,
+          "dark_elixir_cost": 185000,
+          "upgrade_time": 504000,
+          "th_required": 18,
+          "hp": 4300,
+          "dps": 380,
+          "ability_damage": 725
+        },
+        {
+          "level": 36,
+          "dark_elixir_cost": 190000,
+          "upgrade_time": 518400,
+          "th_required": 18,
+          "hp": 4380,
+          "dps": 388,
+          "ability_damage": 740
+        },
+        {
+          "level": 37,
+          "dark_elixir_cost": 195000,
+          "upgrade_time": 532800,
+          "th_required": 18,
+          "hp": 4460,
+          "dps": 396,
+          "ability_damage": 755
+        },
+        {
+          "level": 38,
+          "dark_elixir_cost": 200000,
+          "upgrade_time": 547200,
+          "th_required": 18,
+          "hp": 4540,
+          "dps": 404,
+          "ability_damage": 770
+        },
+        {
+          "level": 39,
+          "dark_elixir_cost": 205000,
+          "upgrade_time": 561600,
+          "th_required": 18,
+          "hp": 4620,
+          "dps": 412,
+          "ability_damage": 785
+        },
+        {
+          "level": 40,
+          "dark_elixir_cost": 210000,
+          "upgrade_time": 576000,
+          "th_required": 18,
+          "hp": 4700,
+          "dps": 420,
+          "ability_damage": 800
+        },
+        {
+          "level": 41,
+          "dark_elixir_cost": 215000,
+          "upgrade_time": 590400,
+          "th_required": 18,
+          "hp": 4780,
+          "dps": 428,
+          "ability_damage": 815
+        },
+        {
+          "level": 42,
+          "dark_elixir_cost": 220000,
+          "upgrade_time": 604800,
+          "th_required": 18,
+          "hp": 4860,
+          "dps": 436,
+          "ability_damage": 830
+        },
+        {
+          "level": 43,
+          "dark_elixir_cost": 225000,
+          "upgrade_time": 619200,
+          "th_required": 18,
+          "hp": 4940,
+          "dps": 444,
+          "ability_damage": 845
+        },
+        {
+          "level": 44,
+          "dark_elixir_cost": 230000,
+          "upgrade_time": 633600,
+          "th_required": 18,
+          "hp": 5020,
+          "dps": 452,
+          "ability_damage": 860
+        },
+        {
+          "level": 45,
+          "dark_elixir_cost": 235000,
+          "upgrade_time": 648000,
+          "th_required": 18,
+          "hp": 5100,
+          "dps": 460,
+          "ability_damage": 875
+        }
+      ]
+    }
+  ],
+  "troops": [
+    {
+      "id": 1,
+      "name": "野蠻人",
+      "name_en": "Barbarian",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 1,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 16,
+          "hp": 35,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 21,
+          "hp": 45,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 26,
+          "hp": 55,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 31,
+          "hp": 65,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 36,
+          "hp": 75,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 41,
+          "hp": 85,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 46,
+          "hp": 95,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 51,
+          "hp": 105,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 56,
+          "hp": 115,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 61,
+          "hp": 125,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 66,
+          "hp": 135,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 71,
+          "hp": 145,
+          "elixir_cost": 6050000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "弓箭手",
+      "name_en": "Archer",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 1,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 16,
+          "hp": 35,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 21,
+          "hp": 45,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 26,
+          "hp": 55,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 31,
+          "hp": 65,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 36,
+          "hp": 75,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 41,
+          "hp": 85,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 46,
+          "hp": 95,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 51,
+          "hp": 105,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 56,
+          "hp": 115,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 61,
+          "hp": 125,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 66,
+          "hp": 135,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 71,
+          "hp": 145,
+          "elixir_cost": 6050000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "巨人",
+      "name_en": "Giant",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 5,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 20,
+          "hp": 55,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 25,
+          "hp": 65,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 30,
+          "hp": 75,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 35,
+          "hp": 85,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 40,
+          "hp": 95,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 45,
+          "hp": 105,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 50,
+          "hp": 115,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 55,
+          "hp": 125,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 60,
+          "hp": 135,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 65,
+          "hp": 145,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 70,
+          "hp": 155,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 75,
+          "hp": 165,
+          "elixir_cost": 6050000
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "哥布林",
+      "name_en": "Goblin",
+      "type_id": 1,
+      "max_level": 10,
+      "housing_space": 1,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 16,
+          "hp": 35,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 21,
+          "hp": 45,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 26,
+          "hp": 55,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 31,
+          "hp": 65,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 36,
+          "hp": 75,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 41,
+          "hp": 85,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 46,
+          "hp": 95,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 51,
+          "hp": 105,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 56,
+          "hp": 115,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 61,
+          "hp": 125,
+          "elixir_cost": 5050000
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "炸彈人",
+      "name_en": "Wall Breaker",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 2,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 17,
+          "hp": 40,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 22,
+          "hp": 50,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 27,
+          "hp": 60,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 32,
+          "hp": 70,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 37,
+          "hp": 80,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 42,
+          "hp": 90,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 47,
+          "hp": 100,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 52,
+          "hp": 110,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 57,
+          "hp": 120,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 62,
+          "hp": 130,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 67,
+          "hp": 140,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 72,
+          "hp": 150,
+          "elixir_cost": 6050000
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "氣球兵",
+      "name_en": "Balloon",
+      "type_id": 1,
+      "max_level": 11,
+      "housing_space": 5,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 20,
+          "hp": 55,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 25,
+          "hp": 65,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 30,
+          "hp": 75,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 35,
+          "hp": 85,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 40,
+          "hp": 95,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 45,
+          "hp": 105,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 50,
+          "hp": 115,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 55,
+          "hp": 125,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 60,
+          "hp": 135,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 65,
+          "hp": 145,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 70,
+          "hp": 155,
+          "elixir_cost": 5550000
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "法師",
+      "name_en": "Wizard",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 4,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 19,
+          "hp": 50,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 24,
+          "hp": 60,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 29,
+          "hp": 70,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 34,
+          "hp": 80,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 39,
+          "hp": 90,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 44,
+          "hp": 100,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 49,
+          "hp": 110,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 54,
+          "hp": 120,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 59,
+          "hp": 130,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 64,
+          "hp": 140,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 69,
+          "hp": 150,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 74,
+          "hp": 160,
+          "elixir_cost": 6050000
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "天使",
+      "name_en": "Healer",
+      "type_id": 1,
+      "max_level": 9,
+      "housing_space": 14,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 29,
+          "hp": 100,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 34,
+          "hp": 110,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 39,
+          "hp": 120,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 44,
+          "hp": 130,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 49,
+          "hp": 140,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 54,
+          "hp": 150,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 59,
+          "hp": 160,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 64,
+          "hp": 170,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 69,
+          "hp": 180,
+          "elixir_cost": 4550000
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "飛龍",
+      "name_en": "Dragon",
+      "type_id": 1,
+      "max_level": 11,
+      "housing_space": 20,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 35,
+          "hp": 130,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 40,
+          "hp": 140,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 45,
+          "hp": 150,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 50,
+          "hp": 160,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 55,
+          "hp": 170,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 60,
+          "hp": 180,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 65,
+          "hp": 190,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 70,
+          "hp": 200,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 75,
+          "hp": 210,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 80,
+          "hp": 220,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 85,
+          "hp": 230,
+          "elixir_cost": 5550000
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "皮卡超人",
+      "name_en": "P.E.K.K.A",
+      "type_id": 1,
+      "max_level": 11,
+      "housing_space": 25,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 40,
+          "hp": 155,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 45,
+          "hp": 165,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 50,
+          "hp": 175,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 55,
+          "hp": 185,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 60,
+          "hp": 195,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 65,
+          "hp": 205,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 70,
+          "hp": 215,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 75,
+          "hp": 225,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 80,
+          "hp": 235,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 85,
+          "hp": 245,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 90,
+          "hp": 255,
+          "elixir_cost": 5550000
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "亡靈",
+      "name_en": "Minion",
+      "type_id": 2,
+      "max_level": 12,
+      "housing_space": 2,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 17,
+          "hp": 40,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 22,
+          "hp": 50,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 27,
+          "hp": 60,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 32,
+          "hp": 70,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 37,
+          "hp": 80,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 42,
+          "hp": 90,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 47,
+          "hp": 100,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 52,
+          "hp": 110,
+          "dark_elixir_cost": 85000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 57,
+          "hp": 120,
+          "dark_elixir_cost": 95000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 62,
+          "hp": 130,
+          "dark_elixir_cost": 105000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 67,
+          "hp": 140,
+          "dark_elixir_cost": 115000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 72,
+          "hp": 150,
+          "dark_elixir_cost": 125000
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "野豬騎士",
+      "name_en": "Hog Rider",
+      "type_id": 2,
+      "max_level": 13,
+      "housing_space": 5,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 20,
+          "hp": 55,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 25,
+          "hp": 65,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 30,
+          "hp": 75,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 35,
+          "hp": 85,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 40,
+          "hp": 95,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 45,
+          "hp": 105,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 50,
+          "hp": 115,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 55,
+          "hp": 125,
+          "dark_elixir_cost": 85000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 60,
+          "hp": 135,
+          "dark_elixir_cost": 95000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 65,
+          "hp": 145,
+          "dark_elixir_cost": 105000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 70,
+          "hp": 155,
+          "dark_elixir_cost": 115000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 75,
+          "hp": 165,
+          "dark_elixir_cost": 125000
+        },
+        {
+          "level": 13,
+          "upgrade_time": 561600,
+          "lab_required": 7,
+          "dps": 80,
+          "hp": 175,
+          "dark_elixir_cost": 135000
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "女武神",
+      "name_en": "Valkyrie",
+      "type_id": 2,
+      "max_level": 11,
+      "housing_space": 8,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 23,
+          "hp": 70,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 28,
+          "hp": 80,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 33,
+          "hp": 90,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 38,
+          "hp": 100,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 43,
+          "hp": 110,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 48,
+          "hp": 120,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 53,
+          "hp": 130,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 58,
+          "hp": 140,
+          "dark_elixir_cost": 85000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 63,
+          "hp": 150,
+          "dark_elixir_cost": 95000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 68,
+          "hp": 160,
+          "dark_elixir_cost": 105000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 73,
+          "hp": 170,
+          "dark_elixir_cost": 115000
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "乾爹",
+      "name_en": "Golem",
+      "type_id": 2,
+      "max_level": 13,
+      "housing_space": 30,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 45,
+          "hp": 180,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 50,
+          "hp": 190,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 55,
+          "hp": 200,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 60,
+          "hp": 210,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 65,
+          "hp": 220,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 70,
+          "hp": 230,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 75,
+          "hp": 240,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 80,
+          "hp": 250,
+          "dark_elixir_cost": 85000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 85,
+          "hp": 260,
+          "dark_elixir_cost": 95000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 90,
+          "hp": 270,
+          "dark_elixir_cost": 105000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 95,
+          "hp": 280,
+          "dark_elixir_cost": 115000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 100,
+          "hp": 290,
+          "dark_elixir_cost": 125000
+        },
+        {
+          "level": 13,
+          "upgrade_time": 561600,
+          "lab_required": 7,
+          "dps": 105,
+          "hp": 300,
+          "dark_elixir_cost": 135000
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "女巫",
+      "name_en": "Witch",
+      "type_id": 2,
+      "max_level": 7,
+      "housing_space": 12,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 27,
+          "hp": 90,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 32,
+          "hp": 100,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 37,
+          "hp": 110,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 42,
+          "hp": 120,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 47,
+          "hp": 130,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 52,
+          "hp": 140,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 57,
+          "hp": 150,
+          "dark_elixir_cost": 75000
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "熔岩獵犬",
+      "name_en": "Lava Hound",
+      "type_id": 2,
+      "max_level": 8,
+      "housing_space": 30,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 45,
+          "hp": 180,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 50,
+          "hp": 190,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 55,
+          "hp": 200,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 60,
+          "hp": 210,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 65,
+          "hp": 220,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 70,
+          "hp": 230,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 75,
+          "hp": 240,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 80,
+          "hp": 250,
+          "dark_elixir_cost": 85000
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "乾爹",
+      "name_en": "Bowler",
+      "type_id": 2,
+      "max_level": 8,
+      "housing_space": 6,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 21,
+          "hp": 60,
+          "dark_elixir_cost": 15000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 26,
+          "hp": 70,
+          "dark_elixir_cost": 25000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 31,
+          "hp": 80,
+          "dark_elixir_cost": 35000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 36,
+          "hp": 90,
+          "dark_elixir_cost": 45000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 41,
+          "hp": 100,
+          "dark_elixir_cost": 55000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 46,
+          "hp": 110,
+          "dark_elixir_cost": 65000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 51,
+          "hp": 120,
+          "dark_elixir_cost": 75000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 56,
+          "hp": 130,
+          "dark_elixir_cost": 85000
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "雷電龍",
+      "name_en": "Electro Dragon",
+      "type_id": 1,
+      "max_level": 8,
+      "housing_space": 30,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 45,
+          "hp": 180,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 50,
+          "hp": 190,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 55,
+          "hp": 200,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 60,
+          "hp": 210,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 65,
+          "hp": 220,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 70,
+          "hp": 230,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 75,
+          "hp": 240,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 80,
+          "hp": 250,
+          "elixir_cost": 4050000
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "超級蠻王瘋",
+      "name_en": "Super Barbarian",
+      "type_id": 1,
+      "max_level": 12,
+      "housing_space": 1,
+      "levels": [
+        {
+          "level": 1,
+          "upgrade_time": 43200,
+          "lab_required": 1,
+          "dps": 16,
+          "hp": 35,
+          "elixir_cost": 550000
+        },
+        {
+          "level": 2,
+          "upgrade_time": 86400,
+          "lab_required": 1,
+          "dps": 21,
+          "hp": 45,
+          "elixir_cost": 1050000
+        },
+        {
+          "level": 3,
+          "upgrade_time": 129600,
+          "lab_required": 2,
+          "dps": 26,
+          "hp": 55,
+          "elixir_cost": 1550000
+        },
+        {
+          "level": 4,
+          "upgrade_time": 172800,
+          "lab_required": 2,
+          "dps": 31,
+          "hp": 65,
+          "elixir_cost": 2050000
+        },
+        {
+          "level": 5,
+          "upgrade_time": 216000,
+          "lab_required": 3,
+          "dps": 36,
+          "hp": 75,
+          "elixir_cost": 2550000
+        },
+        {
+          "level": 6,
+          "upgrade_time": 259200,
+          "lab_required": 3,
+          "dps": 41,
+          "hp": 85,
+          "elixir_cost": 3050000
+        },
+        {
+          "level": 7,
+          "upgrade_time": 302400,
+          "lab_required": 4,
+          "dps": 46,
+          "hp": 95,
+          "elixir_cost": 3550000
+        },
+        {
+          "level": 8,
+          "upgrade_time": 345600,
+          "lab_required": 4,
+          "dps": 51,
+          "hp": 105,
+          "elixir_cost": 4050000
+        },
+        {
+          "level": 9,
+          "upgrade_time": 388800,
+          "lab_required": 5,
+          "dps": 56,
+          "hp": 115,
+          "elixir_cost": 4550000
+        },
+        {
+          "level": 10,
+          "upgrade_time": 432000,
+          "lab_required": 5,
+          "dps": 61,
+          "hp": 125,
+          "elixir_cost": 5050000
+        },
+        {
+          "level": 11,
+          "upgrade_time": 475200,
+          "lab_required": 6,
+          "dps": 66,
+          "hp": 135,
+          "elixir_cost": 5550000
+        },
+        {
+          "level": 12,
+          "upgrade_time": 518400,
+          "lab_required": 6,
+          "dps": 71,
+          "hp": 145,
+          "elixir_cost": 6050000
+        }
+      ]
+    }
+  ]
+}
