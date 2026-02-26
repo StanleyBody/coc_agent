@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 初始化彈窗
     initModal();
     
+    // 初始化減免面板
+    initDiscountPanel();
+    
     // 載入資料
     loadData();
     
@@ -51,6 +54,219 @@ function initTheme() {
             localStorage.setItem('theme', newTheme);
         });
     }
+}
+
+/**
+ * 減免面板
+ */
+function initDiscountPanel() {
+    const toggle = document.getElementById('discountToggle');
+    const panel = document.getElementById('discountPanel');
+    const resetBtn = document.getElementById('discountReset');
+    
+    // 展開/收合
+    toggle.addEventListener('click', () => {
+        panel.classList.toggle('open');
+    });
+    
+    // Radio 選擇事件
+    document.querySelectorAll('.discount-option input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            // 更新 active 狀態
+            const group = radio.closest('.discount-options');
+            group.querySelectorAll('.discount-option').forEach(opt => opt.classList.remove('active'));
+            radio.closest('.discount-option').classList.add('active');
+            
+            onDiscountChange();
+        });
+    });
+    
+    // 重置按鈕
+    resetBtn.addEventListener('click', () => {
+        document.querySelectorAll('.discount-option input[value="0"]').forEach(radio => {
+            radio.checked = true;
+            const group = radio.closest('.discount-options');
+            group.querySelectorAll('.discount-option').forEach(opt => opt.classList.remove('active'));
+            radio.closest('.discount-option').classList.add('active');
+        });
+        onDiscountChange();
+    });
+    
+    // 從 localStorage 載入設定
+    loadDiscountSettings();
+}
+
+function getDiscountSettings() {
+    const goldPass = parseInt(document.querySelector('input[name="goldPass"]:checked')?.value || 0);
+    const worker = parseInt(document.querySelector('input[name="worker"]:checked')?.value || 0);
+    const total = goldPass + worker;
+    return { goldPass, worker, total };
+}
+
+function onDiscountChange() {
+    const settings = getDiscountSettings();
+    
+    // 更新總減免顯示
+    const totalEl = document.getElementById('totalDiscount');
+    totalEl.textContent = settings.total > 0 ? `-${settings.total}%` : '0%';
+    totalEl.classList.toggle('zero', settings.total === 0);
+    
+    // 更新面板摘要
+    const summaryEl = document.getElementById('discountSummary');
+    if (settings.total > 0) {
+        const parts = [];
+        if (settings.goldPass > 0) {
+            const names = { 10: '白銀', 15: '黃金', 20: '鑽石' };
+            parts.push(`月卡: ${names[settings.goldPass]}(-${settings.goldPass}%)`);
+        }
+        if (settings.worker > 0) {
+            const lvl = { 5: 'Lv.1', 10: 'Lv.2', 15: 'Lv.3' };
+            parts.push(`工人: ${lvl[settings.worker]}(-${settings.worker}%)`);
+        }
+        summaryEl.textContent = parts.join(' | ') + ` | 總減免: -${settings.total}%`;
+        summaryEl.classList.add('has-discount');
+    } else {
+        summaryEl.textContent = '未設定減免';
+        summaryEl.classList.remove('has-discount');
+    }
+    
+    // 儲存設定
+    saveDiscountSettings();
+    
+    // 重新渲染數據
+    renderCurrentTab();
+    updateSummaryDashboard();
+}
+
+function saveDiscountSettings() {
+    const settings = getDiscountSettings();
+    localStorage.setItem('coc_discount', JSON.stringify(settings));
+}
+
+function loadDiscountSettings() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('coc_discount'));
+        if (saved && (saved.goldPass > 0 || saved.worker > 0)) {
+            // 設定月卡 Radio
+            const gpRadio = document.querySelector(`input[name="goldPass"][value="${saved.goldPass}"]`);
+            if (gpRadio) {
+                gpRadio.checked = true;
+                const gpGroup = gpRadio.closest('.discount-options');
+                gpGroup.querySelectorAll('.discount-option').forEach(opt => opt.classList.remove('active'));
+                gpRadio.closest('.discount-option').classList.add('active');
+            }
+            // 設定工人 Radio
+            const wkRadio = document.querySelector(`input[name="worker"][value="${saved.worker}"]`);
+            if (wkRadio) {
+                wkRadio.checked = true;
+                const wkGroup = wkRadio.closest('.discount-options');
+                wkGroup.querySelectorAll('.discount-option').forEach(opt => opt.classList.remove('active'));
+                wkRadio.closest('.discount-option').classList.add('active');
+            }
+            onDiscountChange();
+        }
+    } catch (e) {
+        // ignore parse errors
+    }
+}
+
+function applyDiscount(value, discountPercent) {
+    if (!value || discountPercent <= 0) return value;
+    return Math.floor(value * (1 - discountPercent / 100));
+}
+
+function formatWithDiscount(originalValue, discountPercent, formatter) {
+    if (!originalValue) return formatter(originalValue);
+    if (discountPercent <= 0) return formatter(originalValue);
+    const discounted = applyDiscount(originalValue, discountPercent);
+    return `<span class="cost-original">${formatter(originalValue)}</span> <span class="cost-discounted">${formatter(discounted)}</span>`;
+}
+
+function updateSummaryDashboard() {
+    if (!upgradeData) return;
+    const { total } = getDiscountSettings();
+    const filters = getFilters();
+    
+    let totalCostOriginal = 0;
+    let totalTimeOriginal = 0;
+    
+    // 計算建築費用/時間
+    const buildings = upgradeData.buildings || [];
+    buildings.forEach(b => {
+        let levels = b.levels;
+        if (filters.th) levels = levels.filter(l => l.th_required <= parseInt(filters.th));
+        levels.forEach(l => {
+            totalCostOriginal += (l.gold_cost || 0) + (l.elixir_cost || 0) + (l.dark_elixir_cost || 0);
+            totalTimeOriginal += (l.build_time || 0);
+        });
+    });
+    
+    // 計算英雄費用/時間
+    const heroes = upgradeData.heroes || [];
+    heroes.forEach(h => {
+        let levels = h.levels;
+        if (filters.th) levels = levels.filter(l => l.th_required <= parseInt(filters.th));
+        levels.forEach(l => {
+            totalCostOriginal += (l.dark_elixir_cost || 0);
+            totalTimeOriginal += (l.upgrade_time || 0);
+        });
+    });
+    
+    // 計算兵種費用/時間
+    const troops = upgradeData.troops || [];
+    troops.forEach(t => {
+        let levels = t.levels;
+        if (filters.th) levels = levels.filter(l => l.lab_required <= parseInt(filters.th));
+        levels.forEach(l => {
+            totalCostOriginal += (l.elixir_cost || 0) + (l.dark_elixir_cost || 0);
+            totalTimeOriginal += (l.upgrade_time || 0);
+        });
+    });
+    
+    const totalCostDiscounted = applyDiscount(totalCostOriginal, total) || totalCostOriginal;
+    const totalTimeDiscounted = applyDiscount(totalTimeOriginal, total) || totalTimeOriginal;
+    const costSaved = totalCostOriginal - totalCostDiscounted;
+    const timeSaved = totalTimeOriginal - totalTimeDiscounted;
+    
+    // 更新 DOM
+    document.getElementById('totalCost').textContent = formatLargeNumber(totalCostDiscounted);
+    document.getElementById('totalTime').textContent = formatTimeLong(totalTimeDiscounted);
+    
+    const savingsEl = document.getElementById('totalSavings');
+    const savingsBadge = document.getElementById('savingsBadge');
+    const timeEl = document.getElementById('timeSavings');
+    const timeBadge = document.getElementById('timeBadge');
+    
+    if (total > 0) {
+        savingsEl.textContent = formatLargeNumber(costSaved);
+        savingsBadge.textContent = `-${total}%`;
+        savingsBadge.style.display = '';
+        timeEl.textContent = formatTimeLong(timeSaved);
+        timeBadge.textContent = `-${total}%`;
+        timeBadge.style.display = '';
+    } else {
+        savingsEl.textContent = '-';
+        savingsBadge.style.display = 'none';
+        timeEl.textContent = '-';
+        timeBadge.style.display = 'none';
+    }
+}
+
+function formatLargeNumber(num) {
+    if (!num || num === 0) return '0';
+    if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+    return num.toLocaleString();
+}
+
+function formatTimeLong(seconds) {
+    if (!seconds || seconds === 0) return '0';
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    if (days > 0) return `${days} 天 ${hours} 時`;
+    if (hours > 0) return `${hours} 時`;
+    return `${Math.floor(seconds / 60)} 分`;
 }
 
 /**
@@ -157,6 +373,7 @@ async function loadData() {
         populateCategories();
         
         renderCurrentTab();
+        updateSummaryDashboard();
         
     } catch (error) {
         console.error('Error loading data:', error);
@@ -252,11 +469,15 @@ function renderBuildings() {
         return;
     }
     
+    const { total: disc } = getDiscountSettings();
     grid.innerHTML = buildings.map(building => {
         const maxLevel = filters.th 
             ? Math.max(...building.levels.filter(l => l.th_required <= parseInt(filters.th)).map(l => l.level))
             : building.max_level;
         const topLevel = building.levels.find(l => l.level === maxLevel) || building.levels[building.levels.length - 1];
+        
+        const costHtml = disc > 0 ? formatWithDiscount(getCostValue(topLevel), disc, formatNumber) : formatCost(topLevel);
+        const timeHtml = disc > 0 ? formatWithDiscount(topLevel.build_time, disc, formatTime) : formatTime(topLevel.build_time);
         
         return `
             <div class="item-card" onclick="showBuildingDetails(${building.id})">
@@ -274,11 +495,11 @@ function renderBuildings() {
                     </div>
                     <div class="stat">
                         <span class="stat-label">升級費用</span>
-                        <span class="stat-value">${formatCost(topLevel)}</span>
+                        <span class="stat-value">${costHtml}</span>
                     </div>
                     <div class="stat">
                         <span class="stat-label">升級時間</span>
-                        <span class="stat-value">${formatTime(topLevel.build_time)}</span>
+                        <span class="stat-value">${timeHtml}</span>
                     </div>
                 </div>
             </div>
@@ -316,11 +537,14 @@ function renderHeroes() {
         return;
     }
     
+    const { total: disc } = getDiscountSettings();
     grid.innerHTML = heroes.map(hero => {
         const maxLevel = filters.th 
             ? Math.max(...hero.levels.filter(l => l.th_required <= parseInt(filters.th)).map(l => l.level))
             : hero.max_level;
         const topLevel = hero.levels.find(l => l.level === maxLevel) || hero.levels[hero.levels.length - 1];
+        
+        const costHtml = disc > 0 ? formatWithDiscount(topLevel.dark_elixir_cost, disc, formatNumber) : formatNumber(topLevel.dark_elixir_cost);
         
         return `
             <div class="item-card" onclick="showHeroDetails(${hero.id})">
@@ -337,8 +561,8 @@ function renderHeroes() {
                         <span class="stat-value">Lv.${maxLevel}</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">解鎖大本</span>
-                        <span class="stat-value">TH${hero.unlock_th}</span>
+                        <span class="stat-label">暗黑聖水</span>
+                        <span class="stat-value">${costHtml}</span>
                     </div>
                     <div class="stat">
                         <span class="stat-label">DPS</span>
@@ -386,11 +610,15 @@ function renderTroops() {
         return;
     }
     
+    const { total: disc } = getDiscountSettings();
     grid.innerHTML = troops.map(troop => {
         const maxLevel = filters.th 
             ? Math.max(...troop.levels.filter(l => l.lab_required <= parseInt(filters.th)).map(l => l.level))
             : troop.max_level;
         const topLevel = troop.levels.find(l => l.level === maxLevel) || troop.levels[troop.levels.length - 1];
+        
+        const costVal = topLevel.elixir_cost || topLevel.dark_elixir_cost || 0;
+        const costHtml = disc > 0 ? formatWithDiscount(costVal, disc, formatNumber) : formatNumber(costVal);
         
         return `
             <div class="item-card" onclick="showTroopDetails(${troop.id})">
@@ -407,8 +635,8 @@ function renderTroops() {
                         <span class="stat-value">Lv.${maxLevel}</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">人口</span>
-                        <span class="stat-value">${troop.housing_space}</span>
+                        <span class="stat-label">升級費用</span>
+                        <span class="stat-value">${costHtml}</span>
                     </div>
                     <div class="stat">
                         <span class="stat-label">DPS</span>
@@ -472,14 +700,15 @@ function showBuildingDetails(id) {
         <th>DPS</th>
     `;
     
+    const { total: disc } = getDiscountSettings();
     const body = document.getElementById('tableBody');
     body.innerHTML = levels.map(level => `
         <tr>
             <td class="level-num">${level.level}</td>
-            <td class="cost-gold">${level.gold_cost ? formatNumber(level.gold_cost) : '-'}</td>
-            <td class="cost-elixir">${level.elixir_cost ? formatNumber(level.elixir_cost) : '-'}</td>
-            <td class="cost-dark">${level.dark_elixir_cost ? formatNumber(level.dark_elixir_cost) : '-'}</td>
-            <td class="time">${formatTime(level.build_time)}</td>
+            <td class="cost-gold">${level.gold_cost ? (disc > 0 ? formatWithDiscount(level.gold_cost, disc, formatNumber) : formatNumber(level.gold_cost)) : '-'}</td>
+            <td class="cost-elixir">${level.elixir_cost ? (disc > 0 ? formatWithDiscount(level.elixir_cost, disc, formatNumber) : formatNumber(level.elixir_cost)) : '-'}</td>
+            <td class="cost-dark">${level.dark_elixir_cost ? (disc > 0 ? formatWithDiscount(level.dark_elixir_cost, disc, formatNumber) : formatNumber(level.dark_elixir_cost)) : '-'}</td>
+            <td class="time">${disc > 0 ? formatWithDiscount(level.build_time, disc, formatTime) : formatTime(level.build_time)}</td>
             <td>TH${level.th_required}</td>
             <td>${formatNumber(level.hp)}</td>
             <td>${level.dps || '-'}</td>
@@ -513,12 +742,13 @@ function showHeroDetails(id) {
         <th>技能傷害</th>
     `;
     
+    const { total: disc } = getDiscountSettings();
     const body = document.getElementById('tableBody');
     body.innerHTML = levels.map(level => `
         <tr>
             <td class="level-num">${level.level}</td>
-            <td class="cost-dark">${formatNumber(level.dark_elixir_cost)}</td>
-            <td class="time">${formatTime(level.upgrade_time)}</td>
+            <td class="cost-dark">${disc > 0 ? formatWithDiscount(level.dark_elixir_cost, disc, formatNumber) : formatNumber(level.dark_elixir_cost)}</td>
+            <td class="time">${disc > 0 ? formatWithDiscount(level.upgrade_time, disc, formatTime) : formatTime(level.upgrade_time)}</td>
             <td>TH${level.th_required}</td>
             <td>${formatNumber(level.hp)}</td>
             <td>${level.dps}</td>
@@ -553,13 +783,14 @@ function showTroopDetails(id) {
         <th>HP</th>
     `;
     
+    const { total: disc } = getDiscountSettings();
     const body = document.getElementById('tableBody');
     body.innerHTML = levels.map(level => `
         <tr>
             <td class="level-num">${level.level}</td>
-            <td class="cost-elixir">${level.elixir_cost ? formatNumber(level.elixir_cost) : '-'}</td>
-            <td class="cost-dark">${level.dark_elixir_cost ? formatNumber(level.dark_elixir_cost) : '-'}</td>
-            <td class="time">${formatTime(level.upgrade_time)}</td>
+            <td class="cost-elixir">${level.elixir_cost ? (disc > 0 ? formatWithDiscount(level.elixir_cost, disc, formatNumber) : formatNumber(level.elixir_cost)) : '-'}</td>
+            <td class="cost-dark">${level.dark_elixir_cost ? (disc > 0 ? formatWithDiscount(level.dark_elixir_cost, disc, formatNumber) : formatNumber(level.dark_elixir_cost)) : '-'}</td>
+            <td class="time">${disc > 0 ? formatWithDiscount(level.upgrade_time, disc, formatTime) : formatTime(level.upgrade_time)}</td>
             <td>Lv.${level.lab_required}</td>
             <td>${level.dps || '-'}</td>
             <td>${formatNumber(level.hp)}</td>
@@ -634,6 +865,10 @@ function formatTime(seconds) {
     } else {
         return `${seconds}秒`;
     }
+}
+
+function getCostValue(level) {
+    return level.gold_cost || level.elixir_cost || level.dark_elixir_cost || 0;
 }
 
 function formatCost(level) {

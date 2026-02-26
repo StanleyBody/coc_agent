@@ -15,6 +15,131 @@
         <p class="page-subtitle animate-on-scroll animate-delay-2">查看建築、英雄與兵種的完整升級數據</p>
     </header>
 
+    <!-- 統計摘要 Dashboard -->
+    <div class="summary-dashboard animate-on-scroll" id="summaryDashboard">
+        <div class="summary-card">
+            <span class="summary-icon">💰</span>
+            <div class="summary-info">
+                <span class="summary-label">總升級費用</span>
+                <span class="summary-value" id="totalCost">-</span>
+            </div>
+        </div>
+        <div class="summary-card savings">
+            <span class="summary-icon">🟢</span>
+            <div class="summary-info">
+                <span class="summary-label">節省金額</span>
+                <span class="summary-value" id="totalSavings">-</span>
+                <span class="summary-badge" id="savingsBadge" style="display:none;">-0%</span>
+            </div>
+        </div>
+        <div class="summary-card">
+            <span class="summary-icon">⏱️</span>
+            <div class="summary-info">
+                <span class="summary-label">總升級時間</span>
+                <span class="summary-value" id="totalTime">-</span>
+            </div>
+        </div>
+        <div class="summary-card savings">
+            <span class="summary-icon">⚡</span>
+            <div class="summary-info">
+                <span class="summary-label">節省時間</span>
+                <span class="summary-value" id="timeSavings">-</span>
+                <span class="summary-badge" id="timeBadge" style="display:none;">-0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 減免設定面板 -->
+    <div class="discount-panel animate-on-scroll" id="discountPanel">
+        <div class="discount-header" id="discountToggle">
+            <div class="discount-header-left">
+                <span class="discount-header-icon">⚙️</span>
+                <span class="discount-header-title">我的減免設定</span>
+                <span class="discount-summary" id="discountSummary">未設定減免</span>
+            </div>
+            <span class="discount-chevron" id="discountChevron">▼</span>
+        </div>
+        <div class="discount-body" id="discountBody">
+            <div class="discount-sections">
+                <!-- 月卡設定 -->
+                <div class="discount-section">
+                    <h4 class="discount-section-title">🏅 月卡等級（Gold Pass）</h4>
+                    <div class="discount-options" id="goldPassOptions">
+                        <label class="discount-option active">
+                            <input type="radio" name="goldPass" value="0" checked>
+                            <span class="option-card">
+                                <span class="option-name">無</span>
+                                <span class="option-value">0%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="goldPass" value="10">
+                            <span class="option-card">
+                                <span class="option-name">白銀</span>
+                                <span class="option-value">-10%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="goldPass" value="15">
+                            <span class="option-card">
+                                <span class="option-name">黃金</span>
+                                <span class="option-value">-15%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="goldPass" value="20">
+                            <span class="option-card">
+                                <span class="option-name">鑽石</span>
+                                <span class="option-value">-20%</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <!-- 特殊工人設定 -->
+                <div class="discount-section">
+                    <h4 class="discount-section-title">👷 特殊工人等級</h4>
+                    <div class="discount-options" id="workerOptions">
+                        <label class="discount-option active">
+                            <input type="radio" name="worker" value="0" checked>
+                            <span class="option-card">
+                                <span class="option-name">無</span>
+                                <span class="option-value">0%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="worker" value="5">
+                            <span class="option-card">
+                                <span class="option-name">Lv.1</span>
+                                <span class="option-value">-5%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="worker" value="10">
+                            <span class="option-card">
+                                <span class="option-name">Lv.2</span>
+                                <span class="option-value">-10%</span>
+                            </span>
+                        </label>
+                        <label class="discount-option">
+                            <input type="radio" name="worker" value="15">
+                            <span class="option-card">
+                                <span class="option-name">Lv.3</span>
+                                <span class="option-value">-15%</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="discount-footer">
+                <div class="discount-total">
+                    <span>總減免：</span>
+                    <span class="discount-total-value" id="totalDiscount">0%</span>
+                </div>
+                <button class="discount-reset-btn" id="discountReset">🔄 重置</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 分頁標籤 -->
     <div class="tabs-container">
         <div class="tabs">
