@@ -1,0 +1,335 @@
+/*
+ * ============================================
+ * 活動公告頁面樣式
+ * Events Page Styles
+ * ============================================
+ */
+
+/* NOTE: base.css and home_styles.css are loaded via base.html */
+
+.page-header {
+    text-align: center;
+    padding: 120px 20px 40px;
+}
+
+.page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 16px 0 12px;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.sub-section-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+}
+
+/* ===== 進行中活動 ===== */
+.events-active-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+.active-events-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.active-event-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: var(--gradient-card);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.active-event-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--accent-green);
+}
+
+.active-event-card:hover {
+    transform: translateX(8px);
+    border-color: var(--accent-green);
+    box-shadow: var(--shadow-md);
+}
+
+.active-event-status {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--radius-xl);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.active-event-status.live {
+    background: rgba(39, 174, 96, 0.2);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    animation: pulse-live 2s infinite;
+}
+
+@keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.active-event-icon {
+    font-size: 40px;
+    flex-shrink: 0;
+}
+
+.active-event-info {
+    flex: 1;
+}
+
+.active-event-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.active-event-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.active-event-timer {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.timer-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.timer-value {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-gold);
+}
+
+/* ===== 活動倒數 ===== */
+.events-countdown-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.countdown-card {
+    background: var(--gradient-card);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    text-align: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform var(--transition-normal);
+}
+
+.countdown-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-gold);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.countdown-card:hover::before {
+    transform: scaleX(1);
+}
+
+.countdown-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.countdown-card h4 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.countdown-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.time-unit {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 8px;
+    border-radius: var(--radius-sm);
+    min-width: 48px;
+    border: 1px solid var(--border-color);
+}
+
+.time-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-gold);
+}
+
+.time-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* ===== 活動月曆 ===== */
+.events-calendar-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+}
+
+.calendar-timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.calendar-timeline::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: var(--gradient-card);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 28px;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-gold);
+    border-radius: 50%;
+    border: 3px solid var(--bg-primary);
+}
+
+.timeline-item:hover {
+    transform: translateX(8px);
+    border-color: var(--primary-gold);
+    box-shadow: var(--shadow-md);
+}
+
+.timeline-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.timeline-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.timeline-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.timeline-content strong {
+    display: block;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.timeline-content p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ===== 響應式 ===== */
+@media (max-width: 768px) {
+    .active-event-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .active-event-timer {
+        text-align: center;
+    }
+
+    .countdown-grid {
+        grid-template-columns: 1fr;
+    }
+}

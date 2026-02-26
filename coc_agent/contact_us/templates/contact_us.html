@@ -1,115 +1,72 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="聯繫 Clash of Clans 社區團隊 - 我們隨時為您提供協助">
-    <title>聯繫我們 | Clash of Clans 社區</title>
-    <link rel="stylesheet" href="{% static 'css/contact_us.css' %}">
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-</head>
-<body data-theme="dark">
-    <div class="contact-container">
-        <!-- 返回首頁連結 -->
-        <a href="{% url 'index' %}" class="back-link">
-            ← 返回首頁
-        </a>
-        
-        <h1>📬 聯繫我們</h1>
+
+{% block title %}聯繫我們 | Clash of Clans 社區{% endblock %}
+{% block meta_description %}Clash of Clans 社區 - 聯繫我們，分享你的建議和反饋{% endblock %}
+{% block nav_contact %}active{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/contact_us.css' %}">{% endblock %}
+
+{% block content %}
+<main class="contact-page">
+    <div class="contact-container animate-on-scroll">
+        <h2 class="contact-title">聯繫我們</h2>
         <p class="subtitle">有任何問題、建議或反饋？我們很樂意聽取您的意見！</p>
         
-        <!-- 聯繫表單 -->
-        <form class="contact-form" id="contactForm" action="/submit_form" method="post">
+        <form class="contact-form" id="contactForm" action="{% url 'contact_us' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="name">您的姓名</label>
-                <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required>
+                <input type="text" id="name" name="name" placeholder="請輸入姓名" required>
             </div>
-            
             <div class="form-group">
                 <label for="email">電子郵件</label>
-                <input type="email" id="email" name="email" placeholder="請輸入您的電子郵件" required>
+                <input type="email" id="email" name="email" placeholder="請輸入電子郵件" required>
             </div>
-            
             <div class="form-group">
                 <label for="subject">主題</label>
-                <input type="text" id="subject" name="subject" placeholder="請輸入訊息主題" required>
+                <input type="text" id="subject" name="subject" placeholder="請輸入主題" required>
             </div>
-            
             <div class="form-group">
                 <label for="message">訊息內容</label>
-                <textarea id="message" name="message" placeholder="請詳細描述您的問題或建議..." required></textarea>
+                <textarea id="message" name="message" placeholder="請輸入您的訊息..." rows="6" required></textarea>
             </div>
-            
-            <button type="submit" class="submit-btn">發送訊息</button>
+            <button type="submit" class="submit-btn">📧 發送訊息</button>
         </form>
         
-        <!-- 成功訊息 -->
-        <div class="success-message" id="successMessage">
-            ✅ 感謝您的來信！我們會盡快回覆您。
+        <div class="success-message" id="successMsg">
+            ✅ 訊息已成功發送！我們會盡快回覆您。
         </div>
-        
-        <!-- 其他聯繫方式 -->
+
         <div class="contact-info">
             <h3>其他聯繫方式</h3>
             <div class="contact-methods">
-                <a href="mailto:contact@cocagent.com" class="contact-method">
+                <a href="mailto:support@cocagent.com" class="contact-method">
                     <span class="icon">📧</span>
-                    <span>contact@cocagent.com</span>
+                    <span>support@cocagent.com</span>
                 </a>
                 <a href="#" class="contact-method">
                     <span class="icon">💬</span>
-                    <span>Discord 社群</span>
+                    <span>Discord</span>
+                </a>
+                <a href="#" class="contact-method">
+                    <span class="icon">📘</span>
+                    <span>Facebook</span>
                 </a>
             </div>
         </div>
     </div>
-    
-    <!-- 主題切換按鈕 -->
-    <button class="theme-toggle" id="themeToggle" aria-label="切換深淺色主題">
-        <span class="moon-icon">🌙</span>
-        <span class="sun-icon">☀️</span>
-    </button>
+</main>
+{% endblock %}
 
-    <script>
-        // 主題切換功能
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-            
-            // 檢查本地儲存的主題設定
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme) {
-                body.setAttribute('data-theme', savedTheme);
-            } else if (!prefersDark) {
-                body.setAttribute('data-theme', 'light');
-            }
-            
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    const currentTheme = body.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    body.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('theme', newTheme);
-                });
-            }
-            
-            // 表單提交處理 (示範用)
-            const form = document.getElementById('contactForm');
-            const successMessage = document.getElementById('successMessage');
-            
-            form.addEventListener('submit', (e) => {
-                // 如果需要防止默認提交行為，請取消註釋下一行
-                // e.preventDefault();
-                
-                // 顯示成功訊息 (實際應用中應該在後端處理後顯示)
-                // successMessage.classList.add('show');
-                // form.reset();
-            });
-        });
-    </script>
-</body>
-</html>
+{% block extra_js %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('successMsg').classList.add('show');
+    this.reset();
+    setTimeout(() => {
+        document.getElementById('successMsg').classList.remove('show');
+    }, 5000);
+});
+</script>
+{% endblock %}

@@ -11,9 +11,6 @@ let currentTab = 'buildings';
 let refreshInterval = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 初始化主題
-    initTheme();
-    
     // 初始化分頁
     initTabs();
     
@@ -22,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 初始化彈窗
     initModal();
-    
-    // 初始化返回頂部
-    initBackToTop();
     
     // 載入資料
     loadData();

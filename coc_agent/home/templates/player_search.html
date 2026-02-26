@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}玩家查詢 | Clash of Clans 社區{% endblock %}
+{% block meta_description %}Clash of Clans 玩家查詢 - 搜尋玩家資料、查看排行榜{% endblock %}
+{% block nav_player %}active{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/player_search.css' %}">{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <header class="page-header">
+        <span class="section-tag animate-on-scroll">🔍 玩家查詢</span>
+        <h2 class="page-title animate-on-scroll animate-delay-1">搜尋玩家</h2>
+        <p class="page-subtitle animate-on-scroll animate-delay-2">輸入玩家標籤或名稱，查看詳細資料</p>
+    </header>
+
+    <!-- 搜尋區 -->
+    <div class="player-search-box animate-on-scroll">
+        <div class="search-wrapper">
+            <input type="text" id="playerTag" placeholder="輸入玩家標籤，例如 #2YPJ8VCRL" class="player-search-input">
+            <button class="search-btn" id="searchBtn">🔍 查詢</button>
+        </div>
+    </div>
+
+    <!-- 搜尋結果（初始隱藏） -->
+    <div class="player-result" id="playerResult" style="display:none;">
+        <div class="player-profile-card animate-on-scroll">
+            <div class="profile-header">
+                <div class="profile-th">
+                    <span class="th-badge" id="resultTH">16</span>
+                    <span class="th-label">Town Hall</span>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name" id="resultName">StarDestroyer</h3>
+                    <span class="profile-tag" id="resultTag">#2YPJ8VCRL</span>
+                    <span class="profile-clan">🏰 <span id="resultClan">勇者部落</span></span>
+                </div>
+                <div class="profile-trophies">
+                    <span class="trophy-count" id="resultTrophies">6847</span>
+                    <span class="trophy-label">🏆 獎杯</span>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <span class="stat-icon">⚔️</span>
+                    <span class="stat-value">2,847</span>
+                    <span class="stat-label">捐贈</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-icon">🛡️</span>
+                    <span class="stat-value">1,923</span>
+                    <span class="stat-label">接收</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-value">4,521</span>
+                    <span class="stat-label">戰星</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-icon">🏅</span>
+                    <span class="stat-value">Champion I</span>
+                    <span class="stat-label">聯賽</span>
+                </div>
+            </div>
+            <div class="profile-heroes">
+                <h4>英雄等級</h4>
+                <div class="heroes-grid">
+                    <div class="hero-badge"><span class="hero-icon">👑</span><span>Lv.90</span></div>
+                    <div class="hero-badge"><span class="hero-icon">👸</span><span>Lv.90</span></div>
+                    <div class="hero-badge"><span class="hero-icon">🧙</span><span>Lv.65</span></div>
+                    <div class="hero-badge"><span class="hero-icon">⚔️</span><span>Lv.40</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 排行榜 -->
+    <section class="leaderboard-section">
+        <div class="section-header">
+            <span class="section-tag animate-on-scroll">🏆 排行榜</span>
+            <h2 class="section-title animate-on-scroll animate-delay-1">頂尖玩家</h2>
+        </div>
+
+        <div class="leaderboard animate-on-scroll">
+            <div class="leaderboard-header">
+                <span class="lb-col-rank">排名</span>
+                <span class="lb-col-name">玩家</span>
+                <span class="lb-col-th">TH</span>
+                <span class="lb-col-clan">部落</span>
+                <span class="lb-col-trophies">獎杯</span>
+            </div>
+            {% for player in top_players %}
+            <div class="leaderboard-row">
+                <span class="lb-col-rank">
+                    <span class="rank-badge rank-{{ player.rank }}">{{ player.rank }}</span>
+                </span>
+                <span class="lb-col-name">
+                    <strong>{{ player.name }}</strong>
+                    <small>{{ player.tag }}</small>
+                </span>
+                <span class="lb-col-th"><span class="th-mini">{{ player.th_level }}</span></span>
+                <span class="lb-col-clan">{{ player.clan }}</span>
+                <span class="lb-col-trophies">🏆 {{ player.trophies }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBtn = document.getElementById('searchBtn');
+    const playerTag = document.getElementById('playerTag');
+    const result = document.getElementById('playerResult');
+
+    searchBtn.addEventListener('click', () => {
+        const tag = playerTag.value.trim();
+        if (tag) {
+            // 模擬搜尋結果顯示
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+
+    playerTag.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') searchBtn.click();
+    });
+});
+</script>
+{% endblock %}

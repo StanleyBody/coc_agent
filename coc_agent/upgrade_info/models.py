@@ -1,5 +1,22 @@
 from django.db import models
 
+
+def format_time_display(seconds):
+    """將秒數轉換為可讀格式（共用工具函式）"""
+    if seconds < 60:
+        return f"{seconds}秒"
+    elif seconds < 3600:
+        mins = seconds // 60
+        return f"{mins}分"
+    elif seconds < 86400:
+        hours = seconds // 3600
+        mins = (seconds % 3600) // 60
+        return f"{hours}時{mins}分" if mins else f"{hours}時"
+    else:
+        days = seconds // 86400
+        hours = (seconds % 86400) // 3600
+        return f"{days}天{hours}時" if hours else f"{days}天"
+
 # ===== 建築類別 =====
 class BuildingCategory(models.Model):
     """建築類別：防禦、資源、軍事等"""
@@ -68,19 +85,7 @@ class BuildingLevel(models.Model):
     
     def get_time_display(self):
         """將秒數轉換為可讀格式"""
-        seconds = self.build_time
-        if seconds < 60:
-            return f"{seconds}秒"
-        elif seconds < 3600:
-            return f"{seconds // 60}分"
-        elif seconds < 86400:
-            hours = seconds // 3600
-            mins = (seconds % 3600) // 60
-            return f"{hours}時{mins}分" if mins else f"{hours}時"
-        else:
-            days = seconds // 86400
-            hours = (seconds % 86400) // 3600
-            return f"{days}天{hours}時" if hours else f"{days}天"
+        return format_time_display(self.build_time)
 
 
 # ===== 英雄 =====
@@ -132,16 +137,7 @@ class HeroLevel(models.Model):
         return f"{self.hero.name} Lv.{self.level}"
     
     def get_time_display(self):
-        seconds = self.upgrade_time
-        if seconds < 3600:
-            return f"{seconds // 60}分"
-        elif seconds < 86400:
-            hours = seconds // 3600
-            return f"{hours}時"
-        else:
-            days = seconds // 86400
-            hours = (seconds % 86400) // 3600
-            return f"{days}天{hours}時" if hours else f"{days}天"
+        return format_time_display(self.upgrade_time)
 
 
 # ===== 兵種類別 =====
@@ -212,13 +208,4 @@ class TroopLevel(models.Model):
         return f"{self.troop.name} Lv.{self.level}"
     
     def get_time_display(self):
-        seconds = self.upgrade_time
-        if seconds < 3600:
-            return f"{seconds // 60}分"
-        elif seconds < 86400:
-            hours = seconds // 3600
-            return f"{hours}時"
-        else:
-            days = seconds // 86400
-            hours = (seconds % 86400) // 3600
-            return f"{days}天{hours}時" if hours else f"{days}天"
+        return format_time_display(self.upgrade_time)

@@ -1,150 +1,121 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Clash of Clans 升級資訊 - 查看所有建築、英雄、兵種的升級材料與時間">
-    <title>升級資訊 | Clash of Clans 社區</title>
-    <link rel="stylesheet" href="{% static 'css/upgrade_info.css' %}">
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-</head>
-<body data-theme="dark">
-    <!-- 導航列 -->
-    <nav class="navbar" id="navbar">
-        <a href="{% url 'index' %}" class="navbar-brand">
-            <h1>⚔️ Clash of Clans 社區</h1>
-        </a>
-        <div class="navbar-actions">
-            <a href="{% url 'index' %}" class="back-btn">← 返回首頁</a>
+
+{% block title %}升級資訊 | Clash of Clans 社區{% endblock %}
+{% block meta_description %}Clash of Clans 升級資訊 - 建築、英雄、兵種升級資料{% endblock %}
+{% block nav_upgrade %}active{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/upgrade_info.css' %}">{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <!-- 頁面標題 -->
+    <header class="page-header">
+        <span class="section-tag animate-on-scroll">📊 升級資料</span>
+        <h2 class="page-title animate-on-scroll animate-delay-1">升級資訊</h2>
+        <p class="page-subtitle animate-on-scroll animate-delay-2">查看建築、英雄與兵種的完整升級數據</p>
+    </header>
+
+    <!-- 分頁標籤 -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab active" data-tab="buildings">🏠 建築</button>
+            <button class="tab" data-tab="heroes">👑 英雄</button>
+            <button class="tab" data-tab="troops">⚔️ 兵種</button>
         </div>
-    </nav>
+    </div>
 
-    <!-- 主要內容 -->
-    <main class="main-content">
-        <!-- 頁面標題 -->
-        <header class="page-header">
-            <h1 class="page-title">📊 升級資訊</h1>
-            <p class="page-subtitle">查看所有建築、英雄、兵種的升級材料與時間</p>
-        </header>
+    <!-- 篩選器 -->
+    <div class="filters-container">
+        <div class="filters">
+            <div class="filter-group">
+                <label>大本營等級</label>
+                <select id="thFilter">
+                    <option value="">全部等級</option>
+                    <option value="16">TH 16</option>
+                    <option value="15">TH 15</option>
+                    <option value="14">TH 14</option>
+                    <option value="13">TH 13</option>
+                    <option value="12">TH 12</option>
+                    <option value="11">TH 11</option>
+                    <option value="10">TH 10</option>
+                </select>
+            </div>
+            
+            <div class="filter-group" id="categoryFilter">
+                <label>建築類別</label>
+                <select id="categorySelect">
+                    <option value="">全部類別</option>
+                </select>
+            </div>
 
-        <!-- 分頁標籤 -->
-        <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab active" data-tab="buildings">🏗️ 建築</button>
-                <button class="tab" data-tab="heroes">👑 英雄</button>
-                <button class="tab" data-tab="troops">⚔️ 兵種</button>
+            <div class="filter-group" id="troopTypeFilter" style="display:none;">
+                <label>兵種類別</label>
+                <select id="troopTypeSelect">
+                    <option value="">全部類別</option>
+                </select>
+            </div>
+
+            <div class="filter-group search-group">
+                <label>搜尋</label>
+                <input type="text" id="searchInput" placeholder="搜尋名稱...">
             </div>
         </div>
+    </div>
 
-        <!-- 篩選器 -->
-        <div class="filters-container">
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="thFilter">大本營等級</label>
-                    <select id="thFilter">
-                        <option value="">全部等級</option>
-                        {% for th in th_levels %}
-                        <option value="{{ th }}">TH {{ th }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
-                <div class="filter-group" id="categoryFilter" style="display: block;">
-                    <label for="categorySelect">建築類別</label>
-                    <select id="categorySelect">
-                        <option value="">全部類別</option>
-                        {% for cat in building_categories %}
-                        <option value="{{ cat.id }}">{{ cat.icon }} {{ cat.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
-                <div class="filter-group" id="troopTypeFilter" style="display: none;">
-                    <label for="troopTypeSelect">兵種類別</label>
-                    <select id="troopTypeSelect">
-                        <option value="">全部類別</option>
-                        {% for type in troop_types %}
-                        <option value="{{ type.id }}">{{ type.icon }} {{ type.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
-                <div class="filter-group search-group">
-                    <label for="searchInput">搜尋</label>
-                    <input type="text" id="searchInput" placeholder="輸入名稱搜尋...">
+    <!-- 內容區域 -->
+    <div class="content-container">
+        <div class="tab-content active" id="buildings-content">
+            <div class="items-grid" id="buildings-grid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>載入建築資料中...</p>
                 </div>
             </div>
         </div>
-
-        <!-- 內容區域 -->
-        <div class="content-container">
-            <!-- 建築內容 -->
-            <div class="tab-content active" id="buildings-content">
-                <div class="items-grid" id="buildings-grid">
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        <p>載入中...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 英雄內容 -->
-            <div class="tab-content" id="heroes-content">
-                <div class="items-grid" id="heroes-grid">
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        <p>載入中...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 兵種內容 -->
-            <div class="tab-content" id="troops-content">
-                <div class="items-grid" id="troops-grid">
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        <p>載入中...</p>
-                    </div>
+        <div class="tab-content" id="heroes-content">
+            <div class="items-grid" id="heroes-grid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>載入英雄資料中...</p>
                 </div>
             </div>
         </div>
-
-        <!-- 級別詳情彈窗 -->
-        <div class="modal-overlay" id="levelModal">
-            <div class="modal">
-                <button class="modal-close" id="modalClose">×</button>
-                <div class="modal-header">
-                    <div class="modal-icon" id="modalIcon"></div>
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                </div>
-                <div class="modal-body">
-                    <div class="level-table-container">
-                        <table class="level-table" id="levelTable">
-                            <thead>
-                                <tr id="tableHeader"></tr>
-                            </thead>
-                            <tbody id="tableBody"></tbody>
-                        </table>
-                    </div>
+        <div class="tab-content" id="troops-content">
+            <div class="items-grid" id="troops-grid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>載入兵種資料中...</p>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <!-- 主題切換按鈕 -->
-    <button class="theme-toggle" id="themeToggle" aria-label="切換深淺色主題">
-        <span class="icon moon-icon">🌙</span>
-        <span class="icon sun-icon">☀️</span>
-    </button>
+<!-- 等級詳情彈窗 -->
+<div class="modal-overlay" id="levelModal">
+    <div class="modal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-header">
+            <div class="modal-icon" id="modalIcon">🏠</div>
+            <h3 class="modal-title" id="modalTitle">建築名稱</h3>
+        </div>
+        <div class="modal-body">
+            <div class="level-table-container">
+                <table class="level-table">
+                    <thead>
+                        <tr id="tableHeader"></tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
-    <!-- 返回頂部按鈕 -->
-    <button class="back-to-top" id="backToTop" aria-label="返回頂部">↑</button>
-
-    <!-- 載入靜態資料 -->
-    <script>
-        const UPGRADE_DATA_URL = "{% static 'data/upgrade_data.json' %}";
-    </script>
-    <script src="{% static 'js/upgrade_info.js' %}"></script>
-</body>
-</html>
+{% block extra_js %}
+<script>
+    const UPGRADE_DATA_URL = "{% static 'data/upgrade_data.json' %}";
+</script>
+<script src="{% static 'js/upgrade_info.js' %}"></script>
+{% endblock %}

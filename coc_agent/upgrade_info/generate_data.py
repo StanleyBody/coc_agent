@@ -3,7 +3,7 @@ import json
 import os
 
 # Output directory
-OUTPUT_DIR = r"d:\Programming\ClashOfClans\coc_agent\coc_agent\upgrade_info\static\data"
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "static", "data")
 
 # Categories data (shared)
 categories = {

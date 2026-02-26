@@ -1,154 +1,15 @@
 /*
  * ============================================
  * Clash of Clans 社區 - 升級資訊頁面樣式
- * Upgrade Info Page Styles
+ * Upgrade Info Page Styles (imports base.css)
  * ============================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
-
-@font-face {
-    font-family: 'Clash_Regular';
-    src: url('/static/fonts/Clash_Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* ===== CSS 變數 ===== */
-:root {
-    --primary-gold: #F5A623;
-    --primary-gold-light: #FFD93D;
-    --primary-gold-dark: #C4841D;
-    --accent-blue: #4a90d9;
-    --accent-purple: #9b59b6;
-    --accent-green: #27ae60;
-    --accent-red: #e74c3c;
-    
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-tertiary: #0f0f23;
-    --bg-card: rgba(255, 255, 255, 0.05);
-    --bg-card-hover: rgba(255, 255, 255, 0.1);
-    
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --text-muted: rgba(255, 255, 255, 0.5);
-    
-    --border-color: rgba(255, 255, 255, 0.1);
-    --border-color-strong: rgba(255, 255, 255, 0.2);
-    
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px rgba(245, 166, 35, 0.3);
-    
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-blur: blur(20px);
-    
-    --font-display: 'Clash_Regular', 'Poppins', sans-serif;
-    --font-body: 'Inter', 'Poppins', sans-serif;
-    
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="light"] {
-    --bg-primary: #f5f5f7;
-    --bg-secondary: #ffffff;
-    --bg-tertiary: #e8e8ed;
-    --bg-card: rgba(0, 0, 0, 0.03);
-    --bg-card-hover: rgba(0, 0, 0, 0.06);
-    
-    --text-primary: #1a1a2e;
-    --text-secondary: rgba(0, 0, 0, 0.6);
-    --text-muted: rgba(0, 0, 0, 0.4);
-    
-    --border-color: rgba(0, 0, 0, 0.1);
-    --border-color-strong: rgba(0, 0, 0, 0.15);
-    
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
-    --shadow-glow: 0 0 20px rgba(245, 166, 35, 0.2);
-    
-    --glass-bg: rgba(255, 255, 255, 0.7);
-}
-
-/* ===== 全局重設 ===== */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    transition: background-color var(--transition-normal), color var(--transition-normal);
-    min-height: 100vh;
-}
-
-/* ===== 導航列 ===== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    z-index: 100;
-}
-
-.navbar-brand {
-    text-decoration: none;
-}
-
-.navbar-brand h1 {
-    font-family: var(--font-display);
-    font-size: 20px;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.back-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    transition: all var(--transition-normal);
-}
-
-.back-btn:hover {
-    color: var(--primary-gold);
-    border-color: var(--primary-gold);
-    transform: translateX(-5px);
-}
+/* NOTE: base.css and home_styles.css are loaded via base.html */
 
 /* ===== 主內容 ===== */
 .main-content {
-    padding-top: 90px;
+    padding-top: 120px;
     padding-bottom: 60px;
     max-width: 1400px;
     margin: 0 auto;
@@ -165,7 +26,7 @@ body {
 .page-title {
     font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 3rem);
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -214,7 +75,7 @@ body {
 
 .tab.active {
     color: var(--bg-primary);
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
+    background: var(--gradient-primary);
     box-shadow: var(--shadow-sm);
 }
 
@@ -274,7 +135,7 @@ body {
     min-width: 250px;
 }
 
-/* ===== 內容網格 ===== */
+/* ===== 內容 ===== */
 .content-container {
     min-height: 400px;
 }
@@ -319,7 +180,7 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
+    background: var(--gradient-primary);
     transform: scaleX(0);
     transition: transform var(--transition-normal);
 }
@@ -570,203 +431,36 @@ body {
     background: var(--bg-card-hover);
 }
 
-.level-table .level-num {
-    font-weight: 700;
-    color: var(--primary-gold);
-    font-size: 16px;
-}
+.level-table .level-num { font-weight: 700; color: var(--primary-gold); font-size: 16px; }
+.level-table .cost-gold { color: #FFD700; }
+.level-table .cost-elixir { color: #E066FF; }
+.level-table .cost-dark { color: #8B5CF6; }
+.level-table .time { color: var(--accent-blue); }
 
-.level-table .cost-gold {
-    color: #FFD700;
-}
-
-.level-table .cost-elixir {
-    color: #E066FF;
-}
-
-.level-table .cost-dark {
-    color: #8B5CF6;
-}
-
-.level-table .time {
-    color: var(--accent-blue);
-}
-
-/* ===== 主題切換按鈕 ===== */
-.theme-toggle {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: none;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
-    color: var(--bg-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    z-index: 150;
-    transition: transform var(--transition-normal);
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
-}
-
-.theme-toggle .icon {
-    transition: all var(--transition-normal);
-}
-
-.theme-toggle .sun-icon {
-    position: absolute;
-    opacity: 0;
-    transform: rotate(-90deg) scale(0);
-}
-
-.theme-toggle .moon-icon {
-    opacity: 1;
-}
-
-[data-theme="light"] .theme-toggle .sun-icon {
-    opacity: 1;
-    transform: rotate(0) scale(1);
-}
-
-[data-theme="light"] .theme-toggle .moon-icon {
-    opacity: 0;
-    transform: rotate(90deg) scale(0);
-}
-
-/* ===== 返回頂部按鈕 ===== */
-.back-to-top {
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all var(--transition-normal);
-    z-index: 150;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.back-to-top:hover {
-    background: var(--primary-gold);
-    color: var(--bg-primary);
-    transform: translateY(-5px);
-}
-
-/* ===== 響應式設計 ===== */
+/* ===== 響應式 ===== */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 0 16px;
-    }
-    
-    .navbar-brand h1 {
-        font-size: 16px;
-    }
-    
     .main-content {
         padding-top: 80px;
         padding-left: 16px;
         padding-right: 16px;
     }
-    
-    .tabs {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .tab {
-        padding: 10px 16px;
-        font-size: 14px;
-    }
-    
+
+    .tabs { flex-wrap: wrap; justify-content: center; }
+    .tab { padding: 10px 16px; font-size: 14px; }
+
     .filters {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .filter-group select,
     .filter-group input,
     .search-group input {
         min-width: 100%;
     }
-    
-    .items-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal {
-        max-height: 90vh;
-    }
-    
-    .modal-header {
-        padding: 16px;
-    }
-    
-    .modal-body {
-        padding: 16px;
-    }
-    
-    .theme-toggle {
-        bottom: 20px;
-        right: 20px;
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
-    }
-    
-    .back-to-top {
-        bottom: 80px;
-        right: 20px;
-        width: 42px;
-        height: 42px;
-    }
-}
 
-/* ===== 選取樣式 ===== */
-::selection {
-    background: var(--primary-gold);
-    color: var(--bg-primary);
-}
-
-/* ===== 捲動條樣式 ===== */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-tertiary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-gold);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-gold-light);
+    .items-grid { grid-template-columns: 1fr; }
+    .modal { max-height: 90vh; }
+    .modal-header { padding: 16px; }
+    .modal-body { padding: 16px; }
 }

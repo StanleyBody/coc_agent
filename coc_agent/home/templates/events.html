@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}活動公告 | Clash of Clans 社區{% endblock %}
+{% block meta_description %}Clash of Clans 活動公告 - 遊戲活動倒數、時間表、歷史記錄{% endblock %}
+{% block nav_events %}active{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/events.css' %}">{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <header class="page-header">
+        <span class="section-tag animate-on-scroll">📅 活動中心</span>
+        <h2 class="page-title animate-on-scroll animate-delay-1">活動公告</h2>
+        <p class="page-subtitle animate-on-scroll animate-delay-2">追蹤所有遊戲活動，不錯過任何獎勵機會</p>
+    </header>
+
+    <!-- 進行中活動 -->
+    <section class="events-active-section">
+        <h3 class="sub-section-title animate-on-scroll">🔴 進行中</h3>
+        <div class="active-events-grid">
+            <div class="active-event-card animate-on-scroll">
+                <div class="active-event-status live">LIVE</div>
+                <div class="active-event-icon">🎃</div>
+                <div class="active-event-info">
+                    <h4>萬聖節限時活動</h4>
+                    <p>收集南瓜幣兌換限定造型和魔法物品！</p>
+                </div>
+                <div class="active-event-timer">
+                    <span class="timer-label">剩餘時間</span>
+                    <span class="timer-value" id="specialTimer">2天 14時 32分</span>
+                </div>
+            </div>
+            <div class="active-event-card animate-on-scroll animate-delay-1">
+                <div class="active-event-status live">LIVE</div>
+                <div class="active-event-icon">⚡</div>
+                <div class="active-event-info">
+                    <h4>訓練費用減半</h4>
+                    <p>所有兵種訓練費用減少 50%，把握機會大量練兵！</p>
+                </div>
+                <div class="active-event-timer">
+                    <span class="timer-label">剩餘時間</span>
+                    <span class="timer-value">1天 8時 15分</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活動倒數 -->
+    <section class="events-countdown-section">
+        <h3 class="sub-section-title animate-on-scroll">⏰ 即將到來</h3>
+        <div class="countdown-grid">
+            <div class="countdown-card animate-on-scroll" id="ev_clan_games">
+                <div class="countdown-icon">🏆</div>
+                <h4>部落競賽</h4>
+                <p class="countdown-desc">每月 22 日 16:00 開始</p>
+                <div class="countdown-timer" data-event="clan_games">
+                    <div class="time-unit"><span class="time-num" id="cg_days">--</span><span class="time-label">天</span></div>
+                    <div class="time-unit"><span class="time-num" id="cg_hours">--</span><span class="time-label">時</span></div>
+                    <div class="time-unit"><span class="time-num" id="cg_min">--</span><span class="time-label">分</span></div>
+                    <div class="time-unit"><span class="time-num" id="cg_sec">--</span><span class="time-label">秒</span></div>
+                </div>
+            </div>
+            <div class="countdown-card animate-on-scroll animate-delay-1" id="ev_cwl">
+                <div class="countdown-icon">⚔️</div>
+                <h4>部落聯賽</h4>
+                <p class="countdown-desc">每月 1 日 16:00 開始</p>
+                <div class="countdown-timer" data-event="cwl">
+                    <div class="time-unit"><span class="time-num" id="cwl_days">--</span><span class="time-label">天</span></div>
+                    <div class="time-unit"><span class="time-num" id="cwl_hours">--</span><span class="time-label">時</span></div>
+                    <div class="time-unit"><span class="time-num" id="cwl_min">--</span><span class="time-label">分</span></div>
+                    <div class="time-unit"><span class="time-num" id="cwl_sec">--</span><span class="time-label">秒</span></div>
+                </div>
+            </div>
+            <div class="countdown-card animate-on-scroll animate-delay-2" id="ev_raid">
+                <div class="countdown-icon">🏰</div>
+                <h4>突襲周末</h4>
+                <p class="countdown-desc">每周五 15:00 開始</p>
+                <div class="countdown-timer" data-event="raid">
+                    <div class="time-unit"><span class="time-num" id="raid_days">--</span><span class="time-label">天</span></div>
+                    <div class="time-unit"><span class="time-num" id="raid_hours">--</span><span class="time-label">時</span></div>
+                    <div class="time-unit"><span class="time-num" id="raid_min">--</span><span class="time-label">分</span></div>
+                    <div class="time-unit"><span class="time-num" id="raid_sec">--</span><span class="time-label">秒</span></div>
+                </div>
+            </div>
+            <div class="countdown-card animate-on-scroll animate-delay-3" id="ev_trader">
+                <div class="countdown-icon">🛒</div>
+                <h4>商店重置</h4>
+                <p class="countdown-desc">每周二 16:00 更新</p>
+                <div class="countdown-timer" data-event="trader">
+                    <div class="time-unit"><span class="time-num" id="tr_days">--</span><span class="time-label">天</span></div>
+                    <div class="time-unit"><span class="time-num" id="tr_hours">--</span><span class="time-label">時</span></div>
+                    <div class="time-unit"><span class="time-num" id="tr_min">--</span><span class="time-label">分</span></div>
+                    <div class="time-unit"><span class="time-num" id="tr_sec">--</span><span class="time-label">秒</span></div>
+                </div>
+            </div>
+            <div class="countdown-card animate-on-scroll animate-delay-4" id="ev_season">
+                <div class="countdown-icon">📅</div>
+                <h4>賽季結束</h4>
+                <p class="countdown-desc">每月最後一週週一 13:00</p>
+                <div class="countdown-timer" data-event="season">
+                    <div class="time-unit"><span class="time-num" id="se_days">--</span><span class="time-label">天</span></div>
+                    <div class="time-unit"><span class="time-num" id="se_hours">--</span><span class="time-label">時</span></div>
+                    <div class="time-unit"><span class="time-num" id="se_min">--</span><span class="time-label">分</span></div>
+                    <div class="time-unit"><span class="time-num" id="se_sec">--</span><span class="time-label">秒</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活動月曆 -->
+    <section class="events-calendar-section">
+        <h3 class="sub-section-title animate-on-scroll">📋 活動月曆</h3>
+        <div class="calendar-timeline animate-on-scroll">
+            <div class="timeline-item">
+                <div class="timeline-date">每月 1 日</div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">⚔️</span>
+                    <div><strong>部落聯賽</strong><p>開始報名與分組</p></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">每周二</div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">🛒</span>
+                    <div><strong>商店重置</strong><p>商人帶來新物品</p></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">每周五</div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">🏰</span>
+                    <div><strong>突襲周末</strong><p>部落首都突襲開始</p></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">每月 22 日</div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">🏆</span>
+                    <div><strong>部落競賽</strong><p>完成任務獲得獎勵</p></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">每月底</div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">📅</span>
+                    <div><strong>賽季結束</strong><p>重置賽季獎勵</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    function getNextClanGames() {
+        const now = new Date();
+        const d = new Date(now.getFullYear(), now.getMonth(), 22, 16, 0, 0);
+        if (now > d) d.setMonth(d.getMonth() + 1);
+        return d;
+    }
+    function getNextCWL() {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth() + 1, 1, 16, 0, 0);
+    }
+    function getNextRaid() {
+        const now = new Date();
+        const d = new Date(now);
+        let diff = (5 - d.getDay() + 7) % 7;
+        if (diff === 0 && now.getHours() >= 15) diff = 7;
+        d.setDate(d.getDate() + diff);
+        d.setHours(15, 0, 0, 0);
+        return d;
+    }
+    function getNextTrader() {
+        const now = new Date();
+        const d = new Date(now);
+        let diff = (2 - d.getDay() + 7) % 7;
+        if (diff === 0 && now.getHours() >= 16) diff = 7;
+        d.setDate(d.getDate() + diff);
+        d.setHours(16, 0, 0, 0);
+        return d;
+    }
+    function getNextSeason() {
+        const now = new Date();
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0, 13, 0, 0);
+        const dow = lastDay.getDay();
+        lastDay.setDate(lastDay.getDate() - (dow === 0 ? 6 : dow - 1));
+        if (now > lastDay) {
+            const next = new Date(now.getFullYear(), now.getMonth() + 2, 0, 13, 0, 0);
+            const nd = next.getDay();
+            next.setDate(next.getDate() - (nd === 0 ? 6 : nd - 1));
+            return next;
+        }
+        return lastDay;
+    }
+
+    function updateCountdown(prefix, target) {
+        const now = new Date();
+        const diff = target - now;
+        if (diff <= 0) return;
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById(prefix + '_days').textContent = String(d).padStart(2,'0');
+        document.getElementById(prefix + '_hours').textContent = String(h).padStart(2,'0');
+        document.getElementById(prefix + '_min').textContent = String(m).padStart(2,'0');
+        document.getElementById(prefix + '_sec').textContent = String(s).padStart(2,'0');
+    }
+
+    function tick() {
+        updateCountdown('cg', getNextClanGames());
+        updateCountdown('cwl', getNextCWL());
+        updateCountdown('raid', getNextRaid());
+        updateCountdown('tr', getNextTrader());
+        updateCountdown('se', getNextSeason());
+    }
+
+    tick();
+    setInterval(tick, 1000);
+});
+</script>
+{% endblock %}
