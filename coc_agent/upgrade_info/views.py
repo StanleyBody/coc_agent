@@ -8,12 +8,11 @@ from .models import (
 )
 
 def upgrade_info_view(request):
-    """升級資訊主頁面"""
     building_categories = list(
-        BuildingCategory.objects.values('id', 'name', 'name_en', 'icon', 'order')
+        BuildingCategory.objects.values('id', 'name', 'name_zh', 'icon', 'order')
     )
     troop_types = list(
-        TroopType.objects.values('id', 'name', 'name_en', 'icon', 'order')
+        TroopType.objects.values('id', 'name', 'name_zh', 'icon', 'order')
     )
     context = {
         'building_categories_json': json.dumps(building_categories, ensure_ascii=False),
@@ -24,32 +23,30 @@ def upgrade_info_view(request):
 
 
 def api_buildings(request):
-    """建築資料 API"""
     th_level = request.GET.get('th', None)
     category_id = request.GET.get('category', None)
     search = request.GET.get('search', '').strip()
-    
-    # 驗證 th_level 參數
+
     if th_level:
         try:
             th_level = int(th_level)
         except (ValueError, TypeError):
             return JsonResponse({'error': 'Invalid th parameter'}, status=400)
-    
+
     buildings = Building.objects.select_related('category').prefetch_related('levels').all()
-    
+
     if category_id:
         buildings = buildings.filter(category_id=category_id)
-    
+
     if search:
         buildings = buildings.filter(name__icontains=search)
-    
+
     data = []
     for building in buildings:
         levels = building.levels.all()
         if th_level:
             levels = levels.filter(th_required__lte=th_level)
-        
+
         level_data = []
         for lvl in levels:
             level_data.append({
@@ -63,48 +60,46 @@ def api_buildings(request):
                 'hp': lvl.hp,
                 'dps': lvl.dps,
             })
-        
-        if level_data:  # 只返回有等級資料的建築
+
+        if level_data:
             data.append({
                 'id': building.id,
                 'name': building.name,
-                'name_en': building.name_en,
+                'name_zh': building.name_zh,
                 'category': building.category.name,
                 'category_id': building.category_id,
                 'max_level': building.max_level,
                 'image': building.image,
                 'levels': level_data,
             })
-    
+
     return JsonResponse({'buildings': data})
 
 
 def api_heroes(request):
-    """英雄資料 API"""
     th_level = request.GET.get('th', None)
     search = request.GET.get('search', '').strip()
-    
-    # 驗證 th_level 參數
+
     if th_level:
         try:
             th_level = int(th_level)
         except (ValueError, TypeError):
             return JsonResponse({'error': 'Invalid th parameter'}, status=400)
-    
+
     heroes = Hero.objects.prefetch_related('levels').all()
-    
+
     if search:
         heroes = heroes.filter(name__icontains=search)
-    
+
     data = []
     for hero in heroes:
         if th_level and hero.unlock_th > th_level:
             continue
-            
+
         levels = hero.levels.all()
         if th_level:
             levels = levels.filter(th_required__lte=th_level)
-        
+
         level_data = []
         for lvl in levels:
             level_data.append({
@@ -117,49 +112,46 @@ def api_heroes(request):
                 'dps': lvl.dps,
                 'ability_damage': lvl.ability_damage,
             })
-        
+
         if level_data:
             data.append({
                 'id': hero.id,
                 'name': hero.name,
-                'name_en': hero.name_en,
+                'name_zh': hero.name_zh,
                 'max_level': hero.max_level,
                 'unlock_th': hero.unlock_th,
                 'image': hero.image,
                 'levels': level_data,
             })
-    
+
     return JsonResponse({'heroes': data})
 
 
 def api_troops(request):
-    """兵種資料 API"""
     th_level = request.GET.get('th', None)
     type_id = request.GET.get('type', None)
     search = request.GET.get('search', '').strip()
-    
-    # 驗證 th_level 參數
+
     if th_level:
         try:
             th_level = int(th_level)
         except (ValueError, TypeError):
             return JsonResponse({'error': 'Invalid th parameter'}, status=400)
-    
+
     troops = Troop.objects.select_related('troop_type').prefetch_related('levels').all()
-    
+
     if type_id:
         troops = troops.filter(troop_type_id=type_id)
-    
+
     if search:
         troops = troops.filter(name__icontains=search)
-    
+
     data = []
     for troop in troops:
         levels = troop.levels.all()
         if th_level:
-            # 根據實驗室等級篩選
             levels = levels.filter(lab_required__lte=th_level)
-        
+
         level_data = []
         for lvl in levels:
             level_data.append({
@@ -172,12 +164,12 @@ def api_troops(request):
                 'dps': lvl.dps,
                 'hp': lvl.hp,
             })
-        
+
         if level_data:
             data.append({
                 'id': troop.id,
                 'name': troop.name,
-                'name_en': troop.name_en,
+                'name_zh': troop.name_zh,
                 'type': troop.troop_type.name,
                 'type_id': troop.troop_type_id,
                 'max_level': troop.max_level,
@@ -185,7 +177,7 @@ def api_troops(request):
                 'image': troop.image,
                 'levels': level_data,
             })
-    
+
     return JsonResponse({'troops': data})
 
 

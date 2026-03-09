@@ -454,9 +454,9 @@ function renderBuildings() {
         buildings = buildings.filter(b => b.category_id == filters.category);
     }
     if (filters.search) {
-        buildings = buildings.filter(b => 
+        buildings = buildings.filter(b =>
             b.name.toLowerCase().includes(filters.search) ||
-            b.name_en.toLowerCase().includes(filters.search)
+            (b.name_zh && b.name_zh.toLowerCase().includes(filters.search))
         );
     }
     if (filters.th) {
@@ -492,7 +492,7 @@ function renderBuildings() {
                     <div class="item-icon">${getBuildingIcon(building.category_id)}</div>
                     <div class="item-info">
                         <div class="item-name">${building.name}</div>
-                        <div class="item-subtitle">${building.name_en}</div>
+                        <div class="item-subtitle">${building.name_zh || ''}</div>
                     </div>
                 </div>
                 <div class="item-stats">
@@ -525,9 +525,9 @@ function renderHeroes() {
     
     // 篩選
     if (filters.search) {
-        heroes = heroes.filter(h => 
+        heroes = heroes.filter(h =>
             h.name.toLowerCase().includes(filters.search) ||
-            h.name_en.toLowerCase().includes(filters.search)
+            (h.name_zh && h.name_zh.toLowerCase().includes(filters.search))
         );
     }
     if (filters.th) {
@@ -559,7 +559,7 @@ function renderHeroes() {
                     <div class="item-icon">${getHeroIcon(hero.name)}</div>
                     <div class="item-info">
                         <div class="item-name">${hero.name}</div>
-                        <div class="item-subtitle">${hero.name_en}</div>
+                        <div class="item-subtitle">${hero.name_zh || ''}</div>
                     </div>
                 </div>
                 <div class="item-stats">
@@ -595,9 +595,9 @@ function renderTroops() {
         troops = troops.filter(t => t.type_id == filters.troopType);
     }
     if (filters.search) {
-        troops = troops.filter(t => 
+        troops = troops.filter(t =>
             t.name.toLowerCase().includes(filters.search) ||
-            t.name_en.toLowerCase().includes(filters.search)
+            (t.name_zh && t.name_zh.toLowerCase().includes(filters.search))
         );
     }
     if (filters.th) {
@@ -633,7 +633,7 @@ function renderTroops() {
                     <div class="item-icon">${getTroopIcon(troop.type_id)}</div>
                     <div class="item-info">
                         <div class="item-name">${troop.name}</div>
-                        <div class="item-subtitle">${troop.name_en}</div>
+                        <div class="item-subtitle">${troop.name_zh || ''}</div>
                     </div>
                 </div>
                 <div class="item-stats">
@@ -693,7 +693,7 @@ function showBuildingDetails(id) {
     }
     
     document.getElementById('modalIcon').textContent = getBuildingIcon(building.category_id);
-    document.getElementById('modalTitle').textContent = `${building.name} (${building.name_en})`;
+    document.getElementById('modalTitle').textContent = building.name_zh ? `${building.name} (${building.name_zh})` : building.name;
     
     const header = document.getElementById('tableHeader');
     header.innerHTML = `
@@ -736,7 +736,7 @@ function showHeroDetails(id) {
     }
     
     document.getElementById('modalIcon').textContent = getHeroIcon(hero.name);
-    document.getElementById('modalTitle').textContent = `${hero.name} (${hero.name_en})`;
+    document.getElementById('modalTitle').textContent = hero.name_zh ? `${hero.name} (${hero.name_zh})` : hero.name;
     
     const header = document.getElementById('tableHeader');
     header.innerHTML = `
@@ -777,7 +777,7 @@ function showTroopDetails(id) {
     }
     
     document.getElementById('modalIcon').textContent = getTroopIcon(troop.type_id);
-    document.getElementById('modalTitle').textContent = `${troop.name} (${troop.name_en})`;
+    document.getElementById('modalTitle').textContent = troop.name_zh ? `${troop.name} (${troop.name_zh})` : troop.name;
     
     const header = document.getElementById('tableHeader');
     header.innerHTML = `
@@ -836,10 +836,10 @@ function getBuildingIcon(categoryId) {
 
 function getHeroIcon(name) {
     const icons = {
-        '蠻王': '👑',
-        '弓箭女皇': '👸',
-        '大乾爹': '🧙',
-        '皇家鬥士': '⚔️'
+        'Barbarian King': '👑',
+        'Archer Queen': '👸',
+        'Grand Warden': '🧙',
+        'Royal Champion': '⚔️',
     };
     return icons[name] || '👤';
 }
