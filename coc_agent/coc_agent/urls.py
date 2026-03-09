@@ -19,6 +19,7 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from upgrade_info.views import api_schema, api_docs
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('strategy-guides/', include('strategy_guides.urls')),
     path('player-search/', include('player_search.urls')),
     path('events/', include('events.urls')),
+    path('api/schema/', api_schema, name='api_schema'),
+    path('api/docs/', api_docs, name='api_docs'),
 ]
 
 urlpatterns += [

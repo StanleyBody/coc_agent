@@ -240,7 +240,11 @@
 
 {% block extra_js %}
 <script>
-    const UPGRADE_DATA_URL = "{% static 'data/upgrade_data.json' %}";
+    window.BUILDING_CATEGORIES = {{ building_categories_json|safe }};
+    window.TROOP_TYPES = {{ troop_types_json|safe }};
+    window.API_BUILDINGS_URL = "{% url 'api_buildings' %}";
+    window.API_HEROES_URL = "{% url 'api_heroes' %}";
+    window.API_TROOPS_URL = "{% url 'api_troops' %}";
 </script>
 <script src="{% static 'js/upgrade_info.js' %}"></script>
 {% endblock %}

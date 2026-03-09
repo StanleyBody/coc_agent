@@ -337,47 +337,54 @@ function getFilters() {
 }
 
 /**
- * 載入資料 - 從多個 JSON 檔案載入
+ * 載入資料 - 從 Django API 取得
  */
 async function loadData() {
     try {
-        // 計算基礎路徑
-        const basePath = UPGRADE_DATA_URL.replace('upgrade_data.json', '');
-        
-        // 並行載入所有資料檔案
-        const [buildingsRes, heroesRes, troopsRes, spellsRes] = await Promise.all([
-            fetch(basePath + 'buildings.json'),
-            fetch(basePath + 'heroes.json'),
-            fetch(basePath + 'troops.json'),
-            fetch(basePath + 'spells.json')
+        // 從模板注入的全域變數取得分類資料
+        upgradeData = {
+            building_categories: window.BUILDING_CATEGORIES || [],
+            troop_types: window.TROOP_TYPES || [],
+            buildings: [],
+            heroes: [],
+            troops: [],
+        };
+
+        // 先填充分類下拉選單
+        populateCategories();
+
+        // 並行呼叫三支 API
+        const [buildingsRes, heroesRes, troopsRes] = await Promise.all([
+            fetch(window.API_BUILDINGS_URL),
+            fetch(window.API_HEROES_URL),
+            fetch(window.API_TROOPS_URL),
         ]);
-        
-        const [buildingsData, heroesData, troopsData, spellsData] = await Promise.all([
+
+        if (!buildingsRes.ok || !heroesRes.ok || !troopsRes.ok) {
+            const failed = [
+                !buildingsRes.ok && `buildings(${buildingsRes.status})`,
+                !heroesRes.ok && `heroes(${heroesRes.status})`,
+                !troopsRes.ok && `troops(${troopsRes.status})`,
+            ].filter(Boolean).join(', ');
+            throw new Error(`API 回應錯誤: ${failed}`);
+        }
+
+        const [buildingsData, heroesData, troopsData] = await Promise.all([
             buildingsRes.json(),
             heroesRes.json(),
             troopsRes.json(),
-            spellsRes.json()
         ]);
-        
-        // 合併資料
-        upgradeData = {
-            building_categories: buildingsData.building_categories,
-            buildings: buildingsData.buildings,
-            heroes: heroesData.heroes,
-            troop_types: troopsData.troop_types,
-            troops: troopsData.troops,
-            spells: spellsData.spells
-        };
-        
-        // 動態載入分類選項
-        populateCategories();
-        
+
+        upgradeData.buildings = buildingsData.buildings || [];
+        upgradeData.heroes = heroesData.heroes || [];
+        upgradeData.troops = troopsData.troops || [];
+
         renderCurrentTab();
         updateSummaryDashboard();
-        
+
     } catch (error) {
         console.error('Error loading data:', error);
-        showError('無法載入資料，請稍後再試');
+        showError(`載入失敗：${error.message || String(error)}`);
     }
 }
 
@@ -881,14 +888,6 @@ function formatCost(level) {
 function showError(message) {
     const grids = document.querySelectorAll('.items-grid');
     grids.forEach(grid => {
-        grid.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-state-icon">⚠️</div>
-                <p class="empty-state-text">${message}</p>
-            </div>
-        `;
-    });
-}
         grid.innerHTML = `
             <div class="empty-state">
                 <div class="empty-state-icon">⚠️</div>
