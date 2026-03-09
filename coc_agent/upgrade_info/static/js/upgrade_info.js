@@ -889,3 +889,11 @@ function showError(message) {
         `;
     });
 }
+        grid.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">⚠️</div>
+                <p class="empty-state-text">${message}</p>
+            </div>
+        `;
+    });
+}

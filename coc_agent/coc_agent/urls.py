@@ -25,6 +25,9 @@ urlpatterns = [
     path('home/', include('home.urls')),
     path('contact_us/', include('contact_us.urls')),
     path('upgrade_info/', include('upgrade_info.urls')),
+    path('strategy-guides/', include('strategy_guides.urls')),
+    path('player-search/', include('player_search.urls')),
+    path('events/', include('events.urls')),
 ]
 
 urlpatterns += [

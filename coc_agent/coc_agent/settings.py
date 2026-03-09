@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     "contact_us.apps.Contact_usConfig",
     "coming_soon.apps.ComingSoonConfig",
     "upgrade_info.apps.UpgradeInfoConfig",
+    "strategy_guides",
+    "player_search",
+    "events",
 ]
 
 MIDDLEWARE = [
