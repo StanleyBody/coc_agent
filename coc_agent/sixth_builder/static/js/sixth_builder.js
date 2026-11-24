@@ -13,13 +13,14 @@
         return { key: b.key, label: b.name, min: b.min, max: b.max };
     });
 
-    var FIELDS = [{ key: 'builder_hall', label: 'Builder Hall', min: 1, max: 10 }]
+    var STORAGE_MAX = Calc.STORAGE_MAX_LEVEL;
+    var FIELDS = [{ key: 'builder_hall', label: 'Builder Hall', min: 1, max: Calc.BUILDER_HALL_MAX_LEVEL }]
         .concat(buildingFields)
         .concat([
-            { key: 'gold_storage_1', label: '金庫 1', min: 0, max: 10 },
-            { key: 'gold_storage_2', label: '金庫 2', min: 0, max: 10 },
-            { key: 'elixir_storage_1', label: '聖水瓶 1', min: 0, max: 10 },
-            { key: 'elixir_storage_2', label: '聖水瓶 2', min: 0, max: 10 },
+            { key: 'gold_storage_1', label: '金庫 1', min: 0, max: STORAGE_MAX },
+            { key: 'gold_storage_2', label: '金庫 2', min: 0, max: STORAGE_MAX },
+            { key: 'elixir_storage_1', label: '聖水瓶 1', min: 0, max: STORAGE_MAX },
+            { key: 'elixir_storage_2', label: '聖水瓶 2', min: 0, max: STORAGE_MAX },
             { key: 'gold_rate', label: '每小時金幣產量', min: 0, max: null },
             { key: 'elixir_rate', label: '每小時聖水產量', min: 0, max: null },
         ]);
@@ -66,13 +67,17 @@
     }
 
     function notesHtml() {
+        var req = Calc.DATA.bob_control;
+        var bh = Calc.REQUIRED_BUILDER_HALL;
+        var targets = Calc.BUILDINGS.map(function (b) { return b.name + ' Lv' + b.target; }).join('、');
         return '<div class="sb-notes"><h4>計算說明</h4><ul>' +
-            '<li>目標等級依 B.O.B Control 升級條件：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv9、星空實驗室 Lv9、訓練營 Lv8（解鎖 Night Witch）。</li>' +
-            '<li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（1,500,000）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>' +
-            '<li>Builder Hall 低於 9 時，以剛升上 Lv9、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>' +
-            '<li>未計入：兵種研究到 Lv18 的費用、Battle Machine＋Battle Copter 合計 45 級的費用、主世界 Gear Up 的費用。</li>' +
+            '<li>目標等級依 B.O.B Control 升級條件：' + targets + '（訓練營為解鎖 Night Witch 的等級）。</li>' +
+            '<li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（' + fmt(Calc.builderHallCapacity(bh)) +
+            '）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>' +
+            '<li>Builder Hall 低於 ' + bh + ' 時，以剛升上 Lv' + bh + '、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>' +
+            '<li>未計入：兵種研究到 Lv' + req.troop_level + ' 的費用、Battle Machine＋Battle Copter 合計等級的費用、主世界 Gear Up 的費用。</li>' +
             '<li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>' +
-            '<li>資料來源：Clash of Clans Fandom Wiki。</li>' +
+            '<li>資料來源：Clash of Clans Fandom Wiki，每週自動更新。</li>' +
             '</ul></div>';
     }
 
@@ -91,7 +96,8 @@
     function resultHtml(result) {
         var bhWarn = result.assumedBuilderHall
             ? '<p class="sb-warn">⚠️ 目前 Builder Hall Lv' + result.builderHall +
-              '，以剛升上 Lv9、尚未建造 Lv9 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>'
+              '，以剛升上 Lv' + Calc.REQUIRED_BUILDER_HALL + '、尚未建造 Lv' + Calc.REQUIRED_BUILDER_HALL +
+              ' 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>'
             : '';
         var rows = result.items.map(function (item) {
             var level = item.done ? '✅ 已達標' : 'Lv' + item.current + ' → Lv' + item.target;

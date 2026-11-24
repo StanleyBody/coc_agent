@@ -9,5 +9,6 @@ class ViewTests(SimpleTestCase):
         resp = self.client.get(reverse('sixth_builder'))
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, 'id="sixth-builder-app"')
+        self.assertContains(resp, 'js/sixth_builder_data.js')
         self.assertContains(resp, 'js/sixth_builder_calc.js')
         self.assertContains(resp, 'js/sixth_builder.js')

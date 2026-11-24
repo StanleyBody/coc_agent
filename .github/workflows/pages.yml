@@ -51,6 +51,7 @@ jobs:
           sed 's#/static/fonts/#../fonts/#g' coc_agent/home/static/css/base.css > _site/css/base.css
           cp coc_agent/home/static/css/home_styles.css _site/css/
           cp coc_agent/sixth_builder/static/css/sixth_builder.css _site/css/
+          cp coc_agent/sixth_builder/static/js/sixth_builder_data.js _site/js/
           cp coc_agent/sixth_builder/static/js/sixth_builder_calc.js _site/js/
           cp coc_agent/sixth_builder/static/js/sixth_builder.js _site/js/
       - uses: actions/configure-pages@v5
