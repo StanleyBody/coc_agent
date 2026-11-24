@@ -14,8 +14,21 @@
     });
 
     var STORAGE_MAX = Calc.STORAGE_MAX_LEVEL;
+    var MACHINE = Calc.HEROES[0];
+    var COPTER = Calc.HEROES[1];
+
+    // unlockMin：0 表示未解鎖，其餘須介於 unlockMin 與 max 之間
+    var unitFields = [
+        { key: 'night_witch', label: 'Night Witch', min: 0, max: Calc.NIGHT_WITCH_MAX_LEVEL,
+            unlockMin: Calc.NIGHT_WITCH.first_level },
+        { key: MACHINE.key, label: MACHINE.name, min: 0, max: MACHINE.maxLevel,
+            unlockMin: MACHINE.firstLevel },
+        { key: COPTER.key, label: COPTER.name, min: 0, max: COPTER.maxLevel,
+            unlockMin: COPTER.firstLevel },
+    ];
     var FIELDS = [{ key: 'builder_hall', label: 'Builder Hall', min: 1, max: Calc.BUILDER_HALL_MAX_LEVEL }]
         .concat(buildingFields)
+        .concat(unitFields)
         .concat([
             { key: 'gold_storage_1', label: '金庫 1', min: 0, max: STORAGE_MAX },
             { key: 'gold_storage_2', label: '金庫 2', min: 0, max: STORAGE_MAX },
@@ -57,6 +70,8 @@
             '</fieldset>' +
             '<fieldset><legend>建築目前等級</legend><div class="sb-grid">' +
             buildingFields.map(field).join('') + '</div></fieldset>' +
+            '<fieldset><legend>兵種與英雄等級（未解鎖填 0）</legend><div class="sb-grid">' +
+            unitFields.map(field).join('') + '</div></fieldset>' +
             '<fieldset><legend>倉庫等級（第 1 座 ／ 第 2 座）</legend>' +
             pair('金庫', 'gold_storage_1', 'gold_storage_2') +
             pair('聖水瓶', 'elixir_storage_1', 'elixir_storage_2') +
@@ -75,7 +90,11 @@
             '<li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（' + fmt(Calc.builderHallCapacity(bh)) +
             '）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>' +
             '<li>Builder Hall 低於 ' + bh + ' 時，以剛升上 Lv' + bh + '、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>' +
-            '<li>未計入：兵種研究到 Lv' + req.troop_level + ' 的費用、Battle Machine＋Battle Copter 合計等級的費用、主世界 Gear Up 的費用。</li>' +
+            '<li>兵種以 Night Witch 研究到 Lv' + req.troop_level + ' 計算；未解鎖時以解鎖等級 Lv' +
+            Calc.NIGHT_WITCH.first_level + ' 起算。</li>' +
+            '<li>' + MACHINE.name + '＋' + COPTER.name + '合計 Lv' + req.hero_total +
+            '：在 Builder Hall 允許的等級內，取總費用最低的組合（' + COPTER.name + '建造後為 Lv' + COPTER.firstLevel + '）。</li>' +
+            '<li>Gear Up 使用主世界資源，不在計算範圍內。</li>' +
             '<li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>' +
             '<li>資料來源：Clash of Clans Fandom Wiki，每週自動更新。</li>' +
             '</ul></div>';
@@ -106,7 +125,9 @@
                 '<td>' + item.name + '</td><td class="sb-level">' + level + '</td>' +
                 '<td class="sb-num' + (item.done ? '' : ' sb-' + item.resource) + '">' + cost + '</td><td class="sb-reason">' + item.reason + '</td></tr>';
         }).join('');
-        return '<h3 class="sb-result-title">計算結果</h3>' + bhWarn +
+        var heroWarn = result.heroesOk ? '' :
+            '<p class="sb-warn">⚠️ 英雄等級上限無法達到合計 Lv' + Calc.DATA.bob_control.hero_total + '，英雄費用未計入。</p>';
+        return '<h3 class="sb-result-title">計算結果</h3>' + bhWarn + heroWarn +
             '<div class="sb-summary">' + resourceCard(result.gold) + resourceCard(result.elixir) + '</div>' +
             '<p class="sb-overall">兩種資源都夠所需時間：<strong>' + result.overallText + '</strong></p>' +
             '<table class="sb-table"><thead><tr><th>項目</th><th>等級</th><th>費用</th>' +
@@ -124,6 +145,10 @@
                 return;
             }
             var n = Number(raw);
+            if (f.unlockMin && Number.isInteger(n) && n !== 0 && (n < f.unlockMin || n > f.max)) {
+                errors[f.key] = '請輸入 0 或 ' + f.unlockMin + '–' + f.max + ' 的整數';
+                return;
+            }
             if (!Number.isInteger(n) || n < f.min || (f.max !== null && n > f.max)) {
                 errors[f.key] = f.max !== null ? '請輸入 ' + f.min + '–' + f.max + ' 的整數' : '請輸入 0 以上的整數';
                 return;
