@@ -65,17 +65,17 @@
 
     function formHtml() {
         return '<form class="sb-card sb-form" novalidate>' +
-            '<fieldset><legend>夜世界</legend>' + field(byKey('builder_hall')) +
-            '<label class="sb-check"><input type="checkbox" id="sb-bob_control_built" name="bob_control_built"> 已建造 B.O.B Control</label>' +
-            '</fieldset>' +
-            '<fieldset><legend>建築目前等級</legend><div class="sb-grid">' +
+            '<fieldset><legend>夜世界</legend><div class="sb-grid sb-grid-3">' + field(byKey('builder_hall')) +
+            '<label class="sb-check sb-span-2"><input type="checkbox" id="sb-bob_control_built" name="bob_control_built"> 已建造 B.O.B Control</label>' +
+            '</div></fieldset>' +
+            '<fieldset><legend>建築目前等級</legend><div class="sb-grid sb-grid-3">' +
             buildingFields.map(field).join('') + '</div></fieldset>' +
-            '<fieldset><legend>兵種與英雄等級（未解鎖填 0）</legend><div class="sb-grid">' +
+            '<fieldset><legend>兵種與英雄等級（未解鎖填 0）</legend><div class="sb-grid sb-grid-3">' +
             unitFields.map(field).join('') + '</div></fieldset>' +
-            '<fieldset><legend>倉庫等級（第 1 座 ／ 第 2 座）</legend>' +
+            '<fieldset><legend>倉庫等級（第 1 座 ／ 第 2 座）</legend><div class="sb-grid sb-grid-pairs">' +
             pair('金庫', 'gold_storage_1', 'gold_storage_2') +
             pair('聖水瓶', 'elixir_storage_1', 'elixir_storage_2') +
-            '</fieldset>' +
+            '</div></fieldset>' +
             '<fieldset><legend>採集器產量</legend><div class="sb-grid">' +
             field(byKey('gold_rate')) + field(byKey('elixir_rate')) + '</div></fieldset>' +
             '</form>';
@@ -99,6 +99,17 @@
             '</ul></div>';
     }
 
+    /** 尚未填完時顯示的空白資源卡片 */
+    function placeholderCard(resource, name) {
+        var icon = resource === 'gold' ? '🪙' : '💧';
+        return '<div class="sb-res sb-res-' + resource + ' is-placeholder">' +
+            '<div class="sb-res-head">' + icon + ' ' + name + '</div><dl>' +
+            '<dt>還缺</dt><dd class="sb-num sb-shortage">—</dd>' +
+            '<dt>每小時產量</dt><dd class="sb-num">—</dd>' +
+            '<dt class="sb-time-label">採集器補足需要</dt><dd class="sb-time">—</dd>' +
+            '</dl></div>';
+    }
+
     function resourceCard(r) {
         var icon = r.resource === 'gold' ? '🪙' : '💧';
         var warn = r.capacityOk ? '' :
@@ -107,7 +118,7 @@
             '<div class="sb-res-head">' + icon + ' ' + r.name + '</div><dl>' +
             '<dt>還缺</dt><dd class="sb-num sb-shortage">' + fmt(r.shortage) + '</dd>' +
             '<dt>每小時產量</dt><dd class="sb-num">' + fmt(r.rate) + '</dd>' +
-            '<dt>採集器補足需要</dt><dd class="sb-time">' + r.timeText + '</dd>' +
+            '<dt class="sb-time-label">採集器補足需要</dt><dd class="sb-time">' + r.timeText + '</dd>' +
             '</dl>' + warn + '</div>';
     }
 
@@ -117,20 +128,26 @@
               '，以剛升上 Lv' + Calc.REQUIRED_BUILDER_HALL + '、尚未建造 Lv' + Calc.REQUIRED_BUILDER_HALL +
               ' 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>'
             : '';
-        var rows = result.items.map(function (item) {
-            var level = item.done ? '✅ 已達標' : 'Lv' + item.current + ' → Lv' + item.target;
-            var cost = item.done ? '—' : fmt(item.cost) + ' ' + item.resourceName;
-            return '<tr class="' + (item.done ? 'is-done' : '') + '">' +
-                '<td>' + item.name + '</td><td class="sb-level">' + level + '</td>' +
-                '<td class="sb-num' + (item.done ? '' : ' sb-' + item.resource) + '">' + cost + '</td><td class="sb-reason">' + item.reason + '</td></tr>';
+        var todo = result.items.filter(function (item) { return !item.done; });
+        var done = result.items.filter(function (item) { return item.done; });
+        var rows = todo.map(function (item) {
+            return '<tr><td>' + item.name + '<span class="sb-item-reason">' + item.reason + '</span></td>' +
+                '<td class="sb-level">Lv' + item.current + ' → Lv' + item.target + '</td>' +
+                '<td class="sb-num sb-' + item.resource + '">' + fmt(item.cost) + ' ' + item.resourceName + '</td></tr>';
         }).join('');
+        var table = todo.length
+            ? '<table class="sb-table"><thead><tr><th>項目</th><th>等級</th><th>費用</th></tr></thead>' +
+              '<tbody>' + rows + '</tbody></table>'
+            : '<p class="sb-empty">所有條件都已達標。</p>';
+        var doneLine = done.length && todo.length
+            ? '<p class="sb-done">✅ 已達標：' + done.map(function (i) { return i.name; }).join('、') + '</p>'
+            : '';
         var heroWarn = result.heroesOk ? '' :
             '<p class="sb-warn">⚠️ 英雄等級上限無法達到合計 Lv' + Calc.DATA.bob_control.hero_total + '，英雄費用未計入。</p>';
         return '<h3 class="sb-result-title">計算結果</h3>' + bhWarn + heroWarn +
             '<div class="sb-summary">' + resourceCard(result.gold) + resourceCard(result.elixir) + '</div>' +
             '<p class="sb-overall">兩種資源都夠所需時間：<strong>' + result.overallText + '</strong></p>' +
-            '<table class="sb-table"><thead><tr><th>項目</th><th>等級</th><th>費用</th>' +
-            '<th class="sb-reason">原因</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            table + doneLine;
     }
 
     /** 讀取並檢查欄位；回傳 { data, errors } */
@@ -203,8 +220,8 @@
         var app = document.getElementById('sixth-builder-app');
         if (!app) return;
         app.innerHTML = '<div class="sb-layout">' + formHtml() +
-            '<section class="sb-card sb-result"><div class="sb-result-body" aria-live="polite"></div>' +
-            notesHtml() + '</section></div>';
+            '<section class="sb-card sb-result"><div class="sb-result-body" aria-live="polite"></div></section>' +
+            '</div><div class="sb-notes-wrap"><section class="sb-card">' + notesHtml() + '</section></div>';
 
         var form = app.querySelector('form');
         var body = app.querySelector('.sb-result-body');
@@ -215,6 +232,7 @@
             syncUrl(form);
             if (Object.keys(read.errors).length) {
                 body.innerHTML = '<h3 class="sb-result-title">計算結果</h3>' +
+                    '<div class="sb-summary">' + placeholderCard('gold', '金幣') + placeholderCard('elixir', '聖水') + '</div>' +
                     '<p class="sb-empty">填完左側所有欄位後會自動計算。</p>';
                 return;
             }

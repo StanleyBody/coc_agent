@@ -26,14 +26,33 @@
     margin: 0 auto;
 }
 
+/* 左右等寬、卡片等高 */
 .sb-layout {
     display: grid;
-    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto 24px;
+    padding: 0 20px;
+    align-items: stretch;
+}
+
+/* 結果較短時拉成與表單同高；結果較長時表單固定在畫面上 */
+.sb-form {
+    align-self: start;
+}
+
+@media (min-width: 901px) and (min-height: 860px) {
+    .sb-form {
+        position: sticky;
+        top: 90px;
+    }
+}
+
+.sb-notes-wrap {
     max-width: 1200px;
     margin: 0 auto 80px;
     padding: 0 20px;
-    align-items: start;
 }
 
 .sb-card {
@@ -48,7 +67,11 @@
 .sb-form fieldset {
     border: none;
     padding: 0;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
+}
+
+.sb-form fieldset:last-child {
+    margin-bottom: 0;
 }
 
 .sb-form legend {
@@ -61,6 +84,20 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+}
+
+.sb-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sb-grid .sb-field {
+    margin-bottom: 0;
+}
+
+.sb-span-2 {
+    grid-column: span 2;
+    align-self: end;
+    min-height: 44px;
 }
 
 .sb-field {
@@ -217,8 +254,17 @@
     color: var(--res-color);
 }
 
-.sb-time {
+/* 時間較長，標籤與數值各佔一行 */
+.sb-res dt.sb-time-label {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+.sb-res dd.sb-time {
+    grid-column: 1 / -1;
+    text-align: left;
     font-weight: 700;
+    font-size: 1.05rem;
 }
 
 .sb-warn {
@@ -267,16 +313,24 @@
     white-space: nowrap;
 }
 
-.sb-table tr.is-done td {
+.sb-res.is-placeholder {
+    opacity: 0.6;
+}
+
+.sb-item-reason {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
     color: var(--text-muted);
 }
 
-.sb-reason {
-    color: var(--text-secondary);
+.sb-done {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
 .sb-notes {
-    margin-top: 24px;
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
@@ -297,14 +351,30 @@
         grid-template-columns: minmax(0, 1fr);
         padding: 0 16px;
     }
+    .sb-notes-wrap {
+        padding: 0 16px;
+    }
 }
 
 @media (max-width: 560px) {
     .sb-summary {
         grid-template-columns: minmax(0, 1fr);
     }
-    .sb-reason {
+    .sb-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sb-span-2 {
+        grid-column: span 1;
+    }
+    .sb-grid-pairs {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sb-item-reason {
         display: none;
+    }
+    .sb-table th,
+    .sb-table td {
+        padding: 10px 6px;
     }
 }
 
