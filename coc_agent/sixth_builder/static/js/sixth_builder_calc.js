@@ -11,7 +11,7 @@
  * 假設玩家目前沒有任何資源。
  * 兵種：以 Night Witch 研究到 Lv18 計算（未解鎖時以解鎖等級起算）。
  * 英雄：戰爭機器＋戰鬥直升機合計等級，在 Builder Hall 允許的等級內取最省聖水的組合。
- * 未計入：主世界的 Gear Up 費用、Builder Hall 升級費用。
+ * Gear Up 使用主世界資源，不在計算範圍內；Builder Hall 升級費用也不計入。
  */
 (function (root) {
     'use strict';

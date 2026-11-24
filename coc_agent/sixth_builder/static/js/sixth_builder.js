@@ -94,7 +94,7 @@
             Calc.NIGHT_WITCH.first_level + ' 起算。</li>' +
             '<li>' + MACHINE.name + '＋' + COPTER.name + '合計 Lv' + req.hero_total +
             '：在 Builder Hall 允許的等級內，取總費用最低的組合（' + COPTER.name + '建造後為 Lv' + COPTER.firstLevel + '）。</li>' +
-            '<li>未計入：主世界 Gear Up 的費用。</li>' +
+            '<li>Gear Up 使用主世界資源，不在計算範圍內。</li>' +
             '<li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>' +
             '<li>資料來源：Clash of Clans Fandom Wiki，每週自動更新。</li>' +
             '</ul></div>';
