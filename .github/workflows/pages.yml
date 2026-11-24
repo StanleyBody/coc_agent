@@ -27,25 +27,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - run: node --test coc_agent/sixth_builder/js_tests/calc.test.js
 
-  deploy:
+  # 建置與部署分成兩個 job（GitHub 官方範例的寫法），
+  # 同一個 job 內 upload 後馬上 deploy 可能找不到 artifact
+  build:
     needs: test
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Assemble site
         run: |
-          mkdir -p _site/css _site/js
+          mkdir -p _site/css _site/js _site/fonts
           cp pages/index.html _site/
-          mkdir -p _site/fonts
           cp coc_agent/home/static/fonts/Clash_Regular.otf _site/fonts/
           # base.css 用 Django 的絕對路徑載入字體，改成相對路徑
           sed 's#/static/fonts/#../fonts/#g' coc_agent/home/static/css/base.css > _site/css/base.css
@@ -55,6 +53,14 @@ jobs:
           cp coc_agent/sixth_builder/static/js/sixth_builder_calc.js _site/js/
           cp coc_agent/sixth_builder/static/js/sixth_builder.js _site/js/
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
