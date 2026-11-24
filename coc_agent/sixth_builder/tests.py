@@ -131,6 +131,19 @@ class CalculateTests(SimpleTestCase):
         r = calculate(make_data(), builder_hall_level=10)
         self.assertEqual(r['max_storage_level'], 10)
 
+    def test_below_builder_hall_9_assumes_fresh_bh9(self):
+        r = calculate(make_data(bob_control_built=True), builder_hall_level=7)
+        self.assertTrue(r['assumed_builder_hall'])
+        self.assertEqual(r['max_storage_level'], 9)
+        # 視為還沒蓋 B.O.B Control
+        self.assertEqual(r['items'][0]['key'], 'bob_control')
+        self.assertEqual(r['gold']['shortage'], BOB_CONTROL_COST)
+
+    def test_builder_hall_9_keeps_input(self):
+        r = calculate(make_data(bob_control_built=True), builder_hall_level=9)
+        self.assertFalse(r['assumed_builder_hall'])
+        self.assertEqual(r['gold']['shortage'], 0)
+
     def test_zero_rate_cannot_estimate(self):
         r = calculate(make_data(archer_tower=5, gold_rate=0))
         self.assertIsNone(r['gold']['hours'])
@@ -189,6 +202,15 @@ class CocApiTests(SimpleTestCase):
                 get_player('#2YPJ8VCRL')
 
     @override_settings(COC_API_TOKEN='test-token')
+    def test_invalid_ip_shows_api_message(self):
+        body = json.dumps({'reason': 'accessDenied.invalidIp',
+                           'message': 'API key does not allow access from IP 1.2.3.4'}).encode()
+        err = urllib.error.HTTPError('url', 403, 'Forbidden', {}, io.BytesIO(body))
+        with mock.patch('urllib.request.urlopen', side_effect=err):
+            with self.assertRaisesMessage(CocApiError, 'IP 1.2.3.4'):
+                get_player('#2YPJ8VCRL')
+
+    @override_settings(COC_API_TOKEN='test-token')
     def test_connection_error(self):
         with mock.patch('urllib.request.urlopen', side_effect=urllib.error.URLError('x')):
             with self.assertRaisesMessage(CocApiError, '無法連線'):
@@ -226,6 +248,13 @@ class ViewTests(SimpleTestCase):
         self.assertContains(resp, '8,000,000')
         self.assertContains(resp, '16 小時')
         self.assertEqual(resp.context['result']['max_storage_level'], 10)
+
+    @mock.patch('sixth_builder.views.get_player',
+                return_value={**SAMPLE_PLAYER, 'builderHallLevel': 6})
+    def test_low_builder_hall_player(self, _):
+        resp = self.client.get(reverse('sixth_builder'), self.params())
+        self.assertContains(resp, '以剛升上 Lv9')
+        self.assertEqual(resp.context['result']['gold']['shortage'], BOB_CONTROL_COST)
 
     @mock.patch('sixth_builder.views.get_player', side_effect=CocApiError('找不到這個玩家標籤'))
     def test_api_error_still_calculates(self, _):

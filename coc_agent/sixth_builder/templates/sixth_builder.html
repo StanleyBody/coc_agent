@@ -82,8 +82,8 @@
                         <div><dt>Night Witch</dt><dd>{% if player.night_witch_level %}Lv{{ player.night_witch_level }} / 18{% else %}未解鎖{% endif %}</dd></div>
                         <div><dt>Battle Machine＋Battle Copter</dt><dd>{{ player.hero_total }} / 45</dd></div>
                     </dl>
-                    {% if player.builder_hall_level and player.builder_hall_level < 9 %}
-                    <p class="sb-warn">⚠️ B.O.B Control 需要 Builder Hall Lv9，目前為 Lv{{ player.builder_hall_level }}。</p>
+                    {% if result.assumed_builder_hall %}
+                    <p class="sb-warn">⚠️ 目前 Builder Hall Lv{{ player.builder_hall_level }}，以剛升上 Lv9、尚未建造 Lv9 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>
                     {% endif %}
                 </div>
                 {% elif api_error %}
@@ -123,6 +123,7 @@
                     <li>目標等級依 B.O.B Control 升級條件：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv9、星空實驗室 Lv9、訓練營 Lv8（解鎖 Night Witch）。</li>
                     <li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（1,500,000）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>
                     <li>未計入：兵種研究到 Lv18 的費用、Battle Machine＋Battle Copter 合計 45 級的費用、主世界 Gear Up 的費用。</li>
+                    <li>API 查到 Builder Hall 低於 9 時，以剛升上 Lv9、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>
                     <li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>
                     <li>玩家資料來自 Clash of Clans API；建築等級 API 不提供，需手動輸入。</li>
                     <li>資料來源：Clash of Clans Fandom Wiki。</li>

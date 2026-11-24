@@ -79,6 +79,7 @@ STORAGES = {
 }
 
 # B.O.B Control 需要 Builder Hall 9；Builder Hall 9 與 10 本身各可存 1,500,000
+REQUIRED_BUILDER_HALL = 9
 BUILDER_HALL_CAPACITY = 1_500_000
 BOB_CONTROL_COST = 100_000  # 建造 B.O.B Control（金幣）
 
@@ -127,9 +128,9 @@ def format_hours(hours):
     return ' '.join(parts)
 
 
-def _building_items(data):
+def _building_items(data, bob_control_built):
     items = []
-    if not data.get('bob_control_built'):
+    if not bob_control_built:
         items.append({
             'key': 'bob_control',
             'name': 'B.O.B Control（建造）',
@@ -226,11 +227,16 @@ def calculate(data, builder_hall_level=None):
     """
     data 需包含：各建築 key 的目前等級、gold_storage_1/2、elixir_storage_1/2、
     bob_control_built、gold_rate、elixir_rate、player_tag。
-    builder_hall_level：由 API 取得時用來決定倉庫等級上限（Lv10 需要 Builder Hall 10）。
+    builder_hall_level：由 API 取得的 Builder Hall 等級。
+      低於 9：當作剛升上 Builder Hall 9，還沒蓋 Lv9 的新建築（B.O.B Control）。
+      10 以上：倉庫可以升到 Lv10。
     """
-    max_storage_level = 10 if (builder_hall_level or 0) >= 10 else 9
+    below_required = builder_hall_level is not None and builder_hall_level < REQUIRED_BUILDER_HALL
+    effective_bh = REQUIRED_BUILDER_HALL if below_required else builder_hall_level
+    bob_control_built = bool(data.get('bob_control_built')) and not below_required
+    max_storage_level = 10 if (effective_bh or 0) >= 10 else 9
 
-    building_items = _building_items(data)
+    building_items = _building_items(data, bob_control_built)
     storage_items, need, capacity_ok = _storage_items(data, building_items, max_storage_level)
     items = building_items + storage_items
     for item in items:
@@ -253,4 +259,6 @@ def calculate(data, builder_hall_level=None):
         'elixir': elixir,
         'overall_text': overall_text,
         'max_storage_level': max_storage_level,
+        'builder_hall_level': builder_hall_level,
+        'assumed_builder_hall': below_required,
     }

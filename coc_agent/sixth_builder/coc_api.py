@@ -43,11 +43,23 @@ def get_player(tag):
         with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as resp:
             return json.load(resp)
     except urllib.error.HTTPError as e:
-        raise CocApiError(HTTP_ERROR_MESSAGES.get(e.code, f'Clash of Clans API 錯誤（HTTP {e.code}）')) from e
+        message = HTTP_ERROR_MESSAGES.get(e.code, f'Clash of Clans API 錯誤（HTTP {e.code}）')
+        detail = _error_detail(e)
+        if detail:
+            message = f'{message}（{detail}）'
+        raise CocApiError(message) from e
     except (urllib.error.URLError, TimeoutError) as e:
         raise CocApiError('無法連線到 Clash of Clans API') from e
     except ValueError as e:
         raise CocApiError('Clash of Clans API 回傳格式錯誤') from e
+
+
+def _error_detail(error):
+    """API 錯誤回應的 message，例如 403 時會帶出被拒絕的 IP"""
+    try:
+        return json.load(error).get('message', '')
+    except (ValueError, AttributeError, OSError):
+        return ''
 
 
 def _builder_base_level(entries, name):
