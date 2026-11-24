@@ -1,0 +1,13 @@
+<div class="sb-res sb-res-{{ r.resource }}">
+    <div class="sb-res-head">{% if r.resource == "gold" %}🪙{% else %}💧{% endif %} {{ r.name }}</div>
+    <dl>
+        <dt>總需求</dt><dd class="sb-num">{{ r.total|floatformat:"0g" }}</dd>
+        <dt>目前存量</dt><dd class="sb-num">{{ r.current|floatformat:"0g" }}</dd>
+        <dt>還缺</dt><dd class="sb-num sb-shortage">{{ r.shortage|floatformat:"0g" }}</dd>
+        <dt>每小時產量</dt><dd class="sb-num">{{ r.rate|floatformat:"0g" }}</dd>
+        <dt>採集器補足需要</dt><dd class="sb-time">{{ r.time_text }}</dd>
+    </dl>
+    {% if not r.capacity_ok %}
+    <p class="sb-warn">⚠️ 容量上限 {{ r.capacity|floatformat:"0g" }} 小於單次最高費用 {{ r.max_single|floatformat:"0g" }}，需先升級{% if r.resource == "gold" %}金庫{% else %}聖水瓶{% endif %}（此費用未計入）。</p>
+    {% endif %}
+</div>
