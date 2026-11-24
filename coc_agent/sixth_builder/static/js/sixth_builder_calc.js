@@ -9,7 +9,9 @@
  * 金庫／聖水瓶：Builder Hall 加上兩座倉庫的容量，要能容納單次最高的升級費用。
  * Builder Hall 低於 9：當作剛升上 Lv9，還沒蓋 Lv9 的新建築（B.O.B Control）。
  * 假設玩家目前沒有任何資源。
- * 未計入：兵種研究費用、英雄等級（合計 45 級）、主世界的 Gear Up 費用、Builder Hall 升級費用。
+ * 兵種：以 Night Witch 研究到 Lv18 計算（未解鎖時以解鎖等級起算）。
+ * 英雄：戰爭機器＋戰鬥直升機合計等級，在 Builder Hall 允許的等級內取最省聖水的組合。
+ * 未計入：主世界的 Gear Up 費用、Builder Hall 升級費用。
  */
 (function (root) {
     'use strict';
@@ -71,6 +73,23 @@
     var REQUIRED_BUILDER_HALL = REQ.builder_hall;
     var BUILDER_HALL_MAX_LEVEL = Math.max.apply(null, Object.keys(DATA.builder_hall_capacity).map(Number));
     var BOB_CONTROL_COST = REQ.build_cost; // 建造 B.O.B Control（金幣）
+
+    // Night Witch：first_level 為解鎖時的等級；costs[i] 為升到 first_level+i+1 的費用
+    var NIGHT_WITCH = DATA.night_witch;
+    var NIGHT_WITCH_MAX_LEVEL = NIGHT_WITCH.first_level + NIGHT_WITCH.costs.length;
+
+    // 英雄：first_level 為建造時的等級；costs[i] 為到達 first_level+i 的費用（costs[0] 為建造費）
+    var HEROES = [
+        { key: 'battle_machine', name: '戰爭機器' },
+        { key: 'battle_copter', name: '戰鬥直升機' },
+    ];
+    HEROES.forEach(function (h) {
+        var d = DATA.heroes[h.key];
+        h.firstLevel = d.first_level;
+        h.costs = d.costs;
+        h.required = d.required;
+        h.maxLevel = d.first_level + d.costs.length - 1;
+    });
 
     function builderHallCapacity(level) {
         return DATA.builder_hall_capacity[String(level)];
@@ -150,6 +169,86 @@
             });
         });
         return items;
+    }
+
+    function nightWitchItem(data) {
+        var first = NIGHT_WITCH.first_level;
+        var target = REQ.troop_level;
+        var current = data.night_witch || 0;
+        var start = Math.max(current, first); // 未解鎖：訓練營升級後為 first_level
+        var list = start >= target ? [] : NIGHT_WITCH.costs.slice(start - first, target - first);
+        return {
+            key: 'night_witch', name: 'Night Witch 研究', resource: ELIXIR,
+            current: start, target: Math.max(start, target),
+            reason: '任一兵種研究到 Lv' + target +
+                (current === 0 ? '（解鎖時為 Lv' + first + '）' : ''),
+            cost: sum(list), maxSingle: maxOf(list),
+        };
+    }
+
+    /** 英雄由 from 升到 to 的每一級費用；from 為 0 表示尚未建造 */
+    function heroCostList(hero, from, to) {
+        if (to <= from) return [];
+        var start = from === 0 ? 0 : from - hero.firstLevel + 1;
+        return hero.costs.slice(start, to - hero.firstLevel + 1);
+    }
+
+    /** Builder Hall 等級允許的最高英雄等級；不能建造時回傳 0 */
+    function heroMaxLevel(hero, builderHall) {
+        var max = 0;
+        hero.required.forEach(function (req, i) {
+            if (req <= builderHall) max = hero.firstLevel + i;
+        });
+        return max;
+    }
+
+    /**
+     * 找出戰爭機器＋戰鬥直升機合計達到 total 時，總費用最低的目標等級。
+     * 戰鬥直升機一建造就是 first_level，所以逐一列舉它的目標等級，
+     * 再算出戰爭機器至少要幾級。回傳 { levels: [a, b], cost, ok }
+     */
+    function planHeroes(current, total, builderHall) {
+        var machine = HEROES[0];
+        var copter = HEROES[1];
+        var maxMachine = heroMaxLevel(machine, builderHall);
+        var maxCopter = heroMaxLevel(copter, builderHall);
+
+        var copterOptions = [current[1]];
+        for (var lv = Math.max(current[1] + 1, copter.firstLevel); lv <= maxCopter; lv++) {
+            copterOptions.push(lv);
+        }
+
+        var best = null;
+        copterOptions.forEach(function (b) {
+            var a = Math.max(current[0], total - b);
+            if (a > 0 && a < machine.firstLevel) a = machine.firstLevel;
+            if (a > Math.max(maxMachine, current[0])) return;
+            var cost = sum(heroCostList(machine, current[0], a)) + sum(heroCostList(copter, current[1], b));
+            if (best === null || cost < best.cost) {
+                best = { levels: [a, b], cost: cost, ok: true };
+            }
+        });
+        return best || { levels: current.slice(), cost: 0, ok: false };
+    }
+
+    function heroItems(data, builderHall) {
+        var total = REQ.hero_total;
+        var current = HEROES.map(function (h) { return data[h.key] || 0; });
+        var plan = planHeroes(current, total, builderHall);
+        var reason = plan.ok
+            ? '英雄合計 Lv' + total + '（目標 ' + plan.levels[0] + ' ＋ ' + plan.levels[1] + '，最省聖水）'
+            : 'Builder Hall Lv' + builderHall + ' 的等級上限無法達到合計 Lv' + total;
+        return {
+            ok: plan.ok,
+            items: HEROES.map(function (h, i) {
+                var list = plan.ok ? heroCostList(h, current[i], plan.levels[i]) : [];
+                return {
+                    key: h.key, name: h.name, resource: ELIXIR,
+                    current: current[i], target: plan.ok ? plan.levels[i] : current[i],
+                    reason: reason, cost: sum(list), maxSingle: maxOf(list),
+                };
+            }),
+        };
     }
 
     /*
@@ -246,7 +345,10 @@
         var maxStorageLevel = Math.min(effectiveBh, STORAGE_MAX_LEVEL);
         var hallCapacity = builderHallCapacity(effectiveBh);
 
-        var items = buildingItems(data, bobControlBuilt);
+        var heroes = heroItems(data, effectiveBh);
+        var items = buildingItems(data, bobControlBuilt)
+            .concat([nightWitchItem(data)])
+            .concat(heroes.items);
         var storage = storageItems(data, items, maxStorageLevel, hallCapacity);
         items = items.concat(storage.items);
         items.forEach(function (item) {
@@ -274,6 +376,7 @@
             builderHallCapacity: hallCapacity,
             builderHall: bh,
             assumedBuilderHall: assumedBuilderHall,
+            heroesOk: heroes.ok,
         };
     }
 
@@ -287,6 +390,12 @@
         REQUIRED_BUILDER_HALL: REQUIRED_BUILDER_HALL,
         BUILDER_HALL_MAX_LEVEL: BUILDER_HALL_MAX_LEVEL,
         builderHallCapacity: builderHallCapacity,
+        NIGHT_WITCH: NIGHT_WITCH,
+        NIGHT_WITCH_MAX_LEVEL: NIGHT_WITCH_MAX_LEVEL,
+        HEROES: HEROES,
+        heroCostList: heroCostList,
+        heroMaxLevel: heroMaxLevel,
+        planHeroes: planHeroes,
         upgradeCost: upgradeCost,
         planStorages: planStorages,
         formatHours: formatHours,

@@ -12,6 +12,9 @@ const costs = (key) => D.buildings[key];
 const sumRange = (list, from, to) => list.slice(from, to).reduce((a, b) => a + b, 0);
 const hallCap = Calc.builderHallCapacity(BH);
 const storageCap = (lv) => (lv > 0 ? Calc.STORAGE_CAPACITY[lv - 1] : 0);
+const NW = Calc.NIGHT_WITCH;
+const [MACHINE, COPTER] = Calc.HEROES;
+const HERO_TOTAL = REQ.hero_total;
 
 function makeData(overrides = {}) {
     return {
@@ -21,6 +24,9 @@ function makeData(overrides = {}) {
         multi_mortar: target('multi_mortar'),
         star_laboratory: target('star_laboratory'),
         builder_barracks: target('builder_barracks'),
+        night_witch: REQ.troop_level,
+        battle_machine: HERO_TOTAL - (COPTER.firstLevel + 5),
+        battle_copter: COPTER.firstLevel + 5,
         gold_storage_1: Calc.STORAGE_MAX_LEVEL,
         gold_storage_2: Calc.STORAGE_MAX_LEVEL,
         elixir_storage_1: Calc.STORAGE_MAX_LEVEL,
@@ -167,4 +173,85 @@ test('整體時間取較慢的資源', () => {
         elixir_rate: elixir / 40,
     }));
     assert.equal(r.overallText, '1 天 16 小時');
+});
+
+test('Night Witch 研究到條件等級', () => {
+    const from = REQ.troop_level - 3;
+    const r = Calc.calculate(makeData({ night_witch: from }));
+    const expected = sumRange(NW.costs, from - NW.first_level, REQ.troop_level - NW.first_level);
+    assert.equal(item(r, 'night_witch').target, REQ.troop_level);
+    assert.equal(r.elixir.shortage, expected);
+});
+
+test('Night Witch 未解鎖時從解鎖等級起算', () => {
+    const r = Calc.calculate(makeData({ night_witch: 0 }));
+    const nw = item(r, 'night_witch');
+    assert.equal(nw.current, NW.first_level);
+    assert.equal(nw.cost, sumRange(NW.costs, 0, REQ.troop_level - NW.first_level));
+});
+
+test('Night Witch 條件等級所需的星空實驗室不高於目標', () => {
+    const needed = Math.max(...NW.required.slice(0, REQ.troop_level - NW.first_level));
+    assert.ok(needed <= target('star_laboratory'));
+});
+
+test('heroCostList：未建造時包含建造費', () => {
+    assert.deepEqual(Calc.heroCostList(COPTER, 0, COPTER.firstLevel), [COPTER.costs[0]]);
+    assert.deepEqual(Calc.heroCostList(COPTER, COPTER.firstLevel, COPTER.firstLevel + 2), COPTER.costs.slice(1, 3));
+    assert.deepEqual(Calc.heroCostList(MACHINE, 5, 5), []);
+});
+
+test('heroMaxLevel 依 Builder Hall 限制', () => {
+    const max = Calc.heroMaxLevel(MACHINE, BH);
+    assert.ok(MACHINE.required[max - MACHINE.firstLevel] <= BH);
+    if (max < MACHINE.maxLevel) assert.ok(MACHINE.required[max - MACHINE.firstLevel + 1] > BH);
+    assert.equal(Calc.heroMaxLevel(COPTER, 1), 0);
+});
+
+// 暴力列舉所有組合，驗證 planHeroes 找到的是最低費用
+function bruteForceHeroes(current, total, bh) {
+    const maxA = Math.max(Calc.heroMaxLevel(MACHINE, bh), current[0]);
+    const maxB = Math.max(Calc.heroMaxLevel(COPTER, bh), current[1]);
+    const levels = (hero, cur, max) => {
+        const out = [cur];
+        for (let lv = Math.max(cur + 1, hero.firstLevel); lv <= max; lv++) out.push(lv);
+        return out;
+    };
+    let best = null;
+    for (const a of levels(MACHINE, current[0], maxA)) {
+        for (const b of levels(COPTER, current[1], maxB)) {
+            if (a + b < total) continue;
+            const cost = Calc.heroCostList(MACHINE, current[0], a).reduce((x, y) => x + y, 0) +
+                Calc.heroCostList(COPTER, current[1], b).reduce((x, y) => x + y, 0);
+            if (best === null || cost < best) best = cost;
+        }
+    }
+    return best;
+}
+
+test('英雄合計：取最省的組合', () => {
+    for (const current of [[0, 0], [10, 0], [20, 0], [25, COPTER.firstLevel], [15, 25], [HERO_TOTAL, 0]]) {
+        const plan = Calc.planHeroes(current, HERO_TOTAL, BH);
+        assert.equal(plan.ok, true, JSON.stringify(current));
+        assert.ok(plan.levels[0] + plan.levels[1] >= HERO_TOTAL);
+        assert.equal(plan.cost, bruteForceHeroes(current, HERO_TOTAL, BH), JSON.stringify(current));
+    }
+});
+
+test('英雄合計已達標時不需要費用', () => {
+    const r = Calc.calculate(makeData());
+    assert.equal(item(r, 'battle_machine').cost, 0);
+    assert.equal(item(r, 'battle_copter').cost, 0);
+});
+
+test('英雄費用計入聖水', () => {
+    const r = Calc.calculate(makeData({ battle_machine: 20, battle_copter: 0 }));
+    const plan = Calc.planHeroes([20, 0], HERO_TOTAL, BH);
+    assert.equal(item(r, 'battle_copter').target, plan.levels[1]);
+    assert.equal(r.elixir.shortage, plan.cost);
+});
+
+test('等級上限無法達到合計時標示', () => {
+    const plan = Calc.planHeroes([0, 0], 999, BH);
+    assert.equal(plan.ok, false);
 });

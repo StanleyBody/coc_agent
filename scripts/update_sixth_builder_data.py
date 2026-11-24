@@ -7,6 +7,8 @@
   - 各建築每級升級費用（雙管加農砲、箭塔、多管迫擊砲、星空實驗室、訓練營、金庫、聖水瓶）
   - 倉庫每級容量、Builder Hall 可存的資源量
   - B.O.B Control 的建造費用與升級條件等級、Night Witch 解鎖所需的訓練營等級
+  - Night Witch 每級研究費用與所需星空實驗室等級
+  - 戰爭機器、戰鬥直升機每級升級費用與所需 Builder Hall 等級
 
 Wiki 格式改變導致解析失敗時，腳本會以非 0 結束，不會寫入檔案。
 只使用標準函式庫。用法：python scripts/update_sixth_builder_data.py [--check]
@@ -36,6 +38,10 @@ BUILDING_PAGES = {
 STORAGE_PAGES = {
     'gold_storage': 'Gold Storage/Builder Base',
     'elixir_storage': 'Elixir Storage/Builder Base',
+}
+HERO_PAGES = {
+    'battle_machine': 'Battle Machine',
+    'battle_copter': 'Battle Copter',
 }
 BOB_CONTROL_PAGE = 'B.O.B Control'
 NIGHT_WITCH_PAGE = 'Night Witch'
@@ -151,27 +157,70 @@ def to_int(text):
     return int(m.group(0).replace(',', ''))
 
 
-def level_table(wikitext, *value_columns):
+def to_int_or_none(text):
+    """N/A 或空白回傳 None"""
+    return None if re.search(r'N/?A', text) or not re.search(r'\d', clean_text(text)) else to_int(text)
+
+
+def level_rows(wikitext, *value_columns):
     """
-    解析「Level」開頭的等級表，回傳 {欄位名稱: [Lv1 值, Lv2 值, ...]}。
-    檢查等級是否從 1 開始連續。
+    解析「Level」開頭的等級表，回傳 (第一列的等級, {欄位名稱: [每列的值]})。
+    檢查等級是否連續；N/A 的值為 None。
     """
     headers, rows = find_table(wikitext, 'Level', *value_columns)
     level_idx = column(headers, 'Level')
     indexes = {name: column(headers, name) for name in value_columns}
     result = {name: [] for name in value_columns}
-    expected = 1
+    first = expected = None
     for row in rows:
         if len(row) < len(headers):
             continue
-        if to_int(row[level_idx]) != expected:
+        level = to_int(row[level_idx])
+        if expected is None:
+            first = expected = level
+        if level != expected:
             raise WikiParseError(f'等級不連續：預期 Lv{expected}，得到 {row[level_idx]!r}')
         for name, idx in indexes.items():
-            result[name].append(to_int(row[idx]))
+            result[name].append(to_int_or_none(row[idx]))
         expected += 1
-    if expected == 1:
+    if first is None:
         raise WikiParseError('等級表沒有資料')
+    return first, result
+
+
+def level_table(wikitext, *value_columns):
+    """從 Lv1 開始、每個值都必須有數字的等級表，回傳 {欄位名稱: [Lv1 值, Lv2 值, ...]}"""
+    first, result = level_rows(wikitext, *value_columns)
+    if first != 1:
+        raise WikiParseError(f'等級表應從 Lv1 開始，實際從 Lv{first} 開始')
+    for name, values in result.items():
+        if None in values:
+            raise WikiParseError(f'{name} 欄位有缺值：{values}')
     return result
+
+
+def troop_table(wikitext):
+    """
+    兵種研究表：第一列為解鎖時的等級（沒有費用）。
+    回傳 {first_level, costs, required}；costs[i] 為升到 first_level+i+1 的費用。
+    """
+    first, t = level_rows(wikitext, 'Research Cost', 'Star Laboratory Level Required')
+    costs, required = t['Research Cost'][1:], t['Star Laboratory Level Required'][1:]
+    if None in costs or None in required:
+        raise WikiParseError(f'研究表有缺值：{t}')
+    return {'first_level': first, 'costs': costs, 'required': required}
+
+
+def hero_table(wikitext):
+    """
+    英雄升級表：第一列為建造（解鎖）時的等級，費用為建造費。
+    回傳 {first_level, costs, required}；costs[i] 為到達 first_level+i 的費用。
+    """
+    first, t = level_rows(wikitext, 'Upgrade Cost', 'Builder Hall Level Required')
+    costs, required = t['Upgrade Cost'], t['Builder Hall Level Required']
+    if None in costs or None in required:
+        raise WikiParseError(f'英雄升級表有缺值：{t}')
+    return {'first_level': first, 'costs': costs, 'required': required}
 
 
 # ---------------------------------------------------------------- 各頁面
@@ -195,6 +244,9 @@ def parse_bob_control(wikitext):
         wikitext, '兵種等級條件')
     (defense,) = search_int(r'Upgrading any defensive building in the Builder Base to level (\d+)',
                             wikitext, '防禦建築條件')
+    (hero_total,) = search_int(
+        r'Upgrading the \[\[Battle Machine\]\] and \[\[Battle Copter\]\] to a combined level of (\d+)',
+        wikitext, '英雄合計等級條件')
     return {
         'build_cost': cost,
         'builder_hall': builder_hall,
@@ -204,6 +256,7 @@ def parse_bob_control(wikitext):
         'troop_level': troop,
         'star_laboratory': lab,
         'defense_level': defense,
+        'hero_total': hero_total,
     }
 
 
@@ -229,7 +282,10 @@ def collect(fetch=fetch_wikitext):
         data['storages'][key] = {'capacity': table['Storage Capacity'], 'costs': table['Build Cost']}
     data['builder_hall_capacity'] = parse_builder_hall_capacity(fetch(BUILDER_HALL_PAGE))
     data['bob_control'] = parse_bob_control(fetch(BOB_CONTROL_PAGE))
-    data['night_witch_barracks'] = parse_night_witch(fetch(NIGHT_WITCH_PAGE))
+    night_witch = fetch(NIGHT_WITCH_PAGE)
+    data['night_witch_barracks'] = parse_night_witch(night_witch)
+    data['night_witch'] = troop_table(night_witch)
+    data['heroes'] = {key: hero_table(fetch(page)) for key, page in HERO_PAGES.items()}
     validate(data)
     return data
 
@@ -254,6 +310,24 @@ def validate(data):
         raise WikiParseError('金庫與聖水瓶的數值不同，計算機假設兩者相同，請人工確認')
     if gold['capacity'] != sorted(gold['capacity']):
         raise WikiParseError(f'倉庫容量不是遞增：{gold["capacity"]}')
+    nw = data['night_witch']
+    top = nw['first_level'] + len(nw['costs'])
+    if top < req['troop_level']:
+        raise WikiParseError(f'Night Witch 最高 Lv{top}，低於條件 Lv{req["troop_level"]}')
+    need_lab = max(nw['required'][:req['troop_level'] - nw['first_level']])
+    if need_lab > req['star_laboratory']:
+        raise WikiParseError(f'Night Witch Lv{req["troop_level"]} 需要星空實驗室 Lv{need_lab}，'
+                             f'高於條件 Lv{req["star_laboratory"]}，請人工確認')
+    hero_top = 0
+    for key, hero in data['heroes'].items():
+        if len(hero['costs']) != len(hero['required']) or not hero['costs']:
+            raise WikiParseError(f'{key} 升級表長度不一致')
+        levels = [hero['first_level'] + i for i, r in enumerate(hero['required'])
+                  if r <= req['builder_hall']]
+        hero_top += max(levels, default=0)
+    if hero_top < req['hero_total']:
+        raise WikiParseError(f'Builder Hall {req["builder_hall"]} 的英雄合計上限 {hero_top} '
+                             f'低於條件 {req["hero_total"]}')
     for level in (str(req['builder_hall']), str(req['builder_hall'] + 1)):
         if level not in data['builder_hall_capacity']:
             raise WikiParseError(f'找不到 Builder Hall {level} 的容量')
