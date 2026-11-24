@@ -1,0 +1,60 @@
+# 將第六工人計算機（純 JS）部署到 GitHub Pages
+# 需先在 Settings → Pages 將 Source 設為「GitHub Actions」
+name: Deploy sixth builder calculator to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pages/**'
+      - 'coc_agent/sixth_builder/static/**'
+      - 'coc_agent/home/static/css/base.css'
+      - 'coc_agent/home/static/css/home_styles.css'
+      - 'coc_agent/home/static/fonts/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test coc_agent/sixth_builder/js_tests/calc.test.js
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble site
+        run: |
+          mkdir -p _site/css _site/js
+          cp pages/index.html _site/
+          mkdir -p _site/fonts
+          cp coc_agent/home/static/fonts/Clash_Regular.otf _site/fonts/
+          # base.css 用 Django 的絕對路徑載入字體，改成相對路徑
+          sed 's#/static/fonts/#../fonts/#g' coc_agent/home/static/css/base.css > _site/css/base.css
+          cp coc_agent/home/static/css/home_styles.css _site/css/
+          cp coc_agent/sixth_builder/static/css/sixth_builder.css _site/css/
+          cp coc_agent/sixth_builder/static/js/sixth_builder_data.js _site/js/
+          cp coc_agent/sixth_builder/static/js/sixth_builder_calc.js _site/js/
+          cp coc_agent/sixth_builder/static/js/sixth_builder.js _site/js/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+      - id: deployment
+        uses: actions/deploy-pages@v4

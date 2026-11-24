@@ -29,6 +29,7 @@ urlpatterns = [
     path('strategy-guides/', include('strategy_guides.urls')),
     path('player-search/', include('player_search.urls')),
     path('events/', include('events.urls')),
+    path('sixth-builder/', include('sixth_builder.urls')),
     path('api/schema/', api_schema, name='api_schema'),
     path('api/docs/', api_docs, name='api_docs'),
 ]

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "strategy_guides",
     "player_search",
     "events",
+    "sixth_builder.apps.SixthBuilderConfig",
 ]
 
 MIDDLEWARE = [

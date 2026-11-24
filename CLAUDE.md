@@ -40,7 +40,8 @@ coc_agent/          ← repo root
     ├── player_search/
     ├── events/
     ├── contact_us/
-    └── coming_soon/
+    ├── coming_soon/
+    └── sixth_builder/
 ```
 
 ## Architecture
@@ -70,6 +71,14 @@ coc_agent/          ← repo root
 **strategy_guides / player_search** — Currently render hardcoded sample data; no models.
 
 **events / contact_us / coming_soon** — Simple template-only views.
+
+**sixth_builder** — 第六工人（B.O.B）resource calculator at `/sixth-builder/`. Pure front-end JS; no models, no server-side logic.
+- `static/js/sixth_builder_data.js`: **generated, do not edit by hand.** Upgrade costs, storage capacities and B.O.B Control requirement levels scraped from the Fandom Wiki by `scripts/update_sixth_builder_data.py` (stdlib only; `--check` compares without writing). Parser tests: `python -m unittest discover -s scripts`.
+- `.github/workflows/update-wiki-data.yml`: runs the scraper weekly (Mon 03:23 UTC) and opens a PR on branch `auto/update-wiki-data` when data changes.
+- `static/js/sixth_builder_calc.js`: calculation, reading targets/costs from the data file; assumes the player has no resources. Storages are upgraded until Builder Hall (1.5M) + two storages can hold the largest single upgrade cost. Builder Hall below 9 is treated as a fresh BH9 (B.O.B Control not built).
+- `static/js/sixth_builder.js`: renders the form/results into `#sixth-builder-app`; inputs sync to the URL query.
+- JS tests: `node --test coc_agent/sixth_builder/js_tests/calc.test.js` (from repo root).
+- GitHub Pages: `pages/index.html` + `.github/workflows/pages.yml` copy the same JS/CSS into a static site on push to `main`.
 
 ## Commit Message Style
 
