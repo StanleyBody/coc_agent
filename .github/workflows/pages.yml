@@ -9,6 +9,8 @@ on:
       - 'pages/**'
       - 'coc_agent/sixth_builder/static/**'
       - 'coc_agent/home/static/css/base.css'
+      - 'coc_agent/home/static/css/home_styles.css'
+      - 'coc_agent/home/static/fonts/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -43,7 +45,11 @@ jobs:
         run: |
           mkdir -p _site/css _site/js
           cp pages/index.html _site/
-          cp coc_agent/home/static/css/base.css _site/css/
+          mkdir -p _site/fonts
+          cp coc_agent/home/static/fonts/Clash_Regular.otf _site/fonts/
+          # base.css 用 Django 的絕對路徑載入字體，改成相對路徑
+          sed 's#/static/fonts/#../fonts/#g' coc_agent/home/static/css/base.css > _site/css/base.css
+          cp coc_agent/home/static/css/home_styles.css _site/css/
           cp coc_agent/sixth_builder/static/css/sixth_builder.css _site/css/
           cp coc_agent/sixth_builder/static/js/sixth_builder_calc.js _site/js/
           cp coc_agent/sixth_builder/static/js/sixth_builder.js _site/js/

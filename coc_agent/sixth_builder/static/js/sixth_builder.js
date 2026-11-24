@@ -98,7 +98,7 @@
             var cost = item.done ? '—' : fmt(item.cost) + ' ' + item.resourceName;
             return '<tr class="' + (item.done ? 'is-done' : '') + '">' +
                 '<td>' + item.name + '</td><td class="sb-level">' + level + '</td>' +
-                '<td class="sb-num">' + cost + '</td><td class="sb-reason">' + item.reason + '</td></tr>';
+                '<td class="sb-num' + (item.done ? '' : ' sb-' + item.resource) + '">' + cost + '</td><td class="sb-reason">' + item.reason + '</td></tr>';
         }).join('');
         return '<h3 class="sb-result-title">計算結果</h3>' + bhWarn +
             '<div class="sb-summary">' + resourceCard(result.gold) + resourceCard(result.elixir) + '</div>' +
