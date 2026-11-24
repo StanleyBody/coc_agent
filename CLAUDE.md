@@ -72,9 +72,11 @@ coc_agent/          ← repo root
 
 **events / contact_us / coming_soon** — Simple template-only views.
 
-**sixth_builder** — 第六工人（B.O.B）resource calculator at `/sixth-builder/`. No models.
-- `calculator.py`: Builder Base upgrade cost data (from Fandom Wiki) and calculation; assumes the player has no resources. Storages are upgraded until Builder Hall (1.5M) + two storages can hold the largest single upgrade cost.
-- `coc_api.py`: Clash of Clans API client (stdlib `urllib`). Requires env var `COC_API_TOKEN` (key is bound to the server's public IP); `COC_API_BASE_URL` overrides the endpoint. API errors don't block the calculation.
+**sixth_builder** — 第六工人（B.O.B）resource calculator at `/sixth-builder/`. Pure front-end JS; no models, no server-side logic.
+- `static/js/sixth_builder_calc.js`: Builder Base upgrade cost data (from Fandom Wiki) and calculation; assumes the player has no resources. Storages are upgraded until Builder Hall (1.5M) + two storages can hold the largest single upgrade cost. Builder Hall below 9 is treated as a fresh BH9 (B.O.B Control not built).
+- `static/js/sixth_builder.js`: renders the form/results into `#sixth-builder-app`; inputs sync to the URL query.
+- JS tests: `node --test coc_agent/sixth_builder/js_tests/calc.test.js` (from repo root).
+- GitHub Pages: `pages/index.html` + `.github/workflows/pages.yml` copy the same JS/CSS into a static site on push to `main`.
 
 ## Commit Message Style
 

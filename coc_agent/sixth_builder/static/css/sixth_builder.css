@@ -300,6 +300,10 @@
     font-variant-numeric: tabular-nums;
 }
 
-.sb-result > .sb-warn {
+.sb-result-body > .sb-warn {
     margin: 0 0 16px;
+}
+
+.sb-input[aria-invalid="true"] {
+    border-color: var(--accent-red);
 }

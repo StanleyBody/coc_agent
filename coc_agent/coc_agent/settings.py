@@ -32,10 +32,6 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if os.environ.get("DJANGO_ALLOWED_HOSTS") else []
 
-# Clash of Clans API（https://developer.clashofclans.com）
-COC_API_TOKEN = os.environ.get("COC_API_TOKEN", "")
-COC_API_BASE_URL = os.environ.get("COC_API_BASE_URL", "https://api.clashofclans.com/v1")
-
 
 # Application definition
 

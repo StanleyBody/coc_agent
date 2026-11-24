@@ -14,122 +14,13 @@
         <p class="page-subtitle">輸入夜世界建築與倉庫等級，計算解鎖 B.O.B 還缺多少金幣與聖水</p>
     </header>
 
-    <div class="sb-layout">
-        <form method="get" class="sb-card sb-form" novalidate>
-            {% if form.non_field_errors %}<div class="sb-error">{{ form.non_field_errors|join:" " }}</div>{% endif %}
-
-            <fieldset>
-                <legend>玩家資料</legend>
-                <div class="sb-field">
-                    <label for="{{ form.player_tag.id_for_label }}">{{ form.player_tag.label }}</label>
-                    {{ form.player_tag }}
-                    {% for e in form.player_tag.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>建築目前等級</legend>
-                <div class="sb-grid">
-                    {% for field in form %}{% if field.name in "double_cannon archer_tower multi_mortar star_laboratory builder_barracks" %}
-                    <div class="sb-field">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field }}
-                        {% for e in field.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                    </div>
-                    {% endif %}{% endfor %}
-                </div>
-                <label class="sb-check">{{ form.bob_control_built }} {{ form.bob_control_built.label }}</label>
-            </fieldset>
-
-            <fieldset>
-                <legend>倉庫等級（第 1 座 ／ 第 2 座）</legend>
-                {% for pair in storage_pairs %}
-                <div class="sb-field">
-                    <label for="{{ pair.0.id_for_label }}">{{ pair.2 }}</label>
-                    <div class="sb-pair">{{ pair.0 }}<span>／</span>{{ pair.1 }}</div>
-                    {% for e in pair.0.errors %}<span class="sb-error">第 1 座：{{ e }}</span>{% endfor %}
-                    {% for e in pair.1.errors %}<span class="sb-error">第 2 座：{{ e }}</span>{% endfor %}
-                </div>
-                {% endfor %}
-            </fieldset>
-
-            <fieldset>
-                <legend>採集器產量</legend>
-                <div class="sb-grid">
-                    {% for field in form %}{% if field.name == "gold_rate" or field.name == "elixir_rate" %}
-                    <div class="sb-field">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field }}
-                        {% for e in field.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                    </div>
-                    {% endif %}{% endfor %}
-                </div>
-            </fieldset>
-
-            <button type="submit" class="btn btn-primary sb-submit">計算</button>
-        </form>
-
-        <section class="sb-card sb-result" aria-live="polite">
-            {% if result %}
-                <h3 class="sb-result-title">計算結果 <span class="sb-tag">{{ result.player_tag }}</span></h3>
-
-                {% if player %}
-                <div class="sb-player">
-                    <div class="sb-player-name">{{ player.name }} <span class="sb-tag">{{ player.tag }}</span></div>
-                    <dl class="sb-player-stats">
-                        <div><dt>大本營</dt><dd>Lv{{ player.town_hall_level|default:"—" }}</dd></div>
-                        <div><dt>Builder Hall</dt><dd>Lv{{ player.builder_hall_level|default:"—" }}</dd></div>
-                        <div><dt>Night Witch</dt><dd>{% if player.night_witch_level %}Lv{{ player.night_witch_level }} / 18{% else %}未解鎖{% endif %}</dd></div>
-                        <div><dt>Battle Machine＋Battle Copter</dt><dd>{{ player.hero_total }} / 45</dd></div>
-                    </dl>
-                    {% if result.assumed_builder_hall %}
-                    <p class="sb-warn">⚠️ 目前 Builder Hall Lv{{ player.builder_hall_level }}，以剛升上 Lv9、尚未建造 Lv9 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>
-                    {% endif %}
-                </div>
-                {% elif api_error %}
-                <p class="sb-warn">⚠️ 無法取得玩家資料：{{ api_error }}（以下仍依輸入計算）</p>
-                {% endif %}
-
-                <div class="sb-summary">
-                    {% with r=result.gold %}{% include "sixth_builder_resource.html" %}{% endwith %}
-                    {% with r=result.elixir %}{% include "sixth_builder_resource.html" %}{% endwith %}
-                </div>
-
-                <p class="sb-overall">兩種資源都夠所需時間：<strong>{{ result.overall_text }}</strong></p>
-
-                <table class="sb-table">
-                    <thead>
-                        <tr><th>項目</th><th>等級</th><th>費用</th><th class="sb-reason">原因</th></tr>
-                    </thead>
-                    <tbody>
-                        {% for item in result.items %}
-                        <tr class="{% if item.done %}is-done{% endif %}">
-                            <td>{{ item.name }}</td>
-                            <td class="sb-level">{% if item.done %}✅ 已達標{% else %}Lv{{ item.current }} → Lv{{ item.target }}{% endif %}</td>
-                            <td class="sb-num sb-{{ item.resource }}">{% if item.done %}—{% else %}{{ item.cost|floatformat:"0g" }} {{ item.resource_name }}{% endif %}</td>
-                            <td class="sb-reason">{{ item.reason }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <h3 class="sb-result-title">計算結果</h3>
-                <p class="sb-empty">填完左側欄位後按「計算」。</p>
-            {% endif %}
-
-            <div class="sb-notes">
-                <h4>計算說明</h4>
-                <ul>
-                    <li>目標等級依 B.O.B Control 升級條件：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv9、星空實驗室 Lv9、訓練營 Lv8（解鎖 Night Witch）。</li>
-                    <li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（1,500,000）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>
-                    <li>未計入：兵種研究到 Lv18 的費用、Battle Machine＋Battle Copter 合計 45 級的費用、主世界 Gear Up 的費用。</li>
-                    <li>API 查到 Builder Hall 低於 9 時，以剛升上 Lv9、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>
-                    <li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>
-                    <li>玩家資料來自 Clash of Clans API；建築等級 API 不提供，需手動輸入。</li>
-                    <li>資料來源：Clash of Clans Fandom Wiki。</li>
-                </ul>
-            </div>
-        </section>
+    <div id="sixth-builder-app">
+        <noscript><p class="sb-empty" style="text-align:center;">此計算機需要啟用 JavaScript。</p></noscript>
     </div>
 </main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/sixth_builder_calc.js' %}"></script>
+<script src="{% static 'js/sixth_builder.js' %}"></script>
 {% endblock %}
