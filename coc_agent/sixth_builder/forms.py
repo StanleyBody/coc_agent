@@ -13,11 +13,10 @@ def _level_field(label, min_value, max_value):
     )
 
 
-def _amount_field(label, placeholder=''):
+def _amount_field(label):
     return forms.IntegerField(
         label=label, min_value=0,
-        widget=forms.NumberInput(attrs={'class': 'sb-input', 'inputmode': 'numeric',
-                                        'placeholder': placeholder}),
+        widget=forms.NumberInput(attrs={'class': 'sb-input', 'inputmode': 'numeric'}),
     )
 
 
@@ -33,10 +32,10 @@ class SixthBuilderForm(forms.Form):
     star_laboratory = _level_field('星空實驗室', 1, 10)
     builder_barracks = _level_field('訓練營', 1, 12)
 
-    gold_current = _amount_field('金庫 目前存量')
-    gold_capacity = _amount_field('金庫 容量上限')
-    elixir_current = _amount_field('聖水瓶 目前存量')
-    elixir_capacity = _amount_field('聖水瓶 容量上限')
+    gold_storage_1 = _level_field('金庫 1', 0, 10)
+    gold_storage_2 = _level_field('金庫 2', 0, 10)
+    elixir_storage_1 = _level_field('聖水瓶 1', 0, 10)
+    elixir_storage_2 = _level_field('聖水瓶 2', 0, 10)
 
     gold_rate = _amount_field('每小時金幣產量')
     elixir_rate = _amount_field('每小時聖水產量')
@@ -50,12 +49,3 @@ class SixthBuilderForm(forms.Form):
         if not TAG_PATTERN.match(tag):
             raise forms.ValidationError('玩家標籤格式錯誤，只能包含 0289PYLQGRJCUV')
         return tag
-
-    def clean(self):
-        cleaned = super().clean()
-        for res, name in (('gold', '金庫'), ('elixir', '聖水瓶')):
-            current = cleaned.get(f'{res}_current')
-            capacity = cleaned.get(f'{res}_capacity')
-            if current is not None and capacity is not None and current > capacity:
-                self.add_error(f'{res}_current', f'{name}目前存量不能大於容量上限')
-        return cleaned

@@ -40,7 +40,8 @@ coc_agent/          ← repo root
     ├── player_search/
     ├── events/
     ├── contact_us/
-    └── coming_soon/
+    ├── coming_soon/
+    └── sixth_builder/
 ```
 
 ## Architecture
@@ -70,6 +71,10 @@ coc_agent/          ← repo root
 **strategy_guides / player_search** — Currently render hardcoded sample data; no models.
 
 **events / contact_us / coming_soon** — Simple template-only views.
+
+**sixth_builder** — 第六工人（B.O.B）resource calculator at `/sixth-builder/`. No models.
+- `calculator.py`: Builder Base upgrade cost data (from Fandom Wiki) and calculation; assumes the player has no resources. Storages are upgraded until Builder Hall (1.5M) + two storages can hold the largest single upgrade cost.
+- `coc_api.py`: Clash of Clans API client (stdlib `urllib`). Requires env var `COC_API_TOKEN` (key is bound to the server's public IP); `COC_API_BASE_URL` overrides the endpoint. API errors don't block the calculation.
 
 ## Commit Message Style
 

@@ -11,7 +11,7 @@
     <header class="page-header">
         <span class="section-tag">🤖 第六工人</span>
         <h2 class="page-title">第六工人計算機</h2>
-        <p class="page-subtitle">輸入夜世界建築等級與資源，計算解鎖 B.O.B 還缺多少金幣與聖水</p>
+        <p class="page-subtitle">輸入夜世界建築與倉庫等級，計算解鎖 B.O.B 還缺多少金幣與聖水</p>
     </header>
 
     <div class="sb-layout">
@@ -42,19 +42,15 @@
             </fieldset>
 
             <fieldset>
-                <legend>資源（目前存量 ／ 容量上限）</legend>
+                <legend>倉庫等級（第 1 座 ／ 第 2 座）</legend>
+                {% for pair in storage_pairs %}
                 <div class="sb-field">
-                    <label for="{{ form.gold_current.id_for_label }}">金庫</label>
-                    <div class="sb-pair">{{ form.gold_current }}<span>／</span>{{ form.gold_capacity }}</div>
-                    {% for e in form.gold_current.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                    {% for e in form.gold_capacity.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
+                    <label for="{{ pair.0.id_for_label }}">{{ pair.2 }}</label>
+                    <div class="sb-pair">{{ pair.0 }}<span>／</span>{{ pair.1 }}</div>
+                    {% for e in pair.0.errors %}<span class="sb-error">第 1 座：{{ e }}</span>{% endfor %}
+                    {% for e in pair.1.errors %}<span class="sb-error">第 2 座：{{ e }}</span>{% endfor %}
                 </div>
-                <div class="sb-field">
-                    <label for="{{ form.elixir_current.id_for_label }}">聖水瓶</label>
-                    <div class="sb-pair">{{ form.elixir_current }}<span>／</span>{{ form.elixir_capacity }}</div>
-                    {% for e in form.elixir_current.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                    {% for e in form.elixir_capacity.errors %}<span class="sb-error">{{ e }}</span>{% endfor %}
-                </div>
+                {% endfor %}
             </fieldset>
 
             <fieldset>
@@ -76,6 +72,23 @@
         <section class="sb-card sb-result" aria-live="polite">
             {% if result %}
                 <h3 class="sb-result-title">計算結果 <span class="sb-tag">{{ result.player_tag }}</span></h3>
+
+                {% if player %}
+                <div class="sb-player">
+                    <div class="sb-player-name">{{ player.name }} <span class="sb-tag">{{ player.tag }}</span></div>
+                    <dl class="sb-player-stats">
+                        <div><dt>大本營</dt><dd>Lv{{ player.town_hall_level|default:"—" }}</dd></div>
+                        <div><dt>Builder Hall</dt><dd>Lv{{ player.builder_hall_level|default:"—" }}</dd></div>
+                        <div><dt>Night Witch</dt><dd>{% if player.night_witch_level %}Lv{{ player.night_witch_level }} / 18{% else %}未解鎖{% endif %}</dd></div>
+                        <div><dt>Battle Machine＋Battle Copter</dt><dd>{{ player.hero_total }} / 45</dd></div>
+                    </dl>
+                    {% if player.builder_hall_level and player.builder_hall_level < 9 %}
+                    <p class="sb-warn">⚠️ B.O.B Control 需要 Builder Hall Lv9，目前為 Lv{{ player.builder_hall_level }}。</p>
+                    {% endif %}
+                </div>
+                {% elif api_error %}
+                <p class="sb-warn">⚠️ 無法取得玩家資料：{{ api_error }}（以下仍依輸入計算）</p>
+                {% endif %}
 
                 <div class="sb-summary">
                     {% with r=result.gold %}{% include "sixth_builder_resource.html" %}{% endwith %}
@@ -107,9 +120,11 @@
             <div class="sb-notes">
                 <h4>計算說明</h4>
                 <ul>
-                    <li>目標等級依 B.O.B Control 升級條件：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv9、星空實驗室 Lv9、訓練營 Lv6。</li>
+                    <li>目標等級依 B.O.B Control 升級條件：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv9、星空實驗室 Lv9、訓練營 Lv8（解鎖 Night Witch）。</li>
+                    <li>假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（1,500,000）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。</li>
                     <li>未計入：兵種研究到 Lv18 的費用、Battle Machine＋Battle Copter 合計 45 級的費用、主世界 Gear Up 的費用。</li>
                     <li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>
+                    <li>玩家資料來自 Clash of Clans API；建築等級 API 不提供，需手動輸入。</li>
                     <li>資料來源：Clash of Clans Fandom Wiki。</li>
                 </ul>
             </div>
