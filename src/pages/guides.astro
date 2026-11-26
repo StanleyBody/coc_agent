@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import '../styles/guides.css';
+import { ALL, DATA } from '../lib/guides/guides';
+
+const categories = [ALL, ...DATA.categories];
+---
+
+<BaseLayout title="攻略影片" description="Clash of Clans 攻略影片 - 進攻、防守、資源與部落戰策略">
+  <main class="main-content" id="guidesApp">
+    <PageHeader tag="📘 攻略專區" title="攻略影片" subtitle="由資深玩家撰寫的專業策略指南，助你征服戰場" />
+
+    <div class="guide-filters animate-on-scroll" role="group" aria-label="攻略分類">
+      {
+        categories.map((cat, i) => (
+          <button type="button" class:list={['filter-btn', { active: i === 0 }]} data-category={cat} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {cat}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="search-bar animate-on-scroll">
+      <input type="search" id="guideSearch" placeholder="🔍 搜尋攻略名稱..." class="search-input" aria-label="搜尋攻略名稱" />
+    </div>
+
+    <div class="guides-grid" id="guidesGrid">
+      {
+        DATA.guides.map((guide) => (
+          <article class="guide-card" data-category={guide.category} data-title={guide.title} data-title-en={guide.title_en}>
+            <div class="guide-card-thumb">
+              <span class="thumb-icon" aria-hidden="true">{guide.icon}</span>
+              <span class={`guide-difficulty difficulty-${guide.difficulty}`}>{guide.difficulty}</span>
+            </div>
+            <div class="guide-card-body">
+              <span class="guide-category">{guide.category}</span>
+              <h2 class="guide-card-title">{guide.title}</h2>
+              <p class="guide-card-subtitle">{guide.title_en}</p>
+              <p class="guide-card-desc">{guide.description}</p>
+            </div>
+            <div class="guide-card-footer">
+              <span class="guide-views">👁️ {guide.views} 觀看</span>
+              {guide.url ? (
+                <a href={guide.url} class="guide-play-btn" target="_blank" rel="noopener noreferrer">▶ 觀看</a>
+              ) : (
+                <span class="guide-play-btn is-disabled">影片準備中</span>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p class="guides-empty" id="guidesEmpty" hidden>找不到符合條件的攻略。</p>
+  </main>
+</BaseLayout>
+
+<script>
+  import { ALL, matchGuide } from '../lib/guides/guides';
+
+  const app = document.getElementById('guidesApp');
+  if (app) {
+    const buttons = [...app.querySelectorAll<HTMLButtonElement>('.filter-btn')];
+    const cards = [...app.querySelectorAll<HTMLElement>('.guide-card')];
+    const search = app.querySelector<HTMLInputElement>('#guideSearch');
+    const empty = app.querySelector<HTMLElement>('#guidesEmpty');
+    let category = ALL;
+
+    const update = () => {
+      const query = search?.value ?? '';
+      let visible = 0;
+      for (const card of cards) {
+        const show = matchGuide(
+          { category: card.dataset.category ?? '', title: card.dataset.title ?? '', title_en: card.dataset.titleEn ?? '' },
+          category, query,
+        );
+        card.hidden = !show;
+        if (show) visible += 1;
+      }
+      if (empty) empty.hidden = visible > 0;
+    };
+
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        category = button.dataset.category ?? ALL;
+        for (const b of buttons) {
+          b.classList.toggle('active', b === button);
+          b.setAttribute('aria-pressed', String(b === button));
+        }
+        update();
+      });
+    }
+    search?.addEventListener('input', update);
+  }
+</script>

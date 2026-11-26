@@ -1,0 +1,75 @@
+{
+  "_說明": "活動資料。recurring 為固定週期活動，時間以台灣時間（UTC+8）計算；special 為限時活動，start／end 使用 ISO 8601 時間（例如 2026-12-01T16:00:00+08:00）。",
+  "recurring": [
+    {
+      "key": "clan_games",
+      "icon": "🏆",
+      "image": "Building_HV_Clan_Games_Setup.png",
+      "title": "部落競賽",
+      "schedule": "每月 22 日 16:00 開始",
+      "calendar_date": "每月 22 日",
+      "calendar_text": "完成任務獲得獎勵",
+      "rule": {
+        "type": "monthly",
+        "day": 22,
+        "hour": 16
+      }
+    },
+    {
+      "key": "clan_war_league",
+      "icon": "⚔️",
+      "image": "Icon_HV_CWL_Champion_1.png",
+      "title": "部落聯賽",
+      "schedule": "每月 1 日 16:00 開始",
+      "calendar_date": "每月 1 日",
+      "calendar_text": "開始報名與分組",
+      "rule": {
+        "type": "monthly",
+        "day": 1,
+        "hour": 16
+      }
+    },
+    {
+      "key": "raid_weekend",
+      "icon": "🏰",
+      "image": "Icon_CC_Raid_1.png",
+      "title": "突襲周末",
+      "schedule": "每周五 15:00 開始",
+      "calendar_date": "每周五",
+      "calendar_text": "部落首都突襲開始",
+      "rule": {
+        "type": "weekly",
+        "weekday": 5,
+        "hour": 15
+      }
+    },
+    {
+      "key": "trader_refresh",
+      "icon": "🛒",
+      "image": "Magic_Item_Book_of_Everything.png",
+      "title": "商店重置",
+      "schedule": "每周二 16:00 更新",
+      "calendar_date": "每周二",
+      "calendar_text": "商人帶來新物品",
+      "rule": {
+        "type": "weekly",
+        "weekday": 2,
+        "hour": 16
+      }
+    },
+    {
+      "key": "season_end",
+      "icon": "📅",
+      "image": "Icon_HV_League_Legend_4.png",
+      "title": "賽季結束",
+      "schedule": "每月最後一週週一 13:00",
+      "calendar_date": "每月底",
+      "calendar_text": "重置賽季獎勵",
+      "rule": {
+        "type": "last_monday",
+        "hour": 13
+      }
+    }
+  ],
+  "special": []
+}

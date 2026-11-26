@@ -1,0 +1,113 @@
+---
+import '../styles/base.css';
+import '../styles/site.css';
+import { FOOTER_LINKS, FOOTER_SUPPORT, NAV_ITEMS } from '../lib/nav';
+import { url } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Clash of Clans 部落衝突社區網站 - 攻略、升級資訊、第六工人計算機',
+} = Astro.props;
+
+const pageTitle = title ? `${title} | Clash of Clans 社區` : 'Clash of Clans 社區';
+const current = Astro.url.pathname;
+const isActive = (path: string) => current === url(path);
+---
+
+<!doctype html>
+<html lang="zh-Hant" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <link rel="icon" href={url('/favicon.ico')} type="image/x-icon" />
+    <script is:inline>
+      // 在畫面繪製前套用主題，避免閃爍：使用者設定優先，其次是系統偏好
+      (function () {
+        var theme = 'dark';
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') theme = saved;
+          else if (!window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'light';
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <a href={url('/')} class="navbar-brand">
+        <span class="navbar-brand-text">⚔️ Clash of Clans 社區</span>
+      </a>
+
+      <ul class="navbar-nav" id="navbarNav">
+        {
+          NAV_ITEMS.map((item) => (
+            <li class="nav-item">
+              <a
+                href={url(item.path)}
+                class:list={['nav-link', { active: isActive(item.path) }]}
+                aria-current={isActive(item.path) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="navbar-actions">
+        <button class="menu-toggle" id="menuToggle" aria-label="切換選單" aria-controls="navbarNav" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <slot />
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>⚔️ Clash of Clans 社區</h3>
+          <p>致力於為所有部落衝突玩家提供最好的資源、攻略和社區交流平台。</p>
+        </div>
+        <div class="footer-links">
+          <h4>快速連結</h4>
+          <ul>
+            {FOOTER_LINKS.map((item) => <li><a href={url(item.path)}>{item.label}</a></li>)}
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>支援</h4>
+          <ul>
+            {FOOTER_SUPPORT.map((item) => <li><a href={url(item.path)}>{item.label}</a></li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© {new Date().getFullYear()} Clash of Clans 社區，保留所有權利。</p>
+      </div>
+    </footer>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="切換深淺色主題">
+      <span class="icon moon-icon">🌙</span>
+      <span class="icon sun-icon">☀️</span>
+    </button>
+
+    <button class="back-to-top" id="backToTop" aria-label="返回頂部">↑</button>
+
+    <script>
+      import { initSite } from '../scripts/site';
+      initSite();
+    </script>
+  </body>
+</html>

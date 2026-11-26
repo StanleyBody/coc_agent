@@ -1,0 +1,404 @@
+/*
+ * ============================================
+ * 第六工人計算機樣式
+ * ============================================
+ */
+
+
+
+
+/* 左右等寬、卡片等高 */
+.sb-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto 24px;
+    padding: 0 20px;
+    align-items: stretch;
+}
+
+/* 結果較短時拉成與表單同高；結果較長時表單固定在畫面上 */
+.sb-form {
+    align-self: start;
+}
+
+@media (min-width: 901px) and (min-height: 860px) {
+    .sb-form {
+        position: sticky;
+        top: 90px;
+    }
+}
+
+.sb-notes-wrap {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+}
+
+.sb-card {
+    background: var(--gradient-card);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+
+/* ===== 表單 ===== */
+.sb-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 18px;
+}
+
+.sb-form fieldset:last-child {
+    margin-bottom: 0;
+}
+
+.sb-form legend {
+    font-weight: 700;
+    color: var(--primary-gold);
+    margin-bottom: 12px;
+}
+
+.sb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.sb-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sb-grid .sb-field {
+    margin-bottom: 0;
+}
+
+.sb-span-2 {
+    grid-column: span 2;
+    align-self: end;
+    min-height: 44px;
+}
+
+.sb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.sb-field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sb-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    outline: none;
+    font-variant-numeric: tabular-nums;
+    transition: all var(--transition-normal);
+}
+
+.sb-input:focus {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+}
+
+.sb-pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sb-pair span {
+    color: var(--text-muted);
+}
+
+.sb-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.sb-check input {
+    accent-color: var(--primary-gold);
+}
+
+.sb-error {
+    color: var(--accent-red);
+    font-size: 0.85rem;
+}
+
+.sb-submit {
+    width: 100%;
+}
+
+/* ===== 結果 ===== */
+.sb-result-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--primary-gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sb-tag {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.sb-empty {
+    color: var(--text-muted);
+}
+
+.sb-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+/* 資源顏色與升級資訊頁的等級表一致 */
+.sb-res-gold { --res-color: #FFD700; }
+.sb-res-elixir { --res-color: #E066FF; }
+
+/* 淺色主題下加深，避免在白底上看不清 */
+[data-theme="light"] .sb-res-gold { --res-color: var(--primary-gold-dark); }
+[data-theme="light"] .sb-res-elixir { --res-color: #A335C4; }
+
+.sb-res {
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--res-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    background: var(--bg-card);
+    transition: all var(--transition-normal);
+}
+
+.sb-res:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.sb-res-head {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.sb-res dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 12px;
+    margin: 0;
+}
+
+.sb-res dt {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    align-self: center;
+}
+
+.sb-res dd {
+    margin: 0;
+    text-align: right;
+}
+
+.sb-num {
+    font-variant-numeric: tabular-nums;
+}
+
+.sb-shortage {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--res-color);
+}
+
+/* 時間較長，標籤與數值各佔一行 */
+.sb-res dt.sb-time-label {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+.sb-res dd.sb-time {
+    grid-column: 1 / -1;
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.sb-warn {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: var(--primary-gold-dark);
+}
+
+.sb-overall {
+    margin-bottom: 16px;
+}
+
+.sb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.sb-table th,
+.sb-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.sb-table th {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sb-table tr:hover td {
+    background: var(--bg-card-hover);
+}
+
+.sb-table .sb-gold { color: #FFD700; }
+.sb-table .sb-elixir { color: #E066FF; }
+[data-theme="light"] .sb-table .sb-gold { color: var(--primary-gold-dark); }
+[data-theme="light"] .sb-table .sb-elixir { color: #A335C4; }
+
+.sb-table td.sb-num {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.sb-res.is-placeholder {
+    opacity: 0.6;
+}
+
+.sb-item-reason {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.sb-done {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.sb-notes {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.sb-notes h2 {
+    font-size: 1em;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.sb-notes ul {
+    padding-left: 18px;
+    display: grid;
+    gap: 4px;
+}
+
+@media (max-width: 900px) {
+    .sb-layout {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 0 16px;
+    }
+    .sb-notes-wrap {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 560px) {
+    .sb-summary {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sb-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sb-span-2 {
+        grid-column: span 1;
+    }
+    .sb-grid-pairs {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sb-item-reason {
+        display: none;
+    }
+    .sb-table th,
+    .sb-table td {
+        padding: 10px 6px;
+    }
+}
+
+.sb-level {
+    white-space: nowrap;
+}
+
+.sb-player {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background: var(--bg-card);
+}
+
+.sb-player-name {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.sb-player-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px 16px;
+    margin: 0;
+}
+
+.sb-player-stats dt {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.sb-player-stats dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.sb-result-body > .sb-warn {
+    margin: 0 0 16px;
+}
+
+.sb-input[aria-invalid="true"] {
+    border-color: var(--accent-red);
+}

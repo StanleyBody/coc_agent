@@ -2,83 +2,71 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Overview
+
+Static Clash of Clans community site built with Astro + TypeScript, deployed to GitHub Pages at `https://stanleybody.github.io/coc_agent/`. No backend: all interactivity is client-side. The previous Django version lives on the `legacy-django` branch.
+
 ## Commands
 
-All commands run from the `coc_agent/` inner directory (where `manage.py` lives):
+Run from the repo root (Node.js 22.23.4+):
 
 ```bash
-cd coc_agent
+npm install
+npm run dev        # dev server at http://localhost:4321/coc_agent/
+npm test           # node --test "src/**/*.test.ts" (Node strips TypeScript types)
+npm run build      # astro check (type check) + astro build → dist/
+npm run preview
 
-# Development server
-python manage.py runserver
-
-# Database migrations
-python manage.py makemigrations
-python manage.py migrate
-
-# Tests (all apps)
-python manage.py test
-
-# Tests (single app)
-python manage.py test upgrade_info
-
-# Create admin superuser
-python manage.py createsuperuser
+python scripts/update_upgrade_data.py [--check]        # regenerate src/data/upgrade-info.json
+python scripts/update_sixth_builder_data.py [--check]  # regenerate src/data/sixth-builder.json
+python -m unittest discover -s scripts                 # scraper tests
 ```
 
-## Project Structure
-
-The repository has a double-nested layout:
+## Structure
 
 ```
-coc_agent/          ← repo root
-└── coc_agent/      ← Django project root (contains manage.py)
-    ├── coc_agent/  ← settings package (settings.py, urls.py, wsgi.py, asgi.py)
-    ├── home/
-    ├── upgrade_info/
-    ├── strategy_guides/
-    ├── player_search/
-    ├── events/
-    ├── contact_us/
-    ├── coming_soon/
-    └── sixth_builder/
+src/
+├── pages/        # one .astro file per route (index, upgrade-info, sixth-builder, events, guides, contact)
+├── layouts/      # BaseLayout.astro: navbar, footer, theme toggle, back-to-top
+├── components/   # PageHeader, SixthBuilderField
+├── lib/          # TypeScript logic per feature + *.test.ts next to the code
+│   ├── upgrade-info/   # logic.ts (filters, totals, discounts), render.ts (HTML), client.ts (DOM)
+│   ├── sixth-builder/  # calc.ts, fields.ts (validation), render.ts, client.ts
+│   ├── events/         # schedule.ts (Taiwan-time recurring rules, specials), client.ts (countdowns)
+│   ├── guides/         # guides.ts (filtering, popularity)
+│   ├── nav.ts, url.ts  # navigation items; url() prefixes the /coc_agent base path
+├── data/         # JSON data imported by lib modules
+├── styles/       # base.css (theme variables, Clash font), site.css (navbar/footer/home), per-page CSS
+├── scripts/      # site.ts: theme toggle, navbar, scroll animations, mobile menu
+└── assets/       # font and images (processed by Vite)
+scripts/          # Python scrapers for the Fandom Wiki (stdlib only); wikilib.py has shared parsing
 ```
 
-## Architecture
+## Conventions
 
-**Routing**: Root `/` redirects to `/home/`. Each app is included under its own prefix in `coc_agent/coc_agent/urls.py`.
+- **Links**: always build internal links with `url('/path/')` from `src/lib/url.ts`; `astro.config.mjs` sets `base: '/coc_agent'` and `trailingSlash: 'always'`.
+- **Pattern for interactive pages**: static markup is rendered in the `.astro` page at build time; a `<script>` imports `lib/<feature>/client.ts`, which reads the DOM and calls pure functions in `logic.ts`/`calc.ts`/`render.ts`. Keep pure logic separate so it is testable with `node --test`.
+- **Imports inside `src/lib`** use explicit `.ts` extensions (required by Node type stripping); JSON is imported with `with { type: 'json' }`. Avoid TS-only runtime syntax (enums, namespaces, parameter properties).
+- **HTML from data**: escape names that come from the Wiki (`escapeHtml` in `upgrade-info/render.ts`).
+- **Theme**: `data-theme` is set on `<html>` by an inline script before paint; CSS uses `[data-theme="light"]` overrides of variables in `base.css`.
+- **Chinese names**: items without a known Traditional Chinese name show the English name; do not invent translations.
 
-**Templates**: All pages extend `home/templates/base.html`, which provides the nav bar, footer, dark/light theme toggle, and responsive layout. App templates live in `<app>/templates/`.
+## Data
 
-**Static files**: Each app has its own `static/` directory. CSS is in `static/css/`, JS in `static/js/`. Files are collected to `staticfiles/` for production (`python manage.py collectstatic`).
+- `src/data/upgrade-info.json` and `src/data/sixth-builder.json` are **generated — do not edit by hand**.
+  - `update_upgrade_data.py` discovers Home Village buildings, heroes, troops, spells and siege machines from Wiki navigation templates (`Template:BuildingsMenuHV`, `Template:TroopsMenuHV`) and parses each page's first level table. Troop availability uses the Laboratory → Town Hall map and Barracks/Factory/Workshop unlock tables.
+  - `update_sixth_builder_data.py` scrapes Builder Base costs and B.O.B Control requirements (including Night Witch research and Battle Machine + Battle Copter combined level).
+  - Both scripts fail (exit 2, no write) when the Wiki format changes; output has no timestamp so unchanged data produces no diff.
+- `src/data/events.json` (recurring rules + `special` events with ISO start/end) and `src/data/guides.json` are edited by hand.
 
-**Database**: SQLite3 (`db.sqlite3`). Only `home` and `upgrade_info` have models with migrations; the other apps are view-only.
+## Sixth builder calculator rules
 
-## Apps
+Assumes the player has no resources. Storages are upgraded (lowest first) until Builder Hall capacity + two storages can hold the largest single upgrade cost. Builder Hall below 9 is treated as a fresh BH9 (B.O.B Control not built). `planHeroes` picks the cheapest Battle Machine / Battle Copter level pair reaching the combined level within the Builder Hall cap.
 
-**home** — Core models and the landing page.
-- Custom `User` model with UUID primary key and manual bcrypt-style password hashing (not Django's `AbstractUser`). Use `user.set_password()` / `user.verify_password()`.
-- `TrackingList` → `PlayerTracking` / `ClanTracking` joins let a user watch clans and players.
+## CI
 
-**upgrade_info** — Most complex app. Displays building/hero/troop upgrade costs filtered by Town Hall level.
-- Three JSON APIs consumed by frontend JS:
-  - `GET /upgrade_info/api/buildings/?th_level=<n>&category=<id>`
-  - `GET /upgrade_info/api/heroes/?th_level=<n>`
-  - `GET /upgrade_info/api/troops/?th_level=<n>&troop_type=<id>`
-- `format_time_display(seconds)` in `upgrade_info/models.py` converts seconds → human-readable string (used in API responses).
-- Admin interface uses `TabularInline` for level rows on each building/hero/troop.
-
-**strategy_guides / player_search** — Currently render hardcoded sample data; no models.
-
-**events / contact_us / coming_soon** — Simple template-only views.
-
-**sixth_builder** — 第六工人（B.O.B）resource calculator at `/sixth-builder/`. Pure front-end JS; no models, no server-side logic.
-- `static/js/sixth_builder_data.js`: **generated, do not edit by hand.** Upgrade costs, storage capacities and B.O.B Control requirement levels scraped from the Fandom Wiki by `scripts/update_sixth_builder_data.py` (stdlib only; `--check` compares without writing). Parser tests: `python -m unittest discover -s scripts`.
-- `.github/workflows/update-wiki-data.yml`: runs the scraper weekly (Mon 03:23 UTC) and opens a PR on branch `auto/update-wiki-data` when data changes.
-- `static/js/sixth_builder_calc.js`: calculation, reading targets/costs from the data file; assumes the player has no resources. Includes Night Witch research to the required troop level, and Battle Machine + Battle Copter combined level (`planHeroes` picks the cheapest level pair within the Builder Hall cap). Storages are upgraded until Builder Hall (1.5M) + two storages can hold the largest single upgrade cost. Builder Hall below 9 is treated as a fresh BH9 (B.O.B Control not built).
-- `static/js/sixth_builder.js`: renders the form/results into `#sixth-builder-app`; inputs sync to the URL query.
-- JS tests: `node --test coc_agent/sixth_builder/js_tests/calc.test.js` (from repo root).
-- GitHub Pages: `pages/index.html` + `.github/workflows/pages.yml` copy the same JS/CSS into a static site on push to `main`.
+- `.github/workflows/pages.yml`: on push to `main`, `npm ci` → `npm test` → `npm run build` → deploy `dist/` (separate build and deploy jobs).
+- `.github/workflows/update-wiki-data.yml`: weekly (Mon 03:23 UTC) runs both scrapers, tests and builds, then opens a PR on branch `auto/update-wiki-data` if data changed.
 
 ## Commit Message Style
 

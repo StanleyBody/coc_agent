@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import '../styles/upgrade-info.css';
+import { DATA, DISCOUNT_GROUPS } from '../lib/upgrade-info/logic';
+
+const townHalls = Array.from({ length: DATA.town_hall_max }, (_, i) => DATA.town_hall_max - i);
+const counts = { buildings: DATA.buildings.length, heroes: DATA.heroes.length, units: DATA.units.length };
+---
+
+<BaseLayout title="升級資訊" description="Clash of Clans 升級資訊 - 建築、英雄、兵種、法術、攻城機器的升級費用與時間">
+  <main class="main-content" id="upgradeInfoApp">
+    <PageHeader tag="📊 升級資料" title="升級資訊" subtitle="查看建築、英雄與兵種的完整升級數據" />
+
+    <div class="summary-dashboard animate-on-scroll">
+      <div class="summary-card">
+        <span class="summary-icon" aria-hidden="true">💰</span>
+        <div class="summary-info">
+          <span class="summary-label">總升級費用</span>
+          <span class="summary-value" id="totalCost">-</span>
+        </div>
+      </div>
+      <div class="summary-card savings">
+        <span class="summary-icon" aria-hidden="true">🟢</span>
+        <div class="summary-info">
+          <span class="summary-label">節省金額</span>
+          <span class="summary-value" id="totalSavings">-</span>
+          <span class="summary-badge" hidden>-0%</span>
+        </div>
+      </div>
+      <div class="summary-card">
+        <span class="summary-icon" aria-hidden="true">⏱️</span>
+        <div class="summary-info">
+          <span class="summary-label">總升級時間</span>
+          <span class="summary-value" id="totalTime">-</span>
+        </div>
+      </div>
+      <div class="summary-card savings">
+        <span class="summary-icon" aria-hidden="true">⚡</span>
+        <div class="summary-info">
+          <span class="summary-label">節省時間</span>
+          <span class="summary-value" id="timeSavings">-</span>
+          <span class="summary-badge" hidden>-0%</span>
+        </div>
+      </div>
+    </div>
+    <p class="summary-scope" id="summaryScope" aria-live="polite"></p>
+
+    <div class="discount-panel animate-on-scroll" id="discountPanel">
+      <button type="button" class="discount-header" id="discountToggle" aria-expanded="false" aria-controls="discountBody">
+        <span class="discount-header-left">
+          <span class="discount-header-icon" aria-hidden="true">⚙️</span>
+          <span class="discount-header-title">我的減免設定</span>
+          <span class="discount-summary" id="discountSummary">未設定減免</span>
+        </span>
+        <span class="discount-chevron" aria-hidden="true">▼</span>
+      </button>
+      <div class="discount-body" id="discountBody">
+        <div class="discount-sections">
+          {
+            DISCOUNT_GROUPS.map((group) => (
+              <fieldset class="discount-section">
+                <legend class="discount-section-title">{group.title}</legend>
+                <div class="discount-options">
+                  {group.options.map((option) => (
+                    <label class:list={['discount-option', { active: option.value === 0 }]}>
+                      <input type="radio" name={group.key} value={option.value} checked={option.value === 0} />
+                      <span class="option-card">
+                        <span class="option-name">{option.name}</span>
+                        <span class="option-value">{option.value ? `-${option.value}%` : '0%'}</span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            ))
+          }
+        </div>
+        <div class="discount-footer">
+          <div class="discount-total">
+            <span>總減免：</span>
+            <span class="discount-total-value zero" id="totalDiscount">0%</span>
+          </div>
+          <button type="button" class="discount-reset-btn" id="discountReset">🔄 重置</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs-container">
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" role="tab" data-tab="buildings" aria-selected="true">🏠 建築（{counts.buildings}）</button>
+        <button type="button" class="tab" role="tab" data-tab="heroes" aria-selected="false">👑 英雄（{counts.heroes}）</button>
+        <button type="button" class="tab" role="tab" data-tab="units" aria-selected="false">⚔️ 兵種（{counts.units}）</button>
+      </div>
+    </div>
+
+    <div class="filters-container">
+      <div class="filters">
+        <div class="filter-group">
+          <label for="thFilter">大本營等級</label>
+          <select id="thFilter">
+            <option value="">全部等級</option>
+            {townHalls.map((th) => <option value={th}>TH {th}</option>)}
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="groupSelect" id="groupLabel">建築類別</label>
+          <select id="groupSelect">
+            <option value="">全部類別</option>
+          </select>
+        </div>
+        <div class="filter-group search-group">
+          <label for="searchInput">搜尋</label>
+          <input type="search" id="searchInput" placeholder="搜尋名稱（中文或英文）..." />
+        </div>
+      </div>
+    </div>
+
+    <div class="content-container">
+      <div class="items-grid" id="itemsGrid">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>載入資料中...</p>
+        </div>
+      </div>
+      <noscript><p class="empty-state-text">此頁面需要啟用 JavaScript。</p></noscript>
+    </div>
+
+    <p class="data-source">資料來源：Clash of Clans Fandom Wiki，每週自動更新。沒有中文名稱的項目顯示英文原名。</p>
+  </main>
+
+  <div class="modal-overlay" id="levelModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button type="button" class="modal-close" id="modalClose" aria-label="關閉">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon" id="modalIcon" aria-hidden="true">🏠</div>
+        <h2 class="modal-title" id="modalTitle">名稱</h2>
+      </div>
+      <div class="modal-body">
+        <div class="level-table-container">
+          <table class="level-table">
+            <thead><tr id="tableHeader"></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { initUpgradeInfo } from '../lib/upgrade-info/client';
+  const app = document.getElementById('upgradeInfoApp');
+  if (app) initUpgradeInfo(app);
+</script>
