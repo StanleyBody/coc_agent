@@ -79,6 +79,13 @@ class OfficialNotesTests(unittest.TestCase):
             u.build_official(lambda path: (fake_fetch(path)[0], ''))
 
 
+class ConfirmedNamesTests(unittest.TestCase):
+    def test_confirmed_names_are_safe(self):
+        for en, zh in u.CONFIRMED_NAMES.items():
+            self.assertFalse(u.UNSAFE.search(zh), en)
+            self.assertNotIn(en, u.OFFICIAL_NOTES)
+
+
 class CollectTests(unittest.TestCase):
     def test_too_few_names(self):
         with self.assertRaises(u.TranslationError):

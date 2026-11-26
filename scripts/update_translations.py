@@ -12,6 +12,7 @@
 coc.py 尚未收錄的新名稱，取自 Supercell 官網的繁體中文公告，列在 OFFICIAL_NOTES。
 腳本會下載公告的繁中版與英文版，確認譯名與英文名稱都出現在同一篇公告中；
 coc.py 之後收錄同一名稱時，以遊戲語系檔為準。
+官網也沒有公告的名稱，由維護者對照遊戲畫面確認後列在 CONFIRMED_NAMES。
 
 只使用標準函式庫。用法：python scripts/update_translations.py [--check]
 """
@@ -66,6 +67,11 @@ OFFICIAL_NOTES = {
     'Portal Pendant': ('news/宇宙-詛咒-裂隙-之亂-降臨/', '傳送吊飾'),
     'Fire Heart': ('news/2026年-10月-平衡性-調整-即將-登場-2/', '烈焰之心'),
     'Revenge Deck': ('news/神勇-大陸-等你-來征服/', '復仇牌組'),
+}
+
+# 英文名稱 → 遊戲內的繁體中文名稱（coc.py 與官網公告都沒有，由維護者對照遊戲畫面確認）
+CONFIRMED_NAMES = {
+    'Stun Blaster': '爆震器',
 }
 
 
@@ -156,7 +162,7 @@ def collect(download=download_translations, fetch=fetch_article):
         raise TranslationError(f'只取得 {len(names)} 個名稱，少於預期')
     names.update(build_terms(translations))
     # 遊戲語系檔已有的名稱以遊戲為準
-    for en, zh in build_official(fetch).items():
+    for en, zh in {**CONFIRMED_NAMES, **build_official(fetch)}.items():
         names.setdefault(en, zh)
     return {
         'version': version,
