@@ -15,7 +15,8 @@ test('結果畫面列出需要升級的項目與總額', () => {
   const result = calculate(input);
   const html = resultHtml(result);
   assert.ok(html.includes(result.gold.shortage.toLocaleString('en-US')));
-  assert.ok(html.includes('B.O.B Control（建造）'));
+  assert.ok(html.includes('巴布控制台（建造）'));
+  assert.ok(html.includes('建築大師金幣'));
   assert.ok(html.includes('以剛升上 Lv9'));
   assert.ok(html.includes(`<strong>${result.overallText}</strong>`));
 });

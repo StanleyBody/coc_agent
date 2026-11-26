@@ -3,6 +3,7 @@
  * 資料來源：src/data/upgrade-info.json（每週由 Clash of Clans Fandom Wiki 自動更新）
  */
 import rawData from '../../data/upgrade-info.json' with { type: 'json' };
+import { hasZh, zh } from '../i18n.ts';
 
 export type Resource = 'gold' | 'elixir' | 'dark_elixir' | 'shiny_ore' | 'glowy_ore' | 'starry_ore';
 export type Source = 'buildings' | 'heroes' | 'units' | 'pets' | 'equipment';
@@ -21,8 +22,8 @@ export interface Level {
 
 export interface Item {
   key: string;
+  /** 英文名稱；中文由 zh() 查詢 */
   name: string;
-  name_zh: string | null;
   wiki: string;
   resources: Resource[];
   alt_resource: Resource | null;
@@ -40,19 +41,23 @@ export type UpgradeData = Record<Source, Item[]>;
 export const DATA = rawData as unknown as UpgradeData;
 
 export const RESOURCES: Resource[] = ['gold', 'elixir', 'dark_elixir', 'shiny_ore', 'glowy_ore', 'starry_ore'];
-/** 礦石沒有確定的中文名稱，顯示英文原名 */
+/** 資源名稱（遊戲內翻譯） */
 export const RESOURCE_NAMES: Record<Resource, string> = {
-  gold: '金幣', elixir: '聖水', dark_elixir: '暗黑重油',
-  shiny_ore: 'Shiny Ore', glowy_ore: 'Glowy Ore', starry_ore: 'Starry Ore',
+  gold: zh('Gold'), elixir: zh('Elixir'), dark_elixir: zh('Dark Elixir'),
+  shiny_ore: zh('Shiny Ore'), glowy_ore: zh('Glowy Ore'), starry_ore: zh('Starry Ore'),
 };
+/** 卡片與摘要用的簡稱（取資源名稱的前幾個字） */
 export const RESOURCE_SHORT: Record<Resource, string> = {
-  gold: '金', elixir: '聖', dark_elixir: '暗',
-  shiny_ore: 'Shiny', glowy_ore: 'Glowy', starry_ore: 'Starry',
+  gold: RESOURCE_NAMES.gold.slice(0, 1), elixir: RESOURCE_NAMES.elixir.slice(0, 1),
+  dark_elixir: RESOURCE_NAMES.dark_elixir.slice(0, 1),
+  shiny_ore: RESOURCE_NAMES.shiny_ore.slice(0, 2), glowy_ore: RESOURCE_NAMES.glowy_ore.slice(0, 2),
+  starry_ore: RESOURCE_NAMES.starry_ore.slice(0, 2),
 };
 
-/** 需求欄位的名稱 */
+/** 需求欄位的名稱（遊戲內翻譯） */
 export const REQUIREMENT_NAMES: Record<Source, string> = {
-  buildings: '大本營', heroes: '大本營', units: '實驗室', pets: 'Pet House', equipment: 'Blacksmith',
+  buildings: zh('Town Hall'), heroes: zh('Town Hall'), units: zh('Laboratory'),
+  pets: zh('Pet House'), equipment: zh('Blacksmith'),
 };
 
 export interface Group {
@@ -72,7 +77,9 @@ export interface TabConfig {
   groups: Group[];
 }
 
-const heroGroups: Group[] = DATA.heroes.map((h) => ({ key: h.key, name: h.name_zh ?? h.name, icon: '👑' }));
+const heroGroups: Group[] = DATA.heroes.map((h) => ({ key: h.key, name: zh(h.name), icon: '👑' }));
+const DARK = RESOURCE_NAMES.dark_elixir;
+const ELIXIR = RESOURCE_NAMES.elixir;
 
 export const TABS: TabConfig[] = [
   {
@@ -87,21 +94,21 @@ export const TABS: TabConfig[] = [
   {
     key: 'troops', name: '兵種', icon: '⚔️', source: 'units', groupField: 'type',
     groups: [
-      { key: 'elixir_troop', name: '聖水兵種', icon: '💧' },
-      { key: 'dark_troop', name: '暗黑重油兵種', icon: '⚫' },
+      { key: 'elixir_troop', name: `${ELIXIR}兵種`, icon: '💧' },
+      { key: 'dark_troop', name: `${DARK}兵種`, icon: '⚫' },
     ],
   },
   { key: 'heroes', name: '英雄', icon: '👑', source: 'heroes', groups: [] },
   {
     key: 'spells', name: '法術', icon: '✨', source: 'units', groupField: 'type',
     groups: [
-      { key: 'elixir_spell', name: '聖水法術', icon: '✨' },
-      { key: 'dark_spell', name: '暗黑重油法術', icon: '🌑' },
+      { key: 'elixir_spell', name: `${ELIXIR}法術`, icon: '✨' },
+      { key: 'dark_spell', name: `${DARK}法術`, icon: '🌑' },
     ],
   },
   {
-    key: 'sieges', name: '攻城機器', icon: '🏰', source: 'units', groupField: 'type',
-    groups: [{ key: 'siege', name: '攻城機器', icon: '🏰' }],
+    key: 'sieges', name: zh('Siege Machines'), icon: '🏰', source: 'units', groupField: 'type',
+    groups: [{ key: 'siege', name: zh('Siege Machines'), icon: '🏰' }],
   },
   { key: 'pets', name: '戰寵', icon: '🐾', source: 'pets', groups: [] },
   { key: 'equipment', name: '裝備', icon: '🎒', source: 'equipment', groupField: 'hero', groups: heroGroups },
@@ -135,7 +142,12 @@ export function itemIcon(tab: TabConfig, item: Item): string {
 }
 
 export function displayName(item: Item): string {
-  return item.name_zh ?? item.name;
+  return zh(item.name);
+}
+
+/** 有中文名稱時，英文原名作為副標題 */
+export function hasChineseName(item: Item): boolean {
+  return hasZh(item.name);
 }
 
 export interface Filters {
@@ -151,7 +163,7 @@ export function filterItems(filters: Filters, data: UpgradeData = DATA): Item[] 
   return itemsInTab(filters.tab, data)
     .filter((item) => !filters.group || groupOf(filters.tab, item) === filters.group)
     .filter((item) => !search || item.name.toLowerCase().includes(search)
-      || (item.name_zh ?? '').toLowerCase().includes(search));
+      || zh(item.name).toLowerCase().includes(search));
 }
 
 /** 減免後的數值（無條件捨去）；percent 為 0 時不變 */

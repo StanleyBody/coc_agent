@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { DATA as EVENTS } from '../lib/events/schedule';
 import { popularGuides } from '../lib/guides/guides';
 import { url } from '../lib/url';
+import { zh } from '../lib/i18n';
 
 // 活動圖示（src/assets/images/events/）
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/images/events/*.png', { eager: true });
@@ -11,9 +12,9 @@ const specialImage = imageOf('Sour_Elixir.png');
 
 const guides = popularGuides(3);
 const tools = [
-  { icon: '📊', title: '升級資訊', text: '查詢建築、英雄、兵種、法術與攻城機器的升級費用和時間。', path: '/upgrade-info/' },
-  { icon: '🤖', title: '第六工人計算機', text: '計算解鎖第六工人（B.O.B）還缺多少夜世界金幣與聖水。', path: '/sixth-builder/' },
-  { icon: '📅', title: '活動公告', text: '部落競賽、部落聯賽、突襲周末等活動的倒數計時。', path: '/events/' },
+  { icon: '📊', title: '升級資訊', text: `查詢建築、兵種、英雄、法術、${zh('Siege Machines')}、戰寵與裝備的升級費用和時間。`, path: '/upgrade-info/' },
+  { icon: '🤖', title: '第六工人計算機', text: `計算解鎖第六工人（${zh('B.O.B')}）還缺多少${zh('Builder Gold')}與${zh('Builder Elixir')}。`, path: '/sixth-builder/' },
+  { icon: '📅', title: '活動公告', text: `${zh('Clan Games')}、${zh('Clan War League')}、突襲周末等活動的倒數計時。`, path: '/events/' },
 ];
 ---
 
