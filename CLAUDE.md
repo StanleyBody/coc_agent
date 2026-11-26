@@ -30,7 +30,7 @@ src/
 ├── layouts/      # BaseLayout.astro: navbar, footer, theme toggle, back-to-top
 ├── components/   # PageHeader, SixthBuilderField
 ├── lib/          # TypeScript logic per feature + *.test.ts next to the code
-│   ├── upgrade-info/   # logic.ts (filters, totals, discounts), render.ts (HTML), client.ts (DOM)
+│   ├── upgrade-info/   # logic.ts (TABS config, filters, totals, discounts), render.ts (HTML), client.ts (DOM)
 │   ├── sixth-builder/  # calc.ts, fields.ts (validation), render.ts, client.ts
 │   ├── events/         # schedule.ts (Taiwan-time recurring rules, specials), client.ts (countdowns)
 │   ├── guides/         # guides.ts (filtering, popularity)
@@ -54,7 +54,8 @@ scripts/          # Python scrapers for the Fandom Wiki (stdlib only); wikilib.p
 ## Data
 
 - `src/data/upgrade-info.json` and `src/data/sixth-builder.json` are **generated — do not edit by hand**.
-  - `update_upgrade_data.py` discovers Home Village buildings, heroes, troops, spells and siege machines from Wiki navigation templates (`Template:BuildingsMenuHV`, `Template:TroopsMenuHV`) and parses each page's first level table. Troop availability uses the Laboratory → Town Hall map and Barracks/Factory/Workshop unlock tables.
+  - `update_upgrade_data.py` discovers Home Village buildings, heroes, troops, spells, siege machines, pets and hero equipment from Wiki navigation templates (`Template:BuildingsMenuHV`, `Template:TroopsMenuHV`) and parses each page's first level table. Each level stores `costs` as `{resource: amount}` (equipment costs several ores; sub-headers under merged `Upgrade Cost` columns name the ore).
+  - The upgrade info page shows all levels (no Town Hall filter). Tabs and sub-categories are defined in `TABS` in `src/lib/upgrade-info/logic.ts`.
   - `update_sixth_builder_data.py` scrapes Builder Base costs and B.O.B Control requirements (including Night Witch research and Battle Machine + Battle Copter combined level).
   - Both scripts fail (exit 2, no write) when the Wiki format changes; output has no timestamp so unchanged data produces no diff.
 - `src/data/events.json` (recurring rules + `special` events with ISO start/end) and `src/data/guides.json` are edited by hand.
@@ -66,7 +67,8 @@ Assumes the player has no resources. Storages are upgraded (lowest first) until 
 ## CI
 
 - `.github/workflows/pages.yml`: on push to `main`, `npm ci` → `npm test` → `npm run build` → deploy `dist/` (separate build and deploy jobs).
-- `.github/workflows/update-wiki-data.yml`: weekly (Mon 03:23 UTC) runs both scrapers, tests and builds, then opens a PR on branch `auto/update-wiki-data` if data changed.
+- `.github/workflows/update-wiki-data.yml`: weekly (Mon 03:23 UTC) runs both scrapers, tests and builds, then opens a PR on branch `auto/update-wiki-data` if data changed and dispatches `claude-review.yml` for it (PRs opened with `GITHUB_TOKEN` do not trigger `pull_request`).
+- `.github/workflows/claude-review.yml`: on PR open/update (or `workflow_dispatch` with `pr_number`): tests/build → `anthropics/claude-code-action@v1` reviews against this file and returns a JSON verdict → on `APPROVE`, merges with `--match-head-commit` and dispatches `pages.yml` (merges with `GITHUB_TOKEN` do not trigger `push`). Skips drafts and forks; label `no-auto-merge` prevents merging. PRs that change `claude-review.yml` itself are skipped by the action's workflow validation (file must match `main`), so the review job fails and they need a manual merge. Needs the Claude GitHub App and a `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY` secret.
 
 ## Commit Message Style
 

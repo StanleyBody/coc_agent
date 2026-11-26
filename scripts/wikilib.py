@@ -113,8 +113,34 @@ def iter_tables(wikitext):
         yield m.group(0)
 
 
-def parse_table_full(table):
-    """回傳 (純文字表頭, 原始表頭, 資料列清單)"""
+ROWSPAN = re.compile(r'rowspan\s*=\s*"?(\d+)', re.I)
+
+
+def _sub_header_slots(block):
+    """
+    第一列表頭展開後，每一欄是否會由下一列的子表頭填入：
+    跨兩列以上（rowspan）的欄位不會，其餘（包含 colspan 合併欄的每一欄）會。
+    """
+    slots = []
+    for line in block:
+        if not line.startswith('!'):
+            continue
+        for part in line[1:].split('!!'):
+            m = ATTR_CELL.match(part)
+            attrs = part[:m.start(1)] if m else ''
+            col = COLSPAN.search(attrs)
+            row = ROWSPAN.search(attrs)
+            slots.extend([not (row and int(row.group(1)) > 1)] * (int(col.group(1)) if col else 1))
+    return slots
+
+
+def parse_table_detail(table):
+    """
+    回傳 {headers, raw_headers, sub_headers, rows}：
+      headers：第一列表頭的純文字（合併欄會依 colspan 重複）
+      raw_headers：第一列表頭的原始文字
+      sub_headers：第二列表頭（合併欄底下的子欄位）的原始文字，對不到的位置為空字串
+    """
     lines = [ln.rstrip() for ln in table.splitlines()[1:-1]]
     blocks, current = [], []
     for line in lines:
@@ -125,7 +151,7 @@ def parse_table_full(table):
             current.append(line)
     blocks.append(current)
 
-    headers, raw_headers, rows = None, None, []
+    headers, raw_headers, sub_headers, slots, rows = None, None, None, None, []
     for block in blocks:
         if not block:
             continue
@@ -134,12 +160,24 @@ def parse_table_full(table):
             if headers is None:
                 raw_headers = cells
                 headers = [clean_text(c) for c in cells]
-            # 之後的表頭列（合併欄位底下的子欄位名稱）不是資料，略過
+                slots = _sub_header_slots(block)
+                sub_headers = [''] * len(headers)
+            elif not any(sub_headers):
+                # 子欄位依序填入沒有跨列的欄位（rowspan 的欄位不會出現在子表頭列）
+                positions = [i for i, slot in enumerate(slots) if slot]
+                for i, cell in zip(positions, cells):
+                    sub_headers[i] = cell
             continue
         rows.append(cells)
     if headers is None:
         raise WikiParseError('表格沒有表頭')
-    return headers, raw_headers, rows
+    return {'headers': headers, 'raw_headers': raw_headers, 'sub_headers': sub_headers, 'rows': rows}
+
+
+def parse_table_full(table):
+    """回傳 (純文字表頭, 原始表頭, 資料列清單)"""
+    t = parse_table_detail(table)
+    return t['headers'], t['raw_headers'], t['rows']
 
 
 def parse_table(table):

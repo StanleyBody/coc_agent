@@ -1,21 +1,15 @@
 /*
- * 升級資訊在瀏覽器的互動：分頁、篩選、減免設定、卡片與等級表彈窗。
- * 減免設定存在 localStorage（與舊版相同的 key），篩選條件同步到網址參數。
+ * 升級資訊在瀏覽器的互動：分頁、子分類、搜尋、減免設定、卡片與等級表彈窗。
+ * 減免設定存在 localStorage（與舊版相同的 key），分頁與篩選條件同步到網址參數。
  */
 import {
-  BUILDING_CATEGORIES, DATA, NO_DISCOUNT, UNIT_TYPES, availableLevels, discountSummary,
-  filterItems, itemIcon, normalizeDiscount, totalDiscount, totals,
+  NO_DISCOUNT, TABS, discountSummary, filterItems, hasGroupFilter, itemIcon, itemsInTab, normalizeDiscount,
+  tabByKey, totalDiscount, totals,
 } from './logic.ts';
-import type { DiscountSettings, Filters, Item, Tab } from './logic.ts';
+import type { DiscountSettings, Filters, Item } from './logic.ts';
 import { cardHtml, emptyHtml, levelTableHtml, modalTitle, summaryValues } from './render.ts';
 
 const DISCOUNT_KEY = 'coc_discount';
-const TABS: Tab[] = ['buildings', 'heroes', 'units'];
-const EMPTY_TEXT: Record<Tab, string> = {
-  buildings: '找不到符合條件的建築',
-  heroes: '找不到符合條件的英雄',
-  units: '找不到符合條件的兵種',
-};
 
 function loadDiscount(): DiscountSettings {
   try {
@@ -40,7 +34,6 @@ function $(root: ParentNode, selector: string): HTMLElement {
 }
 
 export function initUpgradeInfo(root: HTMLElement): void {
-  const thSelect = $(root, '#thFilter') as HTMLSelectElement;
   const groupSelect = $(root, '#groupSelect') as HTMLSelectElement;
   const groupLabel = $(root, '#groupLabel');
   const searchInput = $(root, '#searchInput') as HTMLInputElement;
@@ -48,22 +41,16 @@ export function initUpgradeInfo(root: HTMLElement): void {
   const modal = $(document, '#levelModal');
 
   const params = new URLSearchParams(location.search);
-  const initialTab = params.get('tab') as Tab | null;
   const state: Filters & { discount: DiscountSettings } = {
-    tab: initialTab && TABS.includes(initialTab) ? initialTab : 'buildings',
-    th: params.get('th') ? Number(params.get('th')) : null,
+    tab: tabByKey(params.get('tab')),
     group: params.get('group'),
     search: params.get('q') ?? '',
     discount: loadDiscount(),
   };
-  if (state.th !== null && !(state.th >= 1 && state.th <= DATA.town_hall_max)) state.th = null;
-
-  const groupOptions = () => (state.tab === 'buildings' ? BUILDING_CATEGORIES : state.tab === 'units' ? UNIT_TYPES : []);
 
   function syncUrl(): void {
     const p = new URLSearchParams();
-    if (state.tab !== 'buildings') p.set('tab', state.tab);
-    if (state.th !== null) p.set('th', String(state.th));
+    if (state.tab !== TABS[0]) p.set('tab', state.tab.key);
     if (state.group) p.set('group', state.group);
     if (state.search) p.set('q', state.search);
     const query = p.toString();
@@ -75,13 +62,18 @@ export function initUpgradeInfo(root: HTMLElement): void {
   }
 
   function renderGroupSelect(): void {
-    const options = groupOptions();
+    const tab = state.tab;
     const field = groupSelect.closest<HTMLElement>('.filter-group');
-    if (field) field.hidden = options.length === 0;
-    groupLabel.textContent = state.tab === 'units' ? '兵種類別' : '建築類別';
-    if (!options.some((o) => o.key === state.group)) state.group = null;
-    groupSelect.innerHTML = '<option value="">全部類別</option>'
-      + options.map((o) => `<option value="${o.key}">${o.icon} ${o.name}</option>`).join('');
+    if (field) field.hidden = !hasGroupFilter(tab);
+    groupLabel.textContent = tab.key === 'equipment' ? '英雄' : `${tab.name}類別`;
+    if (!tab.groups.some((g) => g.key === state.group)) state.group = null;
+    const counts = new Map<string, number>();
+    for (const item of itemsInTab(tab)) {
+      const key = tab.groupField ? item[tab.groupField] ?? '' : '';
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    groupSelect.innerHTML = '<option value="">全部</option>'
+      + tab.groups.map((g) => `<option value="${g.key}">${g.icon} ${g.name}（${counts.get(g.key) ?? 0}）</option>`).join('');
     groupSelect.value = state.group ?? '';
   }
 
@@ -102,13 +94,13 @@ export function initUpgradeInfo(root: HTMLElement): void {
 
   function render(): void {
     const discount = totalDiscount(state.discount);
-    const rows = filterItems(state);
+    const items = filterItems(state);
 
-    grid.innerHTML = rows.length
-      ? rows.map(({ item, levels }) => cardHtml(item, levels, discount)).join('')
-      : emptyHtml(EMPTY_TEXT[state.tab]);
+    grid.innerHTML = items.length
+      ? items.map((item) => cardHtml(state.tab, item, discount)).join('')
+      : emptyHtml(`找不到符合條件的${state.tab.name}`);
 
-    const values = summaryValues(totals(rows), totals(rows, discount));
+    const values = summaryValues(totals(items), totals(items, discount));
     $(root, '#totalCost').innerHTML = values.cost;
     $(root, '#totalTime').textContent = values.time;
     const savingsEl = $(root, '#totalSavings');
@@ -124,12 +116,12 @@ export function initUpgradeInfo(root: HTMLElement): void {
       badge.textContent = `-${discount}%`;
       badge.hidden = discount === 0;
     });
-    $(root, '#summaryScope').textContent = `${rows.length} 個項目，從 Lv1 升到${state.th ? ` TH${state.th} 的` : ''}最高等級`;
+    $(root, '#summaryScope').textContent = `${items.length} 個項目，從 Lv1 升到滿級`;
 
-    root.querySelectorAll<HTMLButtonElement>('.tab').forEach((tab) => {
-      const active = tab.dataset.tab === state.tab;
-      tab.classList.toggle('active', active);
-      tab.setAttribute('aria-selected', String(active));
+    root.querySelectorAll<HTMLButtonElement>('.tab').forEach((button) => {
+      const active = button.dataset.tab === state.tab.key;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-selected', String(active));
     });
     syncUrl();
   }
@@ -138,9 +130,8 @@ export function initUpgradeInfo(root: HTMLElement): void {
   let lastFocus: HTMLElement | null = null;
 
   function openModal(item: Item): void {
-    const levels = availableLevels(item, state.th);
-    const table = levelTableHtml(item, levels, totalDiscount(state.discount));
-    $(modal, '#modalIcon').textContent = itemIcon(item);
+    const table = levelTableHtml(state.tab.source, item, totalDiscount(state.discount));
+    $(modal, '#modalIcon').textContent = itemIcon(state.tab, item);
     $(modal, '#modalTitle').textContent = modalTitle(item);
     $(modal, '#tableHeader').innerHTML = table.head;
     $(modal, '#tableBody').innerHTML = table.body;
@@ -157,17 +148,13 @@ export function initUpgradeInfo(root: HTMLElement): void {
   }
 
   // ----- 事件
-  root.querySelectorAll<HTMLButtonElement>('.tab').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      state.tab = tab.dataset.tab as Tab;
+  root.querySelectorAll<HTMLButtonElement>('.tab').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.tab = tabByKey(button.dataset.tab ?? null);
       state.group = null;
       renderGroupSelect();
       render();
     });
-  });
-  thSelect.addEventListener('change', () => {
-    state.th = thSelect.value ? Number(thSelect.value) : null;
-    render();
   });
   groupSelect.addEventListener('change', () => {
     state.group = groupSelect.value || null;
@@ -179,7 +166,7 @@ export function initUpgradeInfo(root: HTMLElement): void {
   });
   grid.addEventListener('click', (e) => {
     const card = (e.target as HTMLElement).closest<HTMLElement>('.item-card');
-    const item = card && DATA[state.tab].find((i: Item) => i.key === card.dataset.key);
+    const item = card && itemsInTab(state.tab).find((i) => i.key === card.dataset.key);
     if (item) openModal(item);
   });
 
@@ -212,7 +199,6 @@ export function initUpgradeInfo(root: HTMLElement): void {
   });
 
   // ----- 初始畫面
-  thSelect.value = state.th === null ? '' : String(state.th);
   searchInput.value = state.search;
   renderGroupSelect();
   renderDiscountPanel();

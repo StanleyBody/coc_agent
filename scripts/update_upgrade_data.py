@@ -5,9 +5,9 @@
 
 項目清單由 Wiki 的導覽模板自動取得：
   - Template:BuildingsMenuHV：防禦建築、陷阱、資源建築、軍事建築
-  - Template:TroopsMenuHV：聖水兵種、暗黑兵種、聖水法術、暗黑法術、攻城機器、英雄
-每個項目解析頁面上第一張等級表：每級費用、資源種類、時間、需要的大本營／實驗室等級。
-另外抓取實驗室各級需要的大本營等級，以及兵營等建築解鎖各兵種的大本營等級。
+  - Template:TroopsMenuHV：聖水兵種、暗黑重油兵種、聖水法術、暗黑重油法術、攻城機器、
+    英雄、英雄裝備、戰寵
+每個項目解析頁面上第一張等級表：每級各資源的費用、時間、需求等級、HP、DPS。
 
 Wiki 格式改變導致解析失敗時，腳本會以非 0 結束，不會寫入檔案。
 只使用標準函式庫。用法：python scripts/update_upgrade_data.py [--check]
@@ -19,19 +19,17 @@ import re
 import sys
 from pathlib import Path
 
-from wikilib import SOURCE, WikiParseError, clean_text, fetch_many, iter_tables, parse_table_full, to_int
+from wikilib import SOURCE, WikiParseError, clean_text, fetch_many, iter_tables, parse_table_detail, to_int
 
 OUTPUT = Path(__file__).resolve().parent.parent / 'src' / 'data' / 'upgrade-info.json'
 GENERATED_BY = 'scripts/update_upgrade_data.py（自動產生，請勿手動修改）'
 
 BUILDINGS_MENU = 'Template:BuildingsMenuHV'
 TROOPS_MENU = 'Template:TroopsMenuHV'
-LABORATORY = 'Laboratory'
 
 # 導覽模板的列標題 → 類別
 BUILDING_ROWS = {
     'Defensive Buildings': 'defense',
-    'Traps': 'trap',
     'Resource Buildings': 'resource',
     'Army Buildings': 'army',
 }
@@ -43,6 +41,7 @@ UNIT_ROWS = {
     'Siege Machines': 'siege',
 }
 HERO_ROW = 'Heroes'
+PET_ROW = 'Pets'
 
 # 沒有升級表、不需要列出的項目
 SKIP = {
@@ -50,13 +49,13 @@ SKIP = {
     'Squad Barracks',   # 小隊兵營，另一套機制
 }
 
-# 解鎖兵種的建築與欄位
-UNLOCK_SOURCES = {
-    'Barracks': 'Unlocked Unit',
-    'Dark Barracks': 'Unlocked Unit',
-    'Spell Factory': 'Spell(s) Unlocked',
-    'Dark Spell Factory': 'Spell(s) Unlocked',
-    'Workshop': 'Unlocked Siege Machine',
+# 各類項目的需求欄位
+REQUIREMENTS = {
+    'buildings': 'Town Hall Level Required',
+    'heroes': 'Town Hall Level Required',
+    'units': 'Laboratory Level Required',
+    'pets': 'Pet House Level Required',
+    'equipment': 'Blacksmith Level Required',
 }
 
 # 中文名稱：沿用舊版資料庫已有的名稱，其餘顯示英文原名
@@ -73,8 +72,12 @@ NAME_ZH = {
 
 COST_HEADERS = ('Build Cost', 'Upgrade Cost', 'Research Cost', 'Cost')
 TIME_HEADERS = ('Build Time', 'Upgrade Time', 'Research Time')
-RES_PATTERN = re.compile(r'\{\{Res\|\s*(?:RES\s*=\s*)?(Gold|Elixir|Dark Elixir)\s*(?:\|[^}]*)?\}\}')
-RESOURCES = {'Gold': 'gold', 'Elixir': 'elixir', 'Dark Elixir': 'dark_elixir'}
+RES_PATTERN = re.compile(
+    r'\{\{Res\|\s*(?:RES\s*=\s*)?(Gold|Elixir|Dark Elixir|Shiny Ore|Glowy Ore|Starry Ore)\s*(?:\|[^}]*)?\}\}')
+RESOURCES = {
+    'Gold': 'gold', 'Elixir': 'elixir', 'Dark Elixir': 'dark_elixir',
+    'Shiny Ore': 'shiny_ore', 'Glowy Ore': 'glowy_ore', 'Starry Ore': 'starry_ore',
+}
 
 
 # ---------------------------------------------------------------- 導覽模板
@@ -119,21 +122,23 @@ def menu_rows(wikitext):
     return rows
 
 
+def _row(rows, title, menu):
+    if title not in rows:
+        raise WikiParseError(f'{menu}找不到「{title}」列')
+    return rows[title]
+
+
 def parse_buildings_menu(wikitext):
     """回傳 [(頁面標題, 名稱, 類別)]"""
     rows = menu_rows(wikitext)
     items = []
     for row, category in BUILDING_ROWS.items():
-        if row == 'Traps':
-            continue
-        if row not in rows:
-            raise WikiParseError(f'建築導覽模板找不到「{row}」列')
-        text = rows[row]
+        text = _row(rows, row, '建築導覽模板')
         if row == 'Defensive Buildings':
             # 第一行是防禦建築；<br> 之後依序為 Crafting Station、Town Hall 武器、陷阱
             parts = re.split(r'<br\s*/?>', text)
             text = parts[0]
-            traps = [p for p in parts if "{{H|Traps}}" in p]
+            traps = [p for p in parts if '{{H|Traps}}' in p]
             if not traps:
                 raise WikiParseError('建築導覽模板找不到陷阱')
             items += [(t, n, 'trap') for t, n in menu_links(traps[0].split("'''", 2)[-1])]
@@ -142,20 +147,29 @@ def parse_buildings_menu(wikitext):
 
 
 def parse_troops_menu(wikitext):
-    """回傳 ([(頁面標題, 名稱, 類型)], [(頁面標題, 名稱)])"""
+    """
+    回傳 {units: [(頁面, 名稱, 類型)], heroes: [(頁面, 名稱)],
+          equipment: [(頁面, 名稱, 英雄名稱)], pets: [(頁面, 名稱)]}
+    """
     rows = menu_rows(wikitext)
     units = []
     for row, unit_type in UNIT_ROWS.items():
-        if row not in rows:
-            raise WikiParseError(f'兵種導覽模板找不到「{row}」列')
-        units += [(t, n, unit_type) for t, n in menu_links(rows[row])]
-    hero_block = rows.get(HERO_ROW)
-    if hero_block is None:
-        raise WikiParseError('兵種導覽模板找不到英雄列')
-    heroes = [(m.group(1), m.group(1)) for m in re.finditer(r"'''\[\[([^\]|]+)\]\]'''", hero_block)]
-    if not heroes:
-        raise WikiParseError('兵種導覽模板找不到英雄')
-    return units, heroes
+        units += [(t, n, unit_type) for t, n in menu_links(_row(rows, row, '兵種導覽模板'))]
+
+    # 英雄列：每行「'''[[英雄]]''': [[裝備]] • ...」
+    heroes, equipment = [], []
+    for line in _row(rows, HERO_ROW, '兵種導覽模板').splitlines():
+        m = re.match(r"^\|?'''\[\[([^\]|]+)\]\]'''\s*:(.*)$", line.strip())
+        if not m:
+            continue
+        hero = m.group(1).strip()
+        heroes.append((hero, hero))
+        equipment += [(t, n, hero) for t, n in menu_links(m.group(2))]
+    if not heroes or not equipment:
+        raise WikiParseError('兵種導覽模板找不到英雄或裝備')
+
+    pets = menu_links(_row(rows, PET_ROW, '兵種導覽模板'))
+    return {'units': units, 'heroes': heroes, 'equipment': equipment, 'pets': pets}
 
 
 # ---------------------------------------------------------------- 等級表
@@ -182,50 +196,75 @@ def _float_or_none(text):
     return float(m.group(0).replace(',', '')) if m else None
 
 
+def _norm(header):
+    return header.replace('*', '').strip()
+
+
 def _find_index(headers, names, exact=True):
     for i, header in enumerate(headers):
-        h = header.replace('*', '').strip()
+        h = _norm(header)
         if (h in names) if exact else any(h.startswith(n) for n in names):
             return i
     return None
 
 
+def _resource(raw):
+    m = RES_PATTERN.search(raw)
+    return RESOURCES[m.group(1)] if m else None
+
+
+def cost_columns(headers, raw_headers, sub_headers):
+    """
+    回傳 ([(欄位位置, 資源)], 替代資源)。
+    一般項目只有一個費用欄；裝備的「Upgrade Cost」合併欄底下有多種礦石；
+    城牆等的第二個「Cost」欄是可替代的資源。
+    """
+    first = _find_index(headers, COST_HEADERS)
+    if first is None:
+        return [], None
+    name = _norm(headers[first])
+    span = [i for i in range(first, len(headers)) if _norm(headers[i]) == name and sub_headers[i]]
+    if span and all(_resource(sub_headers[i]) for i in span):
+        return [(i, _resource(sub_headers[i])) for i in span], None
+
+    resource = _resource(raw_headers[first])
+    if not resource:
+        raise WikiParseError(f'無法判斷費用的資源種類：{raw_headers[first]!r}')
+    alt_resource = None
+    for i in range(first + 1, len(headers)):
+        if _norm(headers[i]) == 'Cost':
+            alt = _resource(raw_headers[i])
+            if alt and alt != resource:
+                alt_resource = alt
+            break
+    return [(first, resource)], alt_resource
+
+
 def parse_level_table(wikitext, requirement):
     """
     解析頁面上第一張「Level」等級表。
-    requirement：'Town Hall Level Required' 或 'Laboratory Level Required'。
-    回傳 {levels: [...], resource, alt_resource}
+    回傳 {levels: [{level, costs, time, required, hp?, dps?}], resources, alt_resource}
+    costs 為 {資源: 數量}，沒有費用的等級為空物件。
     """
     for table in iter_tables(wikitext):
         try:
-            headers, raw_headers, rows = parse_table_full(table)
+            detail = parse_table_detail(table)
         except WikiParseError:
             continue
-        first = headers[0].replace('*', '').strip() if headers else ''
+        headers = detail['headers']
+        first = _norm(headers[0]) if headers else ''
         if first not in ('Level', 'TH Level'):
             continue
-        cost_idx = _find_index(headers, COST_HEADERS)
-        if cost_idx is None:
+        columns, alt_resource = cost_columns(headers, detail['raw_headers'], detail['sub_headers'])
+        if not columns:
             continue
-        is_town_hall = first == 'TH Level'
-        return _rows_to_levels(headers, raw_headers, rows, cost_idx, requirement, is_town_hall)
+        levels = _rows_to_levels(headers, detail['rows'], columns, requirement, first == 'TH Level')
+        resources = list(dict.fromkeys(r for _i, r in columns))
+        return {'levels': levels, 'resources': resources, 'alt_resource': alt_resource}
     raise WikiParseError('找不到等級表')
 
 
-def _rows_to_levels(headers, raw_headers, rows, cost_idx, requirement, is_town_hall):
-    res = RES_PATTERN.search(raw_headers[cost_idx])
-    if not res:
-        raise WikiParseError(f'無法判斷費用的資源種類：{raw_headers[cost_idx]!r}')
-    resource = RESOURCES[res.group(1)]
-    # 城牆等可改用另一種資源支付（第二個「Cost」欄）
-    alt_resource = None
-    for i in range(cost_idx + 1, len(headers)):
-        if headers[i].replace('*', '').strip() == 'Cost':
-            alt = RES_PATTERN.search(raw_headers[i])
-            if alt and RESOURCES[alt.group(1)] != resource:
-                alt_resource = RESOURCES[alt.group(1)]
-            break
-
+def _rows_to_levels(headers, rows, columns, requirement, is_town_hall):
     time_idx = _find_index(headers, TIME_HEADERS)
     req_idx = _find_index(headers, (requirement,))
     if req_idx is None and not is_town_hall:
@@ -240,9 +279,14 @@ def _rows_to_levels(headers, raw_headers, rows, cost_idx, requirement, is_town_h
         level = to_int(row[0])
         if levels and level != levels[-1]['level'] + 1:
             raise WikiParseError(f'等級不連續：Lv{levels[-1]["level"]} 之後是 {row[0]!r}')
+        costs = {}
+        for i, resource in columns:
+            amount = _int_or_none(row[i])
+            if amount is not None:
+                costs[resource] = amount
         entry = {
             'level': level,
-            'cost': _int_or_none(row[cost_idx]),
+            'costs': costs,
             'time': parse_time(row[time_idx]) if time_idx is not None else None,
             'required': level if is_town_hall else _int_or_none(row[req_idx]),
         }
@@ -253,38 +297,7 @@ def _rows_to_levels(headers, raw_headers, rows, cost_idx, requirement, is_town_h
         levels.append(entry)
     if not levels:
         raise WikiParseError('等級表沒有資料')
-    return {'levels': levels, 'resource': resource, 'alt_resource': alt_resource}
-
-
-def parse_requirement_map(wikitext, value_header):
-    """
-    解析「等級 → 需要的大本營等級」或「解鎖項目 → 大本營等級」。
-    value_header 為 None 時回傳 {等級: 大本營等級}，否則回傳 {解鎖項目名稱: 大本營等級}。
-    """
-    for table in iter_tables(wikitext):
-        try:
-            headers, _raw, rows = parse_table_full(table)
-        except WikiParseError:
-            continue
-        if not headers or headers[0] != 'Level':
-            continue
-        th_idx = _find_index(headers, ('Town Hall Level Required',))
-        value_idx = _find_index(headers, (value_header,)) if value_header else 0
-        if th_idx is None or value_idx is None:
-            continue
-        result = {}
-        for row in rows:
-            if len(row) < len(headers):
-                continue
-            th = _int_or_none(row[th_idx])
-            if value_header is None:
-                result[to_int(row[0])] = th
-            else:
-                for _title, name in menu_links(row[value_idx]):
-                    result.setdefault(name, th)
-        if result:
-            return result
-    raise WikiParseError(f'找不到需要大本營等級的表格（{value_header}）')
+    return levels
 
 
 # ---------------------------------------------------------------- 彙整
@@ -294,63 +307,36 @@ def slug(name):
 
 
 def collect(fetch=fetch_many):
-    menus = fetch([BUILDINGS_MENU, TROOPS_MENU, LABORATORY, *UNLOCK_SOURCES])
-    for title in (BUILDINGS_MENU, TROOPS_MENU, LABORATORY, *UNLOCK_SOURCES):
+    menus = fetch([BUILDINGS_MENU, TROOPS_MENU])
+    for title in (BUILDINGS_MENU, TROOPS_MENU):
         if title not in menus:
             raise WikiParseError(f'找不到頁面：{title}')
 
     buildings = parse_buildings_menu(menus[BUILDINGS_MENU])
-    units, heroes = parse_troops_menu(menus[TROOPS_MENU])
-    pages = fetch([t for t, *_ in buildings + units + heroes])
+    troops = parse_troops_menu(menus[TROOPS_MENU])
+    # 每組項目：(資料欄位, [(頁面, 名稱, 額外欄位)])
+    groups = {
+        'buildings': [(t, n, {'category': c}) for t, n, c in buildings],
+        'heroes': [(t, n, {}) for t, n in troops['heroes']],
+        'units': [(t, n, {'type': ty}) for t, n, ty in troops['units']],
+        'pets': [(t, n, {}) for t, n in troops['pets']],
+        'equipment': [(t, n, {'hero': slug(h)}) for t, n, h in troops['equipment']],
+    }
+    pages = fetch([t for items in groups.values() for t, *_ in items])
 
-    def page(title):
-        if title not in pages:
-            raise WikiParseError(f'找不到頁面：{title}')
-        return pages[title]
-
-    errors = []
-
-    def safe(name, func):
-        try:
-            return func()
-        except WikiParseError as e:
-            errors.append(f'{name}：{e}')
-            return None
-
-    data = {'buildings': [], 'heroes': [], 'units': []}
-
-    for title, name, category in buildings:
-        table = safe(name, lambda: parse_level_table(page(title), 'Town Hall Level Required'))
-        if table:
-            data['buildings'].append({'key': slug(name), 'name': name, 'name_zh': NAME_ZH.get(name),
-                                      'category': category, 'wiki': title, **table})
-
-    for title, name in heroes:
-        table = safe(name, lambda: parse_level_table(page(title), 'Town Hall Level Required'))
-        if table:
-            data['heroes'].append({'key': slug(name), 'name': name, 'name_zh': NAME_ZH.get(name),
-                                   'wiki': title, **table})
-
-    unlock = {}
-    for source, header in UNLOCK_SOURCES.items():
-        for unit, th in parse_requirement_map(menus[source], header).items():
-            unlock.setdefault(unit, th)
-
-    for title, name, unit_type in units:
-        table = safe(name, lambda: parse_level_table(page(title), 'Laboratory Level Required'))
-        if table:
-            if name not in unlock:
-                errors.append(f'{name}：找不到解鎖的大本營等級')
+    data, errors = {}, []
+    for group, items in groups.items():
+        data[group] = []
+        for title, name, extra in items:
+            try:
+                if title not in pages:
+                    raise WikiParseError(f'找不到頁面：{title}')
+                table = parse_level_table(pages[title], REQUIREMENTS[group])
+            except WikiParseError as e:
+                errors.append(f'{name}：{e}')
                 continue
-            data['units'].append({'key': slug(name), 'name': name, 'name_zh': NAME_ZH.get(name),
-                                  'type': unit_type, 'unlock_th': unlock[name], 'wiki': title, **table})
-
-    data['laboratory'] = {str(k): v for k, v in parse_requirement_map(menus[LABORATORY], None).items()}
-    town_hall = next((b for b in data['buildings'] if b['name'] == 'Town Hall'), None)
-    if town_hall is None:
-        errors.append('找不到 Town Hall')
-    else:
-        data['town_hall_max'] = town_hall['levels'][-1]['level']
+            data[group].append({'key': slug(name), 'name': name, 'name_zh': NAME_ZH.get(name),
+                                'wiki': title, **extra, **table})
 
     if errors:
         raise WikiParseError('以下項目解析失敗：\n  ' + '\n  '.join(errors))
@@ -360,20 +346,24 @@ def collect(fetch=fetch_many):
 
 def validate(data):
     """基本檢查；不合理時中止，避免寫入錯誤資料"""
-    minimum = {'buildings': 40, 'heroes': 5, 'units': 40}
+    minimum = {'buildings': 40, 'heroes': 5, 'units': 40, 'pets': 8, 'equipment': 30}
     for key, count in minimum.items():
         if len(data[key]) < count:
             raise WikiParseError(f'{key} 只有 {len(data[key])} 項，少於預期的 {count} 項')
-    keys = [i['key'] for group in ('buildings', 'heroes', 'units') for i in data[group]]
+    keys = [i['key'] for group in minimum for i in data[group]]
     duplicates = {k for k in keys if keys.count(k) > 1}
     if duplicates:
         raise WikiParseError(f'重複的項目：{sorted(duplicates)}')
-    for group in ('buildings', 'heroes', 'units'):
+    heroes = {h['key'] for h in data['heroes']}
+    for item in data['equipment']:
+        if item['hero'] not in heroes:
+            raise WikiParseError(f'{item["name"]} 的英雄 {item["hero"]} 不在英雄清單中')
+    for group in minimum:
         for item in data[group]:
-            costs = [lv['cost'] for lv in item['levels'] if lv['cost'] is not None]
-            if not costs:
+            amounts = [a for lv in item['levels'] for a in lv['costs'].values()]
+            if not amounts:
                 raise WikiParseError(f'{item["name"]} 沒有任何費用資料')
-            if any(c < 0 for c in costs):
+            if any(a < 0 for a in amounts):
                 raise WikiParseError(f'{item["name"]} 有負數費用')
 
 
