@@ -1,9 +1,9 @@
 /* 升級資訊的 HTML（名稱來自 Wiki 與遊戲語系檔，一律跳脫） */
 import {
-  RESOURCE_NAMES, RESOURCE_SHORT, RESOURCES, REQUIREMENT_NAMES, applyDiscount, displayName, emptyCosts,
-  formatLarge, formatTime, formatTimeLong, hasChineseName, itemIcon, requirementText,
+  RESOURCE_NAMES, REQUIREMENT_NAMES, applyDiscount, displayName, formatNumber, formatTime, hasChineseName, itemIcon,
+  requirementText,
 } from './logic.ts';
-import type { Costs, Item, Resource, Source, TabConfig, Totals } from './logic.ts';
+import type { Item, Resource, Source, TabConfig } from './logic.ts';
 import { escapeHtml } from '../html.ts';
 
 export { escapeHtml };
@@ -29,7 +29,7 @@ export function cardHtml(tab: TabConfig, item: Item, discount: number): string {
   const top = item.levels[item.levels.length - 1];
   const entries = Object.entries(top.costs) as [Resource, number][];
   const cost = entries.length
-    ? entries.map(([res, amount]) => `<span class="stat-line">${withDiscount(amount, discount, formatLarge)} ${escapeHtml(RESOURCE_SHORT[res])}</span>`).join('')
+    ? entries.map(([res, amount]) => `<span class="stat-line">${withDiscount(amount, discount, formatNumber)} ${escapeHtml(RESOURCE_NAMES[res])}</span>`).join('')
     : '—';
   const subtitle = hasChineseName(item) ? escapeHtml(item.name) : '';
   const showTime = top.time !== null;
@@ -41,7 +41,7 @@ export function cardHtml(tab: TabConfig, item: Item, discount: number): string {
     + `<div class="item-subtitle">${subtitle}</div>`
     + '</div></div>'
     + '<div class="item-stats">'
-    + `<div class="stat"><span class="stat-label">最高等級</span><span class="stat-value">Lv.${top.level}</span></div>`
+    + `<div class="stat"><span class="stat-label">最高等級</span><span class="stat-value">${top.level}級</span></div>`
     + `<div class="stat"><span class="stat-label">升級費用</span><span class="stat-value">${cost}</span></div>`
     + (showTime ? `<div class="stat"><span class="stat-label">升級時間</span><span class="stat-value">${timeWithDiscount(top.time, discount)}</span></div>` : '')
     + '</div></button>';
@@ -68,38 +68,16 @@ export function levelTableHtml(source: Source, item: Item, discount: number): { 
     + `<th>${escapeHtml(REQUIREMENT_NAMES[source])}需求</th>`
     + (hasHp ? '<th>HP</th>' : '')
     + (hasDps ? '<th>DPS</th>' : '');
-  const number = (n: number) => n.toLocaleString('en-US');
   const body = levels.map((lv) => '<tr>'
     + `<td class="level-num">${lv.level}</td>`
     + item.resources.map((res) => {
       const amount = lv.costs[res];
-      return `<td class="${COST_CLASS[res]}">${amount ? withDiscount(amount, discount, number) : '—'}</td>`;
+      return `<td class="${COST_CLASS[res]}">${amount ? withDiscount(amount, discount, formatNumber) : '—'}</td>`;
     }).join('')
     + (hasTime ? `<td class="time">${timeWithDiscount(lv.time, discount)}</td>` : '')
     + `<td>${escapeHtml(requirementText(source, lv))}</td>`
-    + (hasHp ? `<td>${lv.hp != null ? number(lv.hp) : '—'}</td>` : '')
-    + (hasDps ? `<td>${lv.dps != null ? number(lv.dps) : '—'}</td>` : '')
+    + (hasHp ? `<td>${lv.hp != null ? formatNumber(lv.hp) : '—'}</td>` : '')
+    + (hasDps ? `<td>${lv.dps != null ? formatNumber(lv.dps) : '—'}</td>` : '')
     + '</tr>').join('');
   return { head, body };
-}
-
-/** 摘要卡片：各資源分開列出 */
-export function costLinesHtml(cost: Costs): string {
-  const lines = RESOURCES.filter((r) => cost[r] > 0)
-    .map((r) => `<span class="summary-line">${formatLarge(cost[r])} ${escapeHtml(RESOURCE_SHORT[r])}</span>`);
-  return lines.length ? lines.join('') : '0';
-}
-
-export function summaryValues(original: Totals, discounted: Totals): {
-  cost: string; savings: string; time: string; timeSavings: string;
-} {
-  const saved = emptyCosts();
-  for (const r of RESOURCES) saved[r] = original.cost[r] - discounted.cost[r];
-  return {
-    cost: costLinesHtml(discounted.cost),
-    savings: costLinesHtml(saved),
-    // 沒有任何時間資料（例如全部是裝備）時顯示「即時」
-    time: discounted.hasTime ? formatTimeLong(discounted.time) : '即時',
-    timeSavings: formatTimeLong(original.time - discounted.time),
-  };
 }
