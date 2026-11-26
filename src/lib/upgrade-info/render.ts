@@ -99,7 +99,8 @@ export function summaryValues(original: Totals, discounted: Totals): {
   return {
     cost: costLinesHtml(discounted.cost),
     savings: costLinesHtml(saved),
-    time: formatTimeLong(discounted.time),
+    // 沒有任何時間資料（例如全部是裝備）時顯示「即時」
+    time: discounted.hasTime ? formatTimeLong(discounted.time) : '即時',
     timeSavings: formatTimeLong(original.time - discounted.time),
   };
 }
