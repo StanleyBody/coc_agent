@@ -169,16 +169,19 @@ export function emptyCosts(): Costs {
 export interface Totals {
   cost: Costs;
   time: number;
+  /** 是否有任何等級提供升級時間（裝備為即時升級，沒有時間資料） */
+  hasTime: boolean;
 }
 
 /** 把每個項目從 Lv1 升到滿級的費用與時間加總，各資源分開計算 */
 export function totals(items: Item[], discount = 0): Totals {
-  const result: Totals = { cost: emptyCosts(), time: 0 };
+  const result: Totals = { cost: emptyCosts(), time: 0, hasTime: false };
   for (const item of items) {
     for (const lv of item.levels) {
       for (const [res, amount] of Object.entries(lv.costs) as [Resource, number][]) {
         result.cost[res] += applyDiscount(amount, discount);
       }
+      if (lv.time !== null) result.hasTime = true;
       if (lv.time) result.time += applyDiscount(lv.time, discount);
     }
   }

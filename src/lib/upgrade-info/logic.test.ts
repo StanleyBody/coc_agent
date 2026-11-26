@@ -71,6 +71,8 @@ test('totals：各資源分開加總並套用減免', () => {
   assert.equal(t.cost.shiny_ore, 100);
   assert.equal(t.cost.glowy_ore, 10);
   assert.equal(t.time, 60);
+  assert.equal(t.hasTime, true);
+  assert.equal(totals([items[1]]).hasTime, false);
   assert.equal(totals(items, 10).cost.gold, 3600);
 });
 
