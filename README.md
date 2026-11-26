@@ -50,7 +50,7 @@ npm run preview   # 預覽建置結果
 - `.github/workflows/update-wiki-data.yml`：每週一 03:23 UTC 從 Wiki 更新資料，有變動時開 PR（Settings → Actions → General 需允許 GitHub Actions 建立 PR）。
 - `.github/workflows/claude-review.yml`：PR 開啟或更新時先跑測試與建置，再由 Claude Code 依 CLAUDE.md 審查（問題留在程式碼行上並留總結），核准後自動合併並部署。
   - 需要安裝 [Claude GitHub App](https://github.com/apps/claude)，並在 Settings → Secrets and variables → Actions 新增 `CLAUDE_CODE_OAUTH_TOKEN`（`claude setup-token` 產生）或 `ANTHROPIC_API_KEY`。
-  - 不自動合併：草稿 PR、加上 `no-auto-merge` 標籤、來自 fork、審查後又推了新 commit。
+  - 不自動合併：草稿 PR、加上 `no-auto-merge` 標籤、來自 fork、審查後又推了新 commit、修改了 `claude-review.yml` 本身（Claude Code Action 的安全檢查要求 workflow 與 `main` 相同，這類 PR 需要人工合併）。
   - 每週資料更新的 PR 也會自動審查。
 
 ## Coding Style

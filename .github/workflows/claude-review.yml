@@ -123,6 +123,12 @@ jobs:
           echo "## Claude review" >> "$GITHUB_STEP_SUMMARY"
           echo "${RESULT:-（沒有結果）}" | jq -r '"**\(.verdict)**\n\n\(.summary)"' >> "$GITHUB_STEP_SUMMARY" 2>/dev/null \
             || echo "${RESULT:-（沒有結果）}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Require a verdict
+        # 沒有審查結果時（例如修改了這個 workflow，Claude Code Action 的安全檢查會跳過審查）標示失敗，需要人工處理
+        if: steps.claude.outputs.structured_output == ''
+        run: |
+          echo "::error::沒有取得 Claude 的審查結果，不會自動合併。修改審查 workflow 的 PR 需要人工合併。"
+          exit 1
 
   merge:
     needs: [context, review]
