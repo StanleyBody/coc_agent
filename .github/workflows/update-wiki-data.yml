@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 concurrency:
   group: update-wiki-data
@@ -51,6 +52,7 @@ jobs:
         run: git diff --stat
 
       - name: Create pull request
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           branch: auto/update-wiki-data
@@ -64,6 +66,14 @@ jobs:
             每週自動從 Clash of Clans Fandom Wiki 抓取的資料有變動（第六工人計算機、升級資訊）。
 
             - 解析器測試、計算機測試與網站建置已通過
-            - 請檢查 `src/data/` 底下 JSON 的差異是否合理後再合併
+            - Claude 會自動審查，沒有問題就自動合併；不想自動合併時加上 `no-auto-merge` 標籤
 
             由 `.github/workflows/update-wiki-data.yml` 產生
+
+      # workflow 開的 PR 不會觸發 pull_request 事件，主動呼叫 Claude 審查
+      - name: Request Claude review
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+        run: gh workflow run claude-review.yml --repo "$GITHUB_REPOSITORY" -f pr_number="$PR_NUMBER"

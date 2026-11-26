@@ -67,7 +67,8 @@ Assumes the player has no resources. Storages are upgraded (lowest first) until 
 ## CI
 
 - `.github/workflows/pages.yml`: on push to `main`, `npm ci` → `npm test` → `npm run build` → deploy `dist/` (separate build and deploy jobs).
-- `.github/workflows/update-wiki-data.yml`: weekly (Mon 03:23 UTC) runs both scrapers, tests and builds, then opens a PR on branch `auto/update-wiki-data` if data changed.
+- `.github/workflows/update-wiki-data.yml`: weekly (Mon 03:23 UTC) runs both scrapers, tests and builds, then opens a PR on branch `auto/update-wiki-data` if data changed and dispatches `claude-review.yml` for it (PRs opened with `GITHUB_TOKEN` do not trigger `pull_request`).
+- `.github/workflows/claude-review.yml`: on PR open/update (or `workflow_dispatch` with `pr_number`): tests/build → `anthropics/claude-code-action@v1` reviews against this file and returns a JSON verdict → on `APPROVE`, merges with `--match-head-commit` and dispatches `pages.yml` (merges with `GITHUB_TOKEN` do not trigger `push`). Skips drafts and forks; label `no-auto-merge` prevents merging. Needs the Claude GitHub App and a `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY` secret.
 
 ## Commit Message Style
 
