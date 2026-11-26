@@ -710,7 +710,7 @@
 /* ===== 響應式 ===== */
 @media (max-width: 768px) {
     .main-content {
-        padding-top: 80px;
+        padding-top: 0;
         padding-left: 16px;
         padding-right: 16px;
     }
@@ -840,3 +840,24 @@ legend.discount-section-title {
         white-space: nowrap;
     }
 }
+
+/* 分頁較多時自動換行 */
+.tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .tab {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+
+/* 卡片的多種資源分行顯示 */
+.stat-line {
+    display: block;
+    line-height: 1.4;
+}
+
+.level-table .cost-ore { color: var(--accent-blue); }

@@ -1,75 +1,82 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  DATA, applyDiscount, availableLevels, discountSummary, filterItems, formatLarge, formatTime, formatTimeLong,
-  maxLabLevel, normalizeDiscount, requirementText, totals,
+  DATA, TABS, applyDiscount, discountSummary, filterItems, formatLarge, formatTime, formatTimeLong,
+  hasGroupFilter, itemsInTab, normalizeDiscount, requirementText, tabByKey, totals,
 } from './logic.ts';
-import type { Building, Unit, UpgradeData } from './logic.ts';
+import type { Item, UpgradeData } from './logic.ts';
 
-const building = (name: string) => DATA.buildings.find((b) => b.name === name)!;
-const unit = (name: string) => DATA.units.find((u) => u.name === name)!;
+const tab = (key: string) => tabByKey(key);
 
-test('資料檔包含三類項目與實驗室對照', () => {
+test('資料檔包含各類項目', () => {
   assert.ok(DATA.buildings.length >= 40);
   assert.ok(DATA.heroes.length >= 5);
   assert.ok(DATA.units.length >= 40);
-  assert.ok(DATA.town_hall_max >= 16);
-  assert.ok(Object.keys(DATA.laboratory).length > 0);
+  assert.ok(DATA.pets.length >= 8);
+  assert.ok(DATA.equipment.length >= 30);
 });
 
-test('maxLabLevel 依實驗室需要的大本營等級', () => {
-  for (const [lab, th] of Object.entries(DATA.laboratory)) {
-    assert.ok(maxLabLevel(th) >= Number(lab));
-  }
-  assert.equal(maxLabLevel(1), 0);
+test('分頁順序與名稱', () => {
+  assert.deepEqual(TABS.map((t) => t.name), ['建築', '兵種', '英雄', '法術', '攻城機器', '戰寵', '裝備']);
+  assert.deepEqual(tab('buildings').groups.map((g) => g.name), ['軍隊相關', '防禦相關', '資源相關', '陷阱']);
+  assert.deepEqual(tab('troops').groups.map((g) => g.name), ['聖水兵種', '暗黑重油兵種']);
+  assert.deepEqual(tab('spells').groups.map((g) => g.name), ['聖水法術', '暗黑重油法術']);
+  assert.equal(tab('equipment').groups.length, DATA.heroes.length);
 });
 
-test('建築可達等級不超過大本營需求', () => {
-  const cannon = building('Cannon');
-  const levels = availableLevels(cannon, 10);
-  assert.ok(levels.length > 0);
-  assert.ok(levels.every((lv) => lv.required === null || lv.required <= 10));
-  assert.equal(availableLevels(cannon, null).length, cannon.levels.length);
+test('每個項目都屬於且只屬於一個分頁', () => {
+  const all = [...DATA.buildings, ...DATA.heroes, ...DATA.units, ...DATA.pets, ...DATA.equipment];
+  const seen = TABS.flatMap((t) => itemsInTab(t));
+  assert.equal(seen.length, all.length);
+  assert.equal(new Set(seen).size, all.length);
 });
 
-test('Town Hall 的等級等於大本營等級', () => {
-  assert.equal(availableLevels(building('Town Hall'), 12).at(-1)!.level, 12);
+test('子分類選單只在超過一個子分類時顯示', () => {
+  assert.equal(hasGroupFilter(tab('buildings')), true);
+  assert.equal(hasGroupFilter(tab('sieges')), false);
+  assert.equal(hasGroupFilter(tab('heroes')), false);
 });
 
-test('兵種未解鎖時不列出，解鎖後依實驗室等級限制', () => {
-  const late = DATA.units.reduce((a, b) => (b.unlock_th > a.unlock_th ? b : a));
-  assert.deepEqual(availableLevels(late, late.unlock_th - 1), []);
-  const barbarian = unit('Barbarian');
-  const th = 10;
-  const lab = maxLabLevel(th);
-  const levels = availableLevels(barbarian, th);
-  assert.ok(levels.every((lv) => lv.required === null || lv.required <= lab));
-  assert.ok(levels.length < barbarian.levels.length);
+test('tabByKey 找不到時回到第一個分頁', () => {
+  assert.equal(tabByKey('nope'), TABS[0]);
+  assert.equal(tabByKey(null), TABS[0]);
 });
 
-test('filterItems：類別、搜尋（中英文）、大本營', () => {
-  const traps = filterItems({ tab: 'buildings', th: null, group: 'trap', search: '' });
-  assert.ok(traps.length > 0 && traps.every(({ item }) => (item as Building).category === 'trap'));
-  assert.deepEqual(filterItems({ tab: 'buildings', th: null, group: null, search: '加農' }).map(({ item }) => item.name), ['Cannon']);
-  assert.deepEqual(filterItems({ tab: 'units', th: null, group: null, search: 'golem' }).map(({ item }) => item.name).sort(),
-    DATA.units.filter((u) => u.name.toLowerCase().includes('golem')).map((u) => u.name).sort());
-  const th3 = filterItems({ tab: 'units', th: 3, group: null, search: '' });
-  assert.ok(th3.every(({ item }) => (item as Unit).unlock_th <= 3));
+test('filterItems：子分類與搜尋（中英文）', () => {
+  const traps = filterItems({ tab: tab('buildings'), group: 'trap', search: '' });
+  assert.ok(traps.length > 0 && traps.every((i) => i.category === 'trap'));
+  assert.deepEqual(filterItems({ tab: tab('buildings'), group: null, search: '加農' }).map((i) => i.name), ['Cannon']);
+  const dark = filterItems({ tab: tab('troops'), group: 'dark_troop', search: '' });
+  assert.ok(dark.length > 0 && dark.every((i) => i.type === 'dark_troop'));
+  const king = DATA.heroes.find((h) => h.name === 'Barbarian King')!;
+  const kingGear = filterItems({ tab: tab('equipment'), group: king.key, search: '' });
+  assert.ok(kingGear.length > 0 && kingGear.every((i) => i.hero === king.key));
+});
+
+test('裝備的費用有多種礦石', () => {
+  const epic = DATA.equipment.find((e) => e.resources.includes('starry_ore'));
+  assert.ok(epic);
+  assert.ok(epic.levels.some((lv) => Object.keys(lv.costs).length > 1));
 });
 
 test('totals：各資源分開加總並套用減免', () => {
-  const data: UpgradeData = {
-    buildings: [
-      { key: 'a', name: 'A', name_zh: null, wiki: 'A', category: 'defense', resource: 'gold', alt_resource: null,
-        levels: [{ level: 1, cost: 1000, time: 60, required: 1 }, { level: 2, cost: 3000, time: null, required: 2 }] },
-      { key: 'b', name: 'B', name_zh: null, wiki: 'B', category: 'army', resource: 'elixir', alt_resource: null,
-        levels: [{ level: 1, cost: null, time: 100, required: 1 }] },
-    ],
-    heroes: [], units: [], laboratory: {}, town_hall_max: 2,
-  };
-  const rows = filterItems({ tab: 'buildings', th: null, group: null, search: '' }, data);
-  assert.deepEqual(totals(rows), { cost: { gold: 4000, elixir: 0, dark_elixir: 0 }, time: 160 });
-  assert.deepEqual(totals(rows, 10), { cost: { gold: 3600, elixir: 0, dark_elixir: 0 }, time: 144 });
+  const items: Item[] = [
+    { key: 'a', name: 'A', name_zh: null, wiki: 'A', category: 'defense', resources: ['gold'], alt_resource: null,
+      levels: [{ level: 1, costs: { gold: 1000 }, time: 60, required: 1 }, { level: 2, costs: { gold: 3000 }, time: null, required: 2 }] },
+    { key: 'b', name: 'B', name_zh: null, wiki: 'B', hero: 'x', resources: ['shiny_ore', 'glowy_ore'], alt_resource: null,
+      levels: [{ level: 1, costs: {}, time: null, required: 1 }, { level: 2, costs: { shiny_ore: 100, glowy_ore: 10 }, time: null, required: 1 }] },
+  ];
+  const t = totals(items);
+  assert.equal(t.cost.gold, 4000);
+  assert.equal(t.cost.shiny_ore, 100);
+  assert.equal(t.cost.glowy_ore, 10);
+  assert.equal(t.time, 60);
+  assert.equal(totals(items, 10).cost.gold, 3600);
+});
+
+test('filterItems 可以傳入測試資料', () => {
+  const data: UpgradeData = { buildings: [], heroes: [], units: [], pets: [], equipment: [] };
+  assert.deepEqual(filterItems({ tab: tab('pets'), group: null, search: '' }, data), []);
 });
 
 test('applyDiscount 無條件捨去', () => {
@@ -88,10 +95,14 @@ test('格式化', () => {
   assert.equal(formatTimeLong(1_054_800), '12 天 5 時');
 });
 
-test('requirementText：建築顯示大本營、兵種顯示實驗室', () => {
-  assert.equal(requirementText(building('Cannon'), { level: 2, cost: 1, time: 1, required: 1 }), 'TH1');
-  assert.equal(requirementText(unit('Barbarian'), { level: 2, cost: 1, time: 1, required: 1 }), '實驗室 1');
-  assert.equal(requirementText(unit('Barbarian'), { level: 1, cost: null, time: null, required: null }), '—');
+test('requirementText', () => {
+  const lv = { level: 2, costs: {}, time: 1, required: 3 };
+  assert.equal(requirementText('buildings', lv), 'TH3');
+  assert.equal(requirementText('heroes', lv), 'TH3');
+  assert.equal(requirementText('units', lv), '實驗室 3');
+  assert.equal(requirementText('pets', lv), 'Pet House 3');
+  assert.equal(requirementText('equipment', lv), 'Blacksmith 3');
+  assert.equal(requirementText('units', { ...lv, required: null }), '—');
 });
 
 test('減免設定', () => {
