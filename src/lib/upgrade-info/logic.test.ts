@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  DATA, TABS, applyDiscount, discountSummary, filterItems, formatLarge, formatTime, formatTimeLong,
+  DATA, RESOURCE_NAMES, RESOURCE_SHORT, TABS, applyDiscount, discountSummary, filterItems, formatLarge, formatTime, formatTimeLong,
   hasGroupFilter, itemsInTab, normalizeDiscount, requirementText, tabByKey, totals,
 } from './logic.ts';
 import type { Item, UpgradeData } from './logic.ts';
@@ -16,11 +16,18 @@ test('資料檔包含各類項目', () => {
   assert.ok(DATA.equipment.length >= 30);
 });
 
+test('資源與分頁名稱使用遊戲內翻譯', () => {
+  assert.equal(RESOURCE_NAMES.dark_elixir, '闇黑重油');
+  assert.equal(RESOURCE_NAMES.shiny_ore, '閃光礦石');
+  assert.equal(RESOURCE_SHORT.shiny_ore, '閃光');
+  assert.equal(tab('sieges').name, '攻城機器');
+});
+
 test('分頁順序與名稱', () => {
   assert.deepEqual(TABS.map((t) => t.name), ['建築', '兵種', '英雄', '法術', '攻城機器', '戰寵', '裝備']);
   assert.deepEqual(tab('buildings').groups.map((g) => g.name), ['軍隊相關', '防禦相關', '資源相關', '陷阱']);
-  assert.deepEqual(tab('troops').groups.map((g) => g.name), ['聖水兵種', '暗黑重油兵種']);
-  assert.deepEqual(tab('spells').groups.map((g) => g.name), ['聖水法術', '暗黑重油法術']);
+  assert.deepEqual(tab('troops').groups.map((g) => g.name), ['聖水兵種', '闇黑重油兵種']);
+  assert.deepEqual(tab('spells').groups.map((g) => g.name), ['聖水法術', '闇黑重油法術']);
   assert.equal(tab('equipment').groups.length, DATA.heroes.length);
 });
 
@@ -45,7 +52,8 @@ test('tabByKey 找不到時回到第一個分頁', () => {
 test('filterItems：子分類與搜尋（中英文）', () => {
   const traps = filterItems({ tab: tab('buildings'), group: 'trap', search: '' });
   assert.ok(traps.length > 0 && traps.every((i) => i.category === 'trap'));
-  assert.deepEqual(filterItems({ tab: tab('buildings'), group: null, search: '加農' }).map((i) => i.name), ['Cannon']);
+  assert.ok(filterItems({ tab: tab('buildings'), group: null, search: '加農炮' }).some((i) => i.name === 'Cannon'));
+  assert.ok(filterItems({ tab: tab('buildings'), group: null, search: 'cannon' }).some((i) => i.name === 'Cannon'));
   const dark = filterItems({ tab: tab('troops'), group: 'dark_troop', search: '' });
   assert.ok(dark.length > 0 && dark.every((i) => i.type === 'dark_troop'));
   const king = DATA.heroes.find((h) => h.name === 'Barbarian King')!;
@@ -61,9 +69,9 @@ test('裝備的費用有多種礦石', () => {
 
 test('totals：各資源分開加總並套用減免', () => {
   const items: Item[] = [
-    { key: 'a', name: 'A', name_zh: null, wiki: 'A', category: 'defense', resources: ['gold'], alt_resource: null,
+    { key: 'a', name: 'A', wiki: 'A', category: 'defense', resources: ['gold'], alt_resource: null,
       levels: [{ level: 1, costs: { gold: 1000 }, time: 60, required: 1 }, { level: 2, costs: { gold: 3000 }, time: null, required: 2 }] },
-    { key: 'b', name: 'B', name_zh: null, wiki: 'B', hero: 'x', resources: ['shiny_ore', 'glowy_ore'], alt_resource: null,
+    { key: 'b', name: 'B', wiki: 'B', hero: 'x', resources: ['shiny_ore', 'glowy_ore'], alt_resource: null,
       levels: [{ level: 1, costs: {}, time: null, required: 1 }, { level: 2, costs: { shiny_ore: 100, glowy_ore: 10 }, time: null, required: 1 }] },
   ];
   const t = totals(items);
@@ -102,8 +110,8 @@ test('requirementText', () => {
   assert.equal(requirementText('buildings', lv), 'TH3');
   assert.equal(requirementText('heroes', lv), 'TH3');
   assert.equal(requirementText('units', lv), '實驗室 3');
-  assert.equal(requirementText('pets', lv), 'Pet House 3');
-  assert.equal(requirementText('equipment', lv), 'Blacksmith 3');
+  assert.equal(requirementText('pets', lv), '戰寵小屋 3');
+  assert.equal(requirementText('equipment', lv), '鐵匠鋪 3');
   assert.equal(requirementText('units', { ...lv, required: null }), '—');
 });
 

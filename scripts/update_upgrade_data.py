@@ -58,18 +58,6 @@ REQUIREMENTS = {
     'equipment': 'Blacksmith Level Required',
 }
 
-# 中文名稱：沿用舊版資料庫已有的名稱，其餘顯示英文原名
-NAME_ZH = {
-    'Cannon': '加農砲', 'Archer Tower': '箭塔', 'Mortar': '迫擊砲',
-    'Barbarian King': '野蠻人之王', 'Archer Queen': '弓箭女皇', 'Grand Warden': '大守護者',
-    'Royal Champion': '神盾勇者', 'Minion Prince': '亡靈王子',
-    'Barbarian': '野蠻人', 'Archer': '弓箭手', 'Giant': '巨人', 'Goblin': '哥布林',
-    'Wall Breaker': '炸彈人', 'Balloon': '氣球兵', 'Wizard': '法師', 'Healer': '天使',
-    'Dragon': '飛龍', 'P.E.K.K.A': '皮卡超人', 'Electro Dragon': '雷電龍',
-    'Minion': '亡靈', 'Hog Rider': '野豬騎士', 'Valkyrie': '女武神', 'Golem': '石頭人',
-    'Witch': '女巫', 'Lava Hound': '熔岩獵犬', 'Bowler': '保齡球手',
-}
-
 COST_HEADERS = ('Build Cost', 'Upgrade Cost', 'Research Cost', 'Cost')
 TIME_HEADERS = ('Build Time', 'Upgrade Time', 'Research Time')
 RES_PATTERN = re.compile(
@@ -335,8 +323,8 @@ def collect(fetch=fetch_many):
             except WikiParseError as e:
                 errors.append(f'{name}：{e}')
                 continue
-            data[group].append({'key': slug(name), 'name': name, 'name_zh': NAME_ZH.get(name),
-                                'wiki': title, **extra, **table})
+            # 中文名稱在網站端由 src/data/zh-tw.json（遊戲內翻譯）查詢
+            data[group].append({'key': slug(name), 'name': name, 'wiki': title, **extra, **table})
 
     if errors:
         raise WikiParseError('以下項目解析失敗：\n  ' + '\n  '.join(errors))

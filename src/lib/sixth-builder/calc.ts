@@ -1,19 +1,20 @@
 /*
- * 第六工人（B.O.B）資源計算
+ * 第六工人（巴布）資源計算；遊戲名稱使用 src/lib/i18n.ts 的遊戲內翻譯
  *
  * 資料來源：src/data/sixth-builder.json（每週由 Clash of Clans Fandom Wiki 自動更新）。
- * B.O.B Control 升級條件中，與夜世界建築有關的部分（以 2026-11 的 Wiki 為例）：
- *   - Gear Up 需要：雙管加農砲 Lv4、箭塔 Lv6、多管迫擊砲 Lv8
- *   - 任一兵種升到 Lv18：需要星空實驗室 Lv9；以 Night Witch 為例需要訓練營 Lv8
- *   - 任一防禦建築升到 Lv9：以多管迫擊砲為例（同時滿足 Lv8 的條件）
- * 金庫／聖水瓶：Builder Hall 加上兩座倉庫的容量，要能容納單次最高的升級費用。
- * Builder Hall 低於 9：當作剛升上 Lv9，還沒蓋 Lv9 的新建築（B.O.B Control）。
+ * 巴布控制台（B.O.B Control）升級條件中，與建築大師建築有關的部分（以 2026-11 的 Wiki 為例）：
+ *   - 改裝（Gear Up）需要：雙管加農炮 Lv4、箭塔 Lv6、多管迫擊炮 Lv8
+ *   - 任一兵種升到 Lv18：需要星空實驗室 Lv9；以暗夜女巫為例需要建築大師訓練營 Lv8
+ *   - 任一防禦建築升到 Lv9：以多管迫擊炮為例（同時滿足 Lv8 的條件）
+ * 儲金罐／聖水瓶：建築大師大本營加上兩座倉庫的容量，要能容納單次最高的升級費用。
+ * 建築大師大本營低於 9：當作剛升上 Lv9，還沒蓋 Lv9 的新建築（巴布控制台）。
  * 假設玩家目前沒有任何資源。
- * 兵種：以 Night Witch 研究到 Lv18 計算（未解鎖時以解鎖等級起算）。
- * 英雄：戰爭機器＋戰鬥直升機合計等級，在 Builder Hall 允許的等級內取最省聖水的組合。
- * Builder Hall 升級費用不計入。
+ * 兵種：以暗夜女巫研究到 Lv18 計算（未解鎖時以解鎖等級起算）。
+ * 英雄：戰爭機器＋戰鬥直升機合計等級，在建築大師大本營允許的等級內取最省聖水的組合。
+ * 建築大師大本營升級費用不計入。
  */
 import rawData from '../../data/sixth-builder.json' with { type: 'json' };
+import { zh } from '../i18n.ts';
 
 export type Resource = 'gold' | 'elixir';
 
@@ -51,7 +52,7 @@ export type HeroKey = 'battle_machine' | 'battle_copter';
 export const DATA = rawData as unknown as SixthBuilderData;
 const REQ = DATA.bob_control;
 
-export const RESOURCE_NAMES: Record<Resource, string> = { gold: '金幣', elixir: '聖水' };
+export const RESOURCE_NAMES: Record<Resource, string> = { gold: zh('Builder Gold'), elixir: zh('Builder Elixir') };
 
 export interface Building {
   key: BuildingKey;
@@ -71,21 +72,21 @@ function building(key: BuildingKey, name: string, resource: Resource, min: numbe
 }
 
 export const BUILDINGS: Building[] = [
-  building('double_cannon', '雙管加農砲', 'gold', 0, REQ.double_cannon, 'Gear Up 加農砲'),
-  building('archer_tower', '箭塔', 'gold', 0, REQ.archer_tower, 'Gear Up 箭塔'),
+  building('double_cannon', zh('Double Cannon'), 'gold', 0, REQ.double_cannon, `${zh('Gear Up')}${zh('Cannon')}`),
+  building('archer_tower', zh('Archer Tower'), 'gold', 0, REQ.archer_tower, `${zh('Gear Up')}${zh('Archer Tower')}`),
   building(
-    'multi_mortar', '多管迫擊砲', 'gold', 0,
+    'multi_mortar', zh('Multi Mortar'), 'gold', 0,
     Math.max(REQ.multi_mortar, REQ.defense_level),
-    `Gear Up 迫擊砲（Lv${REQ.multi_mortar}）＋ 任一防禦建築 Lv${REQ.defense_level}`,
+    `${zh('Gear Up')}${zh('Mortar')}（Lv${REQ.multi_mortar}）＋ 任一防禦建築 Lv${REQ.defense_level}`,
   ),
-  building('star_laboratory', '星空實驗室', 'elixir', 1, REQ.star_laboratory, `任一兵種研究到 Lv${REQ.troop_level}`),
+  building('star_laboratory', zh('Star Laboratory'), 'elixir', 1, REQ.star_laboratory, `任一兵種研究到 Lv${REQ.troop_level}`),
   building(
-    'builder_barracks', '訓練營', 'elixir', 1, DATA.night_witch_barracks,
-    `解鎖 Night Witch（用來研究到 Lv${REQ.troop_level}）`,
+    'builder_barracks', zh('Builder Barracks'), 'elixir', 1, DATA.night_witch_barracks,
+    `解鎖${zh('Night Witch')}（用來研究到 Lv${REQ.troop_level}）`,
   ),
 ];
 
-// 金庫與聖水瓶的每級容量與升級費用（兩者數值相同，付款資源相反）
+// 儲金罐與聖水瓶的每級容量與升級費用（兩者數值相同，付款資源相反）
 export const STORAGE_CAPACITY = DATA.storages.gold_storage.capacity;
 export const STORAGE_COSTS = DATA.storages.gold_storage.costs;
 export const STORAGE_MAX_LEVEL = STORAGE_CAPACITY.length;
@@ -98,8 +99,8 @@ interface StorageInfo {
 }
 
 const STORAGES: Record<Resource, StorageInfo> = {
-  gold: { key: 'gold_storage', name: '金庫', resource: 'elixir' },
-  elixir: { key: 'elixir_storage', name: '聖水瓶', resource: 'gold' },
+  gold: { key: 'gold_storage', name: zh('Gold Storage'), resource: 'elixir' },
+  elixir: { key: 'elixir_storage', name: zh('Elixir Storage'), resource: 'gold' },
 };
 
 export const REQUIRED_BUILDER_HALL = REQ.builder_hall;
@@ -125,7 +126,7 @@ function hero(key: HeroKey, name: string): Hero {
   };
 }
 
-export const HEROES: [Hero, Hero] = [hero('battle_machine', '戰爭機器'), hero('battle_copter', '戰鬥直升機')];
+export const HEROES: [Hero, Hero] = [hero('battle_machine', zh('Battle Machine')), hero('battle_copter', zh('Battle Copter'))];
 
 export interface Input {
   builder_hall: number;
@@ -246,8 +247,8 @@ function buildingItems(data: Input, bobControlBuilt: boolean): DraftItem[] {
   const items: DraftItem[] = [];
   if (!bobControlBuilt) {
     items.push({
-      key: 'bob_control', name: 'B.O.B Control（建造）', resource: 'gold',
-      current: 0, target: 1, reason: `需要 Builder Hall Lv${REQUIRED_BUILDER_HALL}`,
+      key: 'bob_control', name: `${zh('B.O.B Control')}（建造）`, resource: 'gold',
+      current: 0, target: 1, reason: `需要${zh('Builder Hall')} Lv${REQUIRED_BUILDER_HALL}`,
       cost: BOB_CONTROL_COST, maxSingle: BOB_CONTROL_COST,
     });
   }
@@ -270,7 +271,7 @@ function nightWitchItem(data: Input): DraftItem {
   const start = Math.max(current, first); // 未解鎖：訓練營升級後為 first_level
   const list = start >= target ? [] : NIGHT_WITCH.costs.slice(start - first, target - first);
   return {
-    key: 'night_witch', name: 'Night Witch 研究', resource: 'elixir',
+    key: 'night_witch', name: `${zh('Night Witch')}研究`, resource: 'elixir',
     current: start, target: Math.max(start, target),
     reason: `任一兵種研究到 Lv${target}${current === 0 ? `（解鎖時為 Lv${first}）` : ''}`,
     cost: sum(list), maxSingle: maxOf(list),
@@ -284,7 +285,7 @@ export function heroCostList(h: Hero, from: number, to: number): number[] {
   return h.costs.slice(start, to - h.firstLevel + 1);
 }
 
-/** Builder Hall 等級允許的最高英雄等級；不能建造時回傳 0 */
+/** 建築大師大本營等級允許的最高英雄等級；不能建造時回傳 0 */
 export function heroMaxLevel(h: Hero, builderHall: number): number {
   let max = 0;
   h.required.forEach((req, i) => {
@@ -328,7 +329,7 @@ function heroItems(data: Input, builderHall: number): { ok: boolean; items: Draf
   const plan = planHeroes(current, total, builderHall);
   const reason = plan.ok
     ? `英雄合計 Lv${total}（目標 ${plan.levels[0]} ＋ ${plan.levels[1]}，最省聖水）`
-    : `Builder Hall Lv${builderHall} 的等級上限無法達到合計 Lv${total}`;
+    : `${zh('Builder Hall')} Lv${builderHall} 的等級上限無法達到合計 Lv${total}`;
   return {
     ok: plan.ok,
     items: HEROES.map((h, i) => {
@@ -344,7 +345,7 @@ function heroItems(data: Input, builderHall: number): { ok: boolean; items: Draf
 
 /*
  * 依單次最高費用決定兩種倉庫要升到幾級。
- * 金庫升級付聖水、聖水瓶升級付金幣，所以重複計算到結果不再變動。
+ * 儲金罐升級付聖水、聖水瓶升級付金幣，所以重複計算到結果不再變動。
  */
 function storageItems(data: Input, items: DraftItem[], maxLevel: number, hallCapacity: number) {
   const resources: Resource[] = ['gold', 'elixir'];
@@ -418,7 +419,7 @@ export function calculate(data: Input): Result {
   const assumedBuilderHall = bh < REQUIRED_BUILDER_HALL;
   const effectiveBh = assumedBuilderHall ? REQUIRED_BUILDER_HALL : bh;
   const bobControlBuilt = data.bob_control_built && !assumedBuilderHall;
-  // 倉庫最高等級：Lv n 需要 Builder Hall n
+  // 倉庫最高等級：Lv n 需要建築大師大本營 n
   const maxStorageLevel = Math.min(effectiveBh, STORAGE_MAX_LEVEL);
   const hallCapacity = builderHallCapacity(effectiveBh);
 

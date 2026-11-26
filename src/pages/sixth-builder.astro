@@ -10,6 +10,7 @@ import {
   BUILDER_HALL_FIELD, BUILDING_FIELDS, RATE_FIELDS, STORAGE_PAIRS, UNIT_FIELDS,
 } from '../lib/sixth-builder/fields';
 import { placeholderHtml } from '../lib/sixth-builder/render';
+import { zh } from '../lib/i18n';
 
 const req = DATA.bob_control;
 const bh = REQUIRED_BUILDER_HALL;
@@ -21,19 +22,19 @@ const grids = [
 ];
 ---
 
-<BaseLayout title="第六工人計算機" description="Clash of Clans 第六工人（B.O.B）計算機 - 計算夜世界還缺多少金幣與聖水">
+<BaseLayout title="第六工人計算機" description={`Clash of Clans 第六工人（${zh('B.O.B')}）計算機 - 計算還缺多少${zh('Builder Gold')}與${zh('Builder Elixir')}`}>
   <main class="main-content">
     <PageHeader
       tag="🤖 第六工人"
       title="第六工人計算機"
-      subtitle="輸入夜世界建築與倉庫等級，計算解鎖 B.O.B 還缺多少金幣與聖水"
+      subtitle={`輸入建築與倉庫等級，計算解鎖${zh('B.O.B')}還缺多少${zh('Builder Gold')}與${zh('Builder Elixir')}`}
     />
 
     <div id="sixth-builder-app">
       <div class="sb-layout">
         <form class="sb-card sb-form" novalidate>
           <fieldset>
-            <legend>夜世界</legend>
+            <legend>基本資料</legend>
             <div class="sb-grid sb-grid-3">
               <div class="sb-field" data-field={BUILDER_HALL_FIELD.key}>
                 <label for={`sb-${BUILDER_HALL_FIELD.key}`}>{BUILDER_HALL_FIELD.label}</label>
@@ -41,7 +42,7 @@ const grids = [
                 <span class="sb-error" hidden></span>
               </div>
               <label class="sb-check sb-span-2">
-                <input type="checkbox" id="sb-bob_control_built" name="bob_control_built" /> 已建造 B.O.B Control
+                <input type="checkbox" id="sb-bob_control_built" name="bob_control_built" /> 已建造{zh('B.O.B Control')}
               </label>
             </div>
           </fieldset>
@@ -108,19 +109,19 @@ const grids = [
         <section class="sb-card sb-notes">
           <h2>計算說明</h2>
           <ul>
-            <li>目標等級依 B.O.B Control 升級條件：{targets}（訓練營為解鎖 Night Witch 的等級）。</li>
+            <li>目標等級依{zh('B.O.B Control')}升級條件：{targets}（{zh('Builder Barracks')}為解鎖{zh('Night Witch')}的等級）。</li>
             <li>
-              假設目前沒有任何資源。金庫／聖水瓶會升到 Builder Hall（{formatNumber(builderHallCapacity(bh))}
+              假設目前沒有任何資源。{zh('Gold Storage')}／{zh('Elixir Storage')}會升到{zh('Builder Hall')}（{formatNumber(builderHallCapacity(bh))}
               ）加兩座倉庫的容量足以容納單次最高費用，優先升級等級較低的一座。
             </li>
-            <li>Builder Hall 低於 {bh} 時，以剛升上 Lv{bh}、尚未建造 B.O.B Control 計算（不含 Builder Hall 升級費用）。</li>
-            <li>兵種以 Night Witch 研究到 Lv{req.troop_level} 計算；未解鎖時以解鎖等級 Lv{NIGHT_WITCH.first_level} 起算。</li>
+            <li>{zh('Builder Hall')}低於 {bh} 時，以剛升上 Lv{bh}、尚未建造{zh('B.O.B Control')}計算（不含{zh('Builder Hall')}升級費用）。</li>
+            <li>兵種以{zh('Night Witch')}研究到 Lv{req.troop_level} 計算；未解鎖時以解鎖等級 Lv{NIGHT_WITCH.first_level} 起算。</li>
             <li>
               {machine.name}＋{copter.name}合計 Lv{req.hero_total}
-              ：在 Builder Hall 允許的等級內，取總費用最低的組合（{copter.name}建造後為 Lv{copter.firstLevel}）。
+              ：在{zh('Builder Hall')}允許的等級內，取總費用最低的組合（{copter.name}建造後為 Lv{copter.firstLevel}）。
             </li>
             <li>預估時間只計算採集器產量，不含戰鬥獎勵與其他來源。</li>
-            <li>資料來源：Clash of Clans Fandom Wiki，每週自動更新。</li>
+            <li>資料來源：Clash of Clans Fandom Wiki，每週自動更新；名稱使用遊戲內的繁體中文。</li>
           </ul>
         </section>
       </div>

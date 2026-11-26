@@ -35,10 +35,12 @@ npm run preview   # 預覽建置結果
 |---|---|---|
 | `src/data/upgrade-info.json` | 升級資訊 | `python scripts/update_upgrade_data.py` 自動產生 |
 | `src/data/sixth-builder.json` | 第六工人計算機 | `python scripts/update_sixth_builder_data.py` 自動產生 |
+| `src/data/zh-tw.json` | 遊戲內名稱的官方繁體中文 | `python scripts/update_translations.py` 自動產生 |
 | `src/data/events.json` | 固定活動排程、限時活動 | 手動編輯 |
 | `src/data/guides.json` | 攻略清單 | 手動編輯 |
 
 - 兩支抓取腳本從 [Clash of Clans Fandom Wiki](https://clashofclans.fandom.com) 抓資料，只使用 Python 標準函式庫；加上 `--check` 只比對不寫入。
+- 遊戲名稱的繁體中文來自 PyPI 上 [coc.py](https://pypi.org/project/coc.py/) 附帶的遊戲語系檔（`texts.csv` 的 CNT 欄），每週隨最新版更新；尚未收錄翻譯的新項目顯示英文原名，不自行翻譯。
 - 抓取腳本的測試：`python -m unittest discover -s scripts`
 - 自動產生的 JSON 請勿手動修改。
 - 限時活動加在 `events.json` 的 `special`，`start`／`end` 使用 ISO 8601 時間，例如 `2026-12-01T16:00:00+08:00`。

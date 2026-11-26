@@ -1,7 +1,7 @@
 /* 升級資訊的 HTML（名稱來自 Wiki，一律跳脫） */
 import {
   RESOURCE_NAMES, RESOURCE_SHORT, RESOURCES, REQUIREMENT_NAMES, applyDiscount, displayName, emptyCosts,
-  formatLarge, formatTime, formatTimeLong, itemIcon, requirementText,
+  formatLarge, formatTime, formatTimeLong, hasChineseName, itemIcon, requirementText,
 } from './logic.ts';
 import type { Costs, Item, Resource, Source, TabConfig, Totals } from './logic.ts';
 
@@ -32,7 +32,7 @@ export function cardHtml(tab: TabConfig, item: Item, discount: number): string {
   const cost = entries.length
     ? entries.map(([res, amount]) => `<span class="stat-line">${withDiscount(amount, discount, formatLarge)} ${RESOURCE_SHORT[res]}</span>`).join('')
     : '—';
-  const subtitle = item.name_zh ? escapeHtml(item.name) : '';
+  const subtitle = hasChineseName(item) ? escapeHtml(item.name) : '';
   const showTime = top.time !== null;
   return `<button type="button" class="item-card" data-key="${escapeHtml(item.key)}">`
     + '<div class="item-card-header">'
@@ -53,7 +53,7 @@ export function emptyHtml(text: string): string {
 }
 
 export function modalTitle(item: Item): string {
-  return item.name_zh ? `${item.name_zh}（${item.name}）` : item.name;
+  return hasChineseName(item) ? `${displayName(item)}（${item.name}）` : item.name;
 }
 
 /** 等級表：每種資源一欄；時間、HP、DPS 只在有資料時顯示 */

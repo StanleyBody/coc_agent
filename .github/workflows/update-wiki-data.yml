@@ -42,6 +42,7 @@ jobs:
         run: |
           python scripts/update_sixth_builder_data.py
           python scripts/update_upgrade_data.py
+          python scripts/update_translations.py
 
       - name: Test and build with new data
         run: |
@@ -60,10 +61,11 @@ jobs:
           add-paths: |
             src/data/sixth-builder.json
             src/data/upgrade-info.json
+            src/data/zh-tw.json
           commit-message: 'chore: update data from Fandom Wiki'
           title: 'chore: update data from Fandom Wiki'
           body: |
-            每週自動從 Clash of Clans Fandom Wiki 抓取的資料有變動（第六工人計算機、升級資訊）。
+            每週自動更新的資料有變動（Fandom Wiki 的第六工人計算機、升級資訊資料，以及遊戲內繁體中文名稱）。
 
             - 解析器測試、計算機測試與網站建置已通過
             - Claude 會自動審查，沒有問題就自動合併；不想自動合併時加上 `no-auto-merge` 標籤

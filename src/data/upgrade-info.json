@@ -5,7 +5,6 @@
   {
    "key": "bomb",
    "name": "Bomb",
-   "name_zh": null,
    "wiki": "Bomb",
    "category": "trap",
    "levels": [
@@ -130,7 +129,6 @@
   {
    "key": "spring_trap",
    "name": "Spring Trap",
-   "name_zh": null,
    "wiki": "Spring Trap/Home Village",
    "category": "trap",
    "levels": [
@@ -255,7 +253,6 @@
   {
    "key": "air_bomb",
    "name": "Air Bomb",
-   "name_zh": null,
    "wiki": "Air Bomb",
    "category": "trap",
    "levels": [
@@ -380,7 +377,6 @@
   {
    "key": "giant_bomb",
    "name": "Giant Bomb",
-   "name_zh": null,
    "wiki": "Giant Bomb",
    "category": "trap",
    "levels": [
@@ -489,7 +485,6 @@
   {
    "key": "seeking_air_mine",
    "name": "Seeking Air Mine",
-   "name_zh": null,
    "wiki": "Seeking Air Mine",
    "category": "trap",
    "levels": [
@@ -566,7 +561,6 @@
   {
    "key": "skeleton_trap",
    "name": "Skeleton Trap",
-   "name_zh": null,
    "wiki": "Skeleton Trap",
    "category": "trap",
    "levels": [
@@ -627,7 +621,6 @@
   {
    "key": "tornado_trap",
    "name": "Tornado Trap",
-   "name_zh": null,
    "wiki": "Tornado Trap",
    "category": "trap",
    "levels": [
@@ -664,7 +657,6 @@
   {
    "key": "giga_bomb",
    "name": "Giga Bomb",
-   "name_zh": null,
    "wiki": "Giga Bomb",
    "category": "trap",
    "levels": [
@@ -709,7 +701,6 @@
   {
    "key": "cannon",
    "name": "Cannon",
-   "name_zh": "加農砲",
    "wiki": "Cannon/Home Village",
    "category": "defense",
    "levels": [
@@ -932,7 +923,6 @@
   {
    "key": "archer_tower",
    "name": "Archer Tower",
-   "name_zh": "箭塔",
    "wiki": "Archer Tower/Home Village",
    "category": "defense",
    "levels": [
@@ -1155,7 +1145,6 @@
   {
    "key": "mortar",
    "name": "Mortar",
-   "name_zh": "迫擊砲",
    "wiki": "Mortar",
    "category": "defense",
    "levels": [
@@ -1348,7 +1337,6 @@
   {
    "key": "air_defense",
    "name": "Air Defense",
-   "name_zh": null,
    "wiki": "Air Defense/Home Village",
    "category": "defense",
    "levels": [
@@ -1531,7 +1519,6 @@
   {
    "key": "wizard_tower",
    "name": "Wizard Tower",
-   "name_zh": null,
    "wiki": "Wizard Tower",
    "category": "defense",
    "levels": [
@@ -1714,7 +1701,6 @@
   {
    "key": "air_sweeper",
    "name": "Air Sweeper",
-   "name_zh": null,
    "wiki": "Air Sweeper",
    "category": "defense",
    "levels": [
@@ -1790,7 +1776,6 @@
   {
    "key": "hidden_tesla",
    "name": "Hidden Tesla",
-   "name_zh": null,
    "wiki": "Hidden Tesla/Home Village",
    "category": "defense",
    "levels": [
@@ -1983,7 +1968,6 @@
   {
    "key": "bomb_tower",
    "name": "Bomb Tower",
-   "name_zh": null,
    "wiki": "Bomb Tower/Home Village",
    "category": "defense",
    "levels": [
@@ -2126,7 +2110,6 @@
   {
    "key": "x_bow",
    "name": "X-Bow",
-   "name_zh": null,
    "wiki": "X-Bow/Home Village",
    "category": "defense",
    "levels": [
@@ -2279,7 +2262,6 @@
   {
    "key": "inferno_tower",
    "name": "Inferno Tower",
-   "name_zh": null,
    "wiki": "Inferno Tower/Home Village",
    "category": "defense",
    "levels": [
@@ -2412,7 +2394,6 @@
   {
    "key": "eagle_artillery",
    "name": "Eagle Artillery",
-   "name_zh": null,
    "wiki": "Eagle Artillery",
    "category": "defense",
    "levels": [
@@ -2495,7 +2476,6 @@
   {
    "key": "scattershot",
    "name": "Scattershot",
-   "name_zh": null,
    "wiki": "Scattershot",
    "category": "defense",
    "levels": [
@@ -2578,7 +2558,6 @@
   {
    "key": "builder_s_hut",
    "name": "Builder's Hut",
-   "name_zh": null,
    "wiki": "Builder's Hut",
    "category": "defense",
    "levels": [
@@ -2679,7 +2658,6 @@
   {
    "key": "spell_tower",
    "name": "Spell Tower",
-   "name_zh": null,
    "wiki": "Spell Tower",
    "category": "defense",
    "levels": [
@@ -2728,7 +2706,6 @@
   {
    "key": "monolith",
    "name": "Monolith",
-   "name_zh": null,
    "wiki": "Monolith",
    "category": "defense",
    "levels": [
@@ -2786,7 +2763,6 @@
   {
    "key": "multi_archer_tower",
    "name": "Multi-Archer Tower",
-   "name_zh": null,
    "wiki": "Multi-Archer Tower",
    "category": "defense",
    "levels": [
@@ -2849,7 +2825,6 @@
   {
    "key": "ricochet_cannon",
    "name": "Ricochet Cannon",
-   "name_zh": null,
    "wiki": "Ricochet Cannon",
    "category": "defense",
    "levels": [
@@ -2912,7 +2887,6 @@
   {
    "key": "multi_gear_tower",
    "name": "Multi-Gear Tower",
-   "name_zh": null,
    "wiki": "Multi-Gear Tower",
    "category": "defense",
    "levels": [
@@ -2965,7 +2939,6 @@
   {
    "key": "firespitter",
    "name": "Firespitter",
-   "name_zh": null,
    "wiki": "Firespitter",
    "category": "defense",
    "levels": [
@@ -3008,7 +2981,6 @@
   {
    "key": "revenge_tower",
    "name": "Revenge Tower",
-   "name_zh": null,
    "wiki": "Revenge Tower",
    "category": "defense",
    "levels": [
@@ -3039,7 +3011,6 @@
   {
    "key": "super_wizard_tower",
    "name": "Super Wizard Tower",
-   "name_zh": null,
    "wiki": "Super Wizard Tower/Home Village",
    "category": "defense",
    "levels": [
@@ -3072,7 +3043,6 @@
   {
    "key": "spiky_tower",
    "name": "Spiky Tower",
-   "name_zh": null,
    "wiki": "Spiky Tower",
    "category": "defense",
    "levels": [
@@ -3103,7 +3073,6 @@
   {
    "key": "firecracker_tower",
    "name": "Firecracker Tower",
-   "name_zh": null,
    "wiki": "Firecracker Tower",
    "category": "defense",
    "levels": [
@@ -3136,7 +3105,6 @@
   {
    "key": "wall",
    "name": "Wall",
-   "name_zh": null,
    "wiki": "Wall/Home Village",
    "category": "defense",
    "levels": [
@@ -3329,7 +3297,6 @@
   {
    "key": "town_hall",
    "name": "Town Hall",
-   "name_zh": null,
    "wiki": "Town Hall",
    "category": "resource",
    "levels": [
@@ -3511,7 +3478,6 @@
   {
    "key": "gold_mine",
    "name": "Gold Mine",
-   "name_zh": null,
    "wiki": "Gold Mine/Home Village",
    "category": "resource",
    "levels": [
@@ -3686,7 +3652,6 @@
   {
    "key": "elixir_collector",
    "name": "Elixir Collector",
-   "name_zh": null,
    "wiki": "Elixir Collector/Home Village",
    "category": "resource",
    "levels": [
@@ -3861,7 +3826,6 @@
   {
    "key": "dark_elixir_drill",
    "name": "Dark Elixir Drill",
-   "name_zh": null,
    "wiki": "Dark Elixir Drill",
    "category": "resource",
    "levels": [
@@ -3982,7 +3946,6 @@
   {
    "key": "gold_storage",
    "name": "Gold Storage",
-   "name_zh": null,
    "wiki": "Gold Storage/Home Village",
    "category": "resource",
    "levels": [
@@ -4175,7 +4138,6 @@
   {
    "key": "elixir_storage",
    "name": "Elixir Storage",
-   "name_zh": null,
    "wiki": "Elixir Storage/Home Village",
    "category": "resource",
    "levels": [
@@ -4368,7 +4330,6 @@
   {
    "key": "dark_elixir_storage",
    "name": "Dark Elixir Storage",
-   "name_zh": null,
    "wiki": "Dark Elixir Storage",
    "category": "resource",
    "levels": [
@@ -4507,7 +4468,6 @@
   {
    "key": "clan_castle",
    "name": "Clan Castle",
-   "name_zh": null,
    "wiki": "Clan Castle",
    "category": "resource",
    "levels": [
@@ -4655,7 +4615,6 @@
   {
    "key": "army_camp",
    "name": "Army Camp",
-   "name_zh": null,
    "wiki": "Army Camp/Home Village",
    "category": "army",
    "levels": [
@@ -4794,7 +4753,6 @@
   {
    "key": "barracks",
    "name": "Barracks",
-   "name_zh": null,
    "wiki": "Barracks",
    "category": "army",
    "levels": [
@@ -4978,7 +4936,6 @@
   {
    "key": "dark_barracks",
    "name": "Dark Barracks",
-   "name_zh": null,
    "wiki": "Dark Barracks",
    "category": "army",
    "levels": [
@@ -5108,7 +5065,6 @@
   {
    "key": "laboratory",
    "name": "Laboratory",
-   "name_zh": null,
    "wiki": "Laboratory",
    "category": "army",
    "levels": [
@@ -5274,7 +5230,6 @@
   {
    "key": "spell_factory",
    "name": "Spell Factory",
-   "name_zh": null,
    "wiki": "Spell Factory",
    "category": "army",
    "levels": [
@@ -5377,7 +5332,6 @@
   {
    "key": "hero_hall",
    "name": "Hero Hall",
-   "name_zh": null,
    "wiki": "Hero Hall",
    "category": "army",
    "levels": [
@@ -5507,7 +5461,6 @@
   {
    "key": "dark_spell_factory",
    "name": "Dark Spell Factory",
-   "name_zh": null,
    "wiki": "Dark Spell Factory",
    "category": "army",
    "levels": [
@@ -5592,7 +5545,6 @@
   {
    "key": "blacksmith",
    "name": "Blacksmith",
-   "name_zh": null,
    "wiki": "Blacksmith",
    "category": "army",
    "levels": [
@@ -5695,7 +5647,6 @@
   {
    "key": "workshop",
    "name": "Workshop",
-   "name_zh": null,
    "wiki": "Workshop",
    "category": "army",
    "levels": [
@@ -5789,7 +5740,6 @@
   {
    "key": "pet_house",
    "name": "Pet House",
-   "name_zh": null,
    "wiki": "Pet House",
    "category": "army",
    "levels": [
@@ -5912,7 +5862,6 @@
   {
    "key": "barbarian_king",
    "name": "Barbarian King",
-   "name_zh": "野蠻人之王",
    "wiki": "Barbarian King",
    "levels": [
     {
@@ -7072,7 +7021,6 @@
   {
    "key": "archer_queen",
    "name": "Archer Queen",
-   "name_zh": "弓箭女皇",
    "wiki": "Archer Queen",
    "levels": [
     {
@@ -8232,7 +8180,6 @@
   {
    "key": "minion_prince",
    "name": "Minion Prince",
-   "name_zh": "亡靈王子",
    "wiki": "Minion Prince",
    "levels": [
     {
@@ -9242,7 +9189,6 @@
   {
    "key": "grand_warden",
    "name": "Grand Warden",
-   "name_zh": "大守護者",
    "wiki": "Grand Warden",
    "levels": [
     {
@@ -10154,7 +10100,6 @@
   {
    "key": "royal_champion",
    "name": "Royal Champion",
-   "name_zh": "神盾勇者",
    "wiki": "Royal Champion",
    "levels": [
     {
@@ -10764,7 +10709,6 @@
   {
    "key": "dragon_duke",
    "name": "Dragon Duke",
-   "name_zh": null,
    "wiki": "Dragon Duke",
    "levels": [
     {
@@ -11076,7 +11020,6 @@
   {
    "key": "barbarian",
    "name": "Barbarian",
-   "name_zh": "野蠻人",
    "wiki": "Barbarian/Home Village",
    "type": "elixir_troop",
    "levels": [
@@ -11227,7 +11170,6 @@
   {
    "key": "archer",
    "name": "Archer",
-   "name_zh": "弓箭手",
    "wiki": "Archer",
    "type": "elixir_troop",
    "levels": [
@@ -11388,7 +11330,6 @@
   {
    "key": "giant",
    "name": "Giant",
-   "name_zh": "巨人",
    "wiki": "Giant",
    "type": "elixir_troop",
    "levels": [
@@ -11549,7 +11490,6 @@
   {
    "key": "goblin",
    "name": "Goblin",
-   "name_zh": "哥布林",
    "wiki": "Goblin",
    "type": "elixir_troop",
    "levels": [
@@ -11670,7 +11610,6 @@
   {
    "key": "wall_breaker",
    "name": "Wall Breaker",
-   "name_zh": "炸彈人",
    "wiki": "Wall Breaker",
    "type": "elixir_troop",
    "levels": [
@@ -11816,7 +11755,6 @@
   {
    "key": "balloon",
    "name": "Balloon",
-   "name_zh": "氣球兵",
    "wiki": "Balloon",
    "type": "elixir_troop",
    "levels": [
@@ -11967,7 +11905,6 @@
   {
    "key": "wizard",
    "name": "Wizard",
-   "name_zh": "法師",
    "wiki": "Wizard",
    "type": "elixir_troop",
    "levels": [
@@ -12128,7 +12065,6 @@
   {
    "key": "healer",
    "name": "Healer",
-   "name_zh": "天使",
    "wiki": "Healer",
    "type": "elixir_troop",
    "levels": [
@@ -12247,7 +12183,6 @@
   {
    "key": "dragon",
    "name": "Dragon",
-   "name_zh": "飛龍",
    "wiki": "Dragon",
    "type": "elixir_troop",
    "levels": [
@@ -12398,7 +12333,6 @@
   {
    "key": "p_e_k_k_a",
    "name": "P.E.K.K.A",
-   "name_zh": "皮卡超人",
    "wiki": "P.E.K.K.A",
    "type": "elixir_troop",
    "levels": [
@@ -12549,7 +12483,6 @@
   {
    "key": "baby_dragon",
    "name": "Baby Dragon",
-   "name_zh": null,
    "wiki": "Baby Dragon/Home Village",
    "type": "elixir_troop",
    "levels": [
@@ -12690,7 +12623,6 @@
   {
    "key": "miner",
    "name": "Miner",
-   "name_zh": null,
    "wiki": "Miner",
    "type": "elixir_troop",
    "levels": [
@@ -12831,7 +12763,6 @@
   {
    "key": "electro_dragon",
    "name": "Electro Dragon",
-   "name_zh": "雷電龍",
    "wiki": "Electro Dragon",
    "type": "elixir_troop",
    "levels": [
@@ -12942,7 +12873,6 @@
   {
    "key": "yeti",
    "name": "Yeti",
-   "name_zh": null,
    "wiki": "Yeti",
    "type": "elixir_troop",
    "levels": [
@@ -13043,7 +12973,6 @@
   {
    "key": "dragon_rider",
    "name": "Dragon Rider",
-   "name_zh": null,
    "wiki": "Dragon Rider",
    "type": "elixir_troop",
    "levels": [
@@ -13124,7 +13053,6 @@
   {
    "key": "electro_titan",
    "name": "Electro Titan",
-   "name_zh": null,
    "wiki": "Electro Titan",
    "type": "elixir_troop",
    "levels": [
@@ -13195,7 +13123,6 @@
   {
    "key": "root_rider",
    "name": "Root Rider",
-   "name_zh": null,
    "wiki": "Root Rider",
    "type": "elixir_troop",
    "levels": [
@@ -13256,7 +13183,6 @@
   {
    "key": "thrower",
    "name": "Thrower",
-   "name_zh": null,
    "wiki": "Thrower",
    "type": "elixir_troop",
    "levels": [
@@ -13317,7 +13243,6 @@
   {
    "key": "meteor_golem",
    "name": "Meteor Golem",
-   "name_zh": null,
    "wiki": "Meteor Golem",
    "type": "elixir_troop",
    "levels": [
@@ -13364,7 +13289,6 @@
   {
    "key": "minion",
    "name": "Minion",
-   "name_zh": "亡靈",
    "wiki": "Minion",
    "type": "dark_troop",
    "levels": [
@@ -13525,7 +13449,6 @@
   {
    "key": "hog_rider",
    "name": "Hog Rider",
-   "name_zh": "野豬騎士",
    "wiki": "Hog Rider",
    "type": "dark_troop",
    "levels": [
@@ -13696,7 +13619,6 @@
   {
    "key": "valkyrie",
    "name": "Valkyrie",
-   "name_zh": "女武神",
    "wiki": "Valkyrie",
    "type": "dark_troop",
    "levels": [
@@ -13837,7 +13759,6 @@
   {
    "key": "golem",
    "name": "Golem",
-   "name_zh": "石頭人",
    "wiki": "Golem",
    "type": "dark_troop",
    "levels": [
@@ -14008,7 +13929,6 @@
   {
    "key": "witch",
    "name": "Witch",
-   "name_zh": "女巫",
    "wiki": "Witch",
    "type": "dark_troop",
    "levels": [
@@ -14109,7 +14029,6 @@
   {
    "key": "lava_hound",
    "name": "Lava Hound",
-   "name_zh": "熔岩獵犬",
    "wiki": "Lava Hound",
    "type": "dark_troop",
    "levels": [
@@ -14210,7 +14129,6 @@
   {
    "key": "bowler",
    "name": "Bowler",
-   "name_zh": "保齡球手",
    "wiki": "Bowler",
    "type": "dark_troop",
    "levels": [
@@ -14331,7 +14249,6 @@
   {
    "key": "ice_golem",
    "name": "Ice Golem",
-   "name_zh": null,
    "wiki": "Ice Golem",
    "type": "dark_troop",
    "levels": [
@@ -14432,7 +14349,6 @@
   {
    "key": "headhunter",
    "name": "Headhunter",
-   "name_zh": null,
    "wiki": "Headhunter",
    "type": "dark_troop",
    "levels": [
@@ -14493,7 +14409,6 @@
   {
    "key": "apprentice_warden",
    "name": "Apprentice Warden",
-   "name_zh": null,
    "wiki": "Apprentice Warden",
    "type": "dark_troop",
    "levels": [
@@ -14544,7 +14459,6 @@
   {
    "key": "druid",
    "name": "Druid",
-   "name_zh": null,
    "wiki": "Druid",
    "type": "dark_troop",
    "levels": [
@@ -14618,7 +14532,6 @@
   {
    "key": "furnace",
    "name": "Furnace",
-   "name_zh": null,
    "wiki": "Furnace",
    "type": "dark_troop",
    "levels": [
@@ -14665,7 +14578,6 @@
   {
    "key": "ruin_witch",
    "name": "Ruin Witch",
-   "name_zh": null,
    "wiki": "Ruin Witch",
    "type": "dark_troop",
    "levels": [
@@ -14726,7 +14638,6 @@
   {
    "key": "lightning_spell",
    "name": "Lightning Spell",
-   "name_zh": null,
    "wiki": "Lightning Spell/Home Village",
    "type": "elixir_spell",
    "levels": [
@@ -14849,7 +14760,6 @@
   {
    "key": "healing_spell",
    "name": "Healing Spell",
-   "name_zh": null,
    "wiki": "Healing Spell/Home Village",
    "type": "elixir_spell",
    "levels": [
@@ -14964,7 +14874,6 @@
   {
    "key": "rage_spell",
    "name": "Rage Spell",
-   "name_zh": null,
    "wiki": "Rage Spell/Home Village",
    "type": "elixir_spell",
    "levels": [
@@ -15031,7 +14940,6 @@
   {
    "key": "jump_spell",
    "name": "Jump Spell",
-   "name_zh": null,
    "wiki": "Jump Spell/Home Village",
    "type": "elixir_spell",
    "levels": [
@@ -15082,7 +14990,6 @@
   {
    "key": "freeze_spell",
    "name": "Freeze Spell",
-   "name_zh": null,
    "wiki": "Freeze Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15157,7 +15064,6 @@
   {
    "key": "clone_spell",
    "name": "Clone Spell",
-   "name_zh": null,
    "wiki": "Clone Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15240,7 +15146,6 @@
   {
    "key": "invisibility_spell",
    "name": "Invisibility Spell",
-   "name_zh": null,
    "wiki": "Invisibility Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15283,7 +15188,6 @@
   {
    "key": "recall_spell",
    "name": "Recall Spell",
-   "name_zh": null,
    "wiki": "Recall Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15350,7 +15254,6 @@
   {
    "key": "revive_spell",
    "name": "Revive Spell",
-   "name_zh": null,
    "wiki": "Revive Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15401,7 +15304,6 @@
   {
    "key": "totem_spell",
    "name": "Totem Spell",
-   "name_zh": null,
    "wiki": "Totem Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15452,7 +15354,6 @@
   {
    "key": "heroic_spell",
    "name": "Heroic Spell",
-   "name_zh": null,
    "wiki": "Heroic Spell",
    "type": "elixir_spell",
    "levels": [
@@ -15495,7 +15396,6 @@
   {
    "key": "poison_spell",
    "name": "Poison Spell",
-   "name_zh": null,
    "wiki": "Poison Spell",
    "type": "dark_spell",
    "levels": [
@@ -15610,7 +15510,6 @@
   {
    "key": "earthquake_spell",
    "name": "Earthquake Spell",
-   "name_zh": null,
    "wiki": "Earthquake Spell",
    "type": "dark_spell",
    "levels": [
@@ -15685,7 +15584,6 @@
   {
    "key": "haste_spell",
    "name": "Haste Spell",
-   "name_zh": null,
    "wiki": "Haste Spell",
    "type": "dark_spell",
    "levels": [
@@ -15760,7 +15658,6 @@
   {
    "key": "skeleton_spell",
    "name": "Skeleton Spell",
-   "name_zh": null,
    "wiki": "Skeleton Spell",
    "type": "dark_spell",
    "levels": [
@@ -15835,7 +15732,6 @@
   {
    "key": "bat_spell",
    "name": "Bat Spell",
-   "name_zh": null,
    "wiki": "Bat Spell",
    "type": "dark_spell",
    "levels": [
@@ -15918,7 +15814,6 @@
   {
    "key": "overgrowth_spell",
    "name": "Overgrowth Spell",
-   "name_zh": null,
    "wiki": "Overgrowth Spell",
    "type": "dark_spell",
    "levels": [
@@ -15969,7 +15864,6 @@
   {
    "key": "ice_block_spell",
    "name": "Ice Block Spell",
-   "name_zh": null,
    "wiki": "Ice Block Spell",
    "type": "dark_spell",
    "levels": [
@@ -16028,7 +15922,6 @@
   {
    "key": "angry_spell",
    "name": "Angry Spell",
-   "name_zh": null,
    "wiki": "Angry Spell",
    "type": "dark_spell",
    "levels": [
@@ -16071,7 +15964,6 @@
   {
    "key": "wall_wrecker",
    "name": "Wall Wrecker",
-   "name_zh": null,
    "wiki": "Wall Wrecker",
    "type": "siege",
    "levels": [
@@ -16142,7 +16034,6 @@
   {
    "key": "battle_blimp",
    "name": "Battle Blimp",
-   "name_zh": null,
    "wiki": "Battle Blimp",
    "type": "siege",
    "levels": [
@@ -16213,7 +16104,6 @@
   {
    "key": "stone_slammer",
    "name": "Stone Slammer",
-   "name_zh": null,
    "wiki": "Stone Slammer",
    "type": "siege",
    "levels": [
@@ -16284,7 +16174,6 @@
   {
    "key": "siege_barracks",
    "name": "Siege Barracks",
-   "name_zh": null,
    "wiki": "Siege Barracks",
    "type": "siege",
    "levels": [
@@ -16349,7 +16238,6 @@
   {
    "key": "log_launcher",
    "name": "Log Launcher",
-   "name_zh": null,
    "wiki": "Log Launcher",
    "type": "siege",
    "levels": [
@@ -16420,7 +16308,6 @@
   {
    "key": "flame_flinger",
    "name": "Flame Flinger",
-   "name_zh": null,
    "wiki": "Flame Flinger",
    "type": "siege",
    "levels": [
@@ -16491,7 +16378,6 @@
   {
    "key": "battle_drill",
    "name": "Battle Drill",
-   "name_zh": null,
    "wiki": "Battle Drill",
    "type": "siege",
    "levels": [
@@ -16562,7 +16448,6 @@
   {
    "key": "troop_launcher",
    "name": "Troop Launcher",
-   "name_zh": null,
    "wiki": "Troop Launcher",
    "type": "siege",
    "levels": [
@@ -16609,7 +16494,6 @@
   {
    "key": "sky_wagon",
    "name": "Sky Wagon",
-   "name_zh": null,
    "wiki": "Sky Wagon",
    "type": "siege",
    "levels": [
@@ -16662,7 +16546,6 @@
   {
    "key": "l_a_s_s_i",
    "name": "L.A.S.S.I",
-   "name_zh": null,
    "wiki": "L.A.S.S.I",
    "levels": [
     {
@@ -16822,7 +16705,6 @@
   {
    "key": "electro_owl",
    "name": "Electro Owl",
-   "name_zh": null,
    "wiki": "Electro Owl",
    "levels": [
     {
@@ -16982,7 +16864,6 @@
   {
    "key": "mighty_yak",
    "name": "Mighty Yak",
-   "name_zh": null,
    "wiki": "Mighty Yak",
    "levels": [
     {
@@ -17142,7 +17023,6 @@
   {
    "key": "unicorn",
    "name": "Unicorn",
-   "name_zh": null,
    "wiki": "Unicorn",
    "levels": [
     {
@@ -17287,7 +17167,6 @@
   {
    "key": "frosty",
    "name": "Frosty",
-   "name_zh": null,
    "wiki": "Frosty",
    "levels": [
     {
@@ -17447,7 +17326,6 @@
   {
    "key": "diggy",
    "name": "Diggy",
-   "name_zh": null,
    "wiki": "Diggy",
    "levels": [
     {
@@ -17607,7 +17485,6 @@
   {
    "key": "poison_lizard",
    "name": "Poison Lizard",
-   "name_zh": null,
    "wiki": "Poison Lizard",
    "levels": [
     {
@@ -17767,7 +17644,6 @@
   {
    "key": "phoenix",
    "name": "Phoenix",
-   "name_zh": null,
    "wiki": "Phoenix",
    "levels": [
     {
@@ -17877,7 +17753,6 @@
   {
    "key": "spirit_fox",
    "name": "Spirit Fox",
-   "name_zh": null,
    "wiki": "Spirit Fox",
    "levels": [
     {
@@ -17987,7 +17862,6 @@
   {
    "key": "angry_jelly",
    "name": "Angry Jelly",
-   "name_zh": null,
    "wiki": "Angry Jelly",
    "levels": [
     {
@@ -18147,7 +18021,6 @@
   {
    "key": "sneezy",
    "name": "Sneezy",
-   "name_zh": null,
    "wiki": "Sneezy",
    "levels": [
     {
@@ -18257,7 +18130,6 @@
   {
    "key": "greedy_raven",
    "name": "Greedy Raven",
-   "name_zh": null,
    "wiki": "Greedy Raven",
    "levels": [
     {
@@ -18369,7 +18241,6 @@
   {
    "key": "barbarian_puppet",
    "name": "Barbarian Puppet",
-   "name_zh": null,
    "wiki": "Barbarian Puppet",
    "hero": "barbarian_king",
    "levels": [
@@ -18531,7 +18402,6 @@
   {
    "key": "rage_vial",
    "name": "Rage Vial",
-   "name_zh": null,
    "wiki": "Rage Vial",
    "hero": "barbarian_king",
    "levels": [
@@ -18693,7 +18563,6 @@
   {
    "key": "earthquake_boots",
    "name": "Earthquake Boots",
-   "name_zh": null,
    "wiki": "Earthquake Boots",
    "hero": "barbarian_king",
    "levels": [
@@ -18855,7 +18724,6 @@
   {
    "key": "vampstache",
    "name": "Vampstache",
-   "name_zh": null,
    "wiki": "Vampstache",
    "hero": "barbarian_king",
    "levels": [
@@ -19017,7 +18885,6 @@
   {
    "key": "giant_gauntlet",
    "name": "Giant Gauntlet",
-   "name_zh": null,
    "wiki": "Giant Gauntlet",
    "hero": "barbarian_king",
    "levels": [
@@ -19262,7 +19129,6 @@
   {
    "key": "spiky_ball",
    "name": "Spiky Ball",
-   "name_zh": null,
    "wiki": "Spiky Ball",
    "hero": "barbarian_king",
    "levels": [
@@ -19507,7 +19373,6 @@
   {
    "key": "snake_bracelet",
    "name": "Snake Bracelet",
-   "name_zh": null,
    "wiki": "Snake Bracelet",
    "hero": "barbarian_king",
    "levels": [
@@ -19752,7 +19617,6 @@
   {
    "key": "stick_horse",
    "name": "Stick Horse",
-   "name_zh": null,
    "wiki": "Stick Horse",
    "hero": "barbarian_king",
    "levels": [
@@ -19997,7 +19861,6 @@
   {
    "key": "archer_puppet",
    "name": "Archer Puppet",
-   "name_zh": null,
    "wiki": "Archer Puppet",
    "hero": "archer_queen",
    "levels": [
@@ -20159,7 +20022,6 @@
   {
    "key": "invisibility_vial",
    "name": "Invisibility Vial",
-   "name_zh": null,
    "wiki": "Invisibility Vial",
    "hero": "archer_queen",
    "levels": [
@@ -20321,7 +20183,6 @@
   {
    "key": "giant_arrow",
    "name": "Giant Arrow",
-   "name_zh": null,
    "wiki": "Giant Arrow",
    "hero": "archer_queen",
    "levels": [
@@ -20483,7 +20344,6 @@
   {
    "key": "healer_puppet",
    "name": "Healer Puppet",
-   "name_zh": null,
    "wiki": "Healer Puppet",
    "hero": "archer_queen",
    "levels": [
@@ -20645,7 +20505,6 @@
   {
    "key": "frozen_arrow",
    "name": "Frozen Arrow",
-   "name_zh": null,
    "wiki": "Frozen Arrow",
    "hero": "archer_queen",
    "levels": [
@@ -20890,7 +20749,6 @@
   {
    "key": "magic_mirror",
    "name": "Magic Mirror",
-   "name_zh": null,
    "wiki": "Magic Mirror",
    "hero": "archer_queen",
    "levels": [
@@ -21135,7 +20993,6 @@
   {
    "key": "action_figure",
    "name": "Action Figure",
-   "name_zh": null,
    "wiki": "Action Figure",
    "hero": "archer_queen",
    "levels": [
@@ -21380,7 +21237,6 @@
   {
    "key": "monolith_arrow",
    "name": "Monolith Arrow",
-   "name_zh": null,
    "wiki": "Monolith Arrow",
    "hero": "archer_queen",
    "levels": [
@@ -21625,7 +21481,6 @@
   {
    "key": "henchmen_puppet",
    "name": "Henchmen Puppet",
-   "name_zh": null,
    "wiki": "Henchmen Puppet",
    "hero": "minion_prince",
    "levels": [
@@ -21787,7 +21642,6 @@
   {
    "key": "dark_orb",
    "name": "Dark Orb",
-   "name_zh": null,
    "wiki": "Dark Orb",
    "hero": "minion_prince",
    "levels": [
@@ -21949,7 +21803,6 @@
   {
    "key": "metal_pants",
    "name": "Metal Pants",
-   "name_zh": null,
    "wiki": "Metal Pants",
    "hero": "minion_prince",
    "levels": [
@@ -22111,7 +21964,6 @@
   {
    "key": "noble_iron",
    "name": "Noble Iron",
-   "name_zh": null,
    "wiki": "Noble Iron",
    "hero": "minion_prince",
    "levels": [
@@ -22273,7 +22125,6 @@
   {
    "key": "dark_crown",
    "name": "Dark Crown",
-   "name_zh": null,
    "wiki": "Dark Crown",
    "hero": "minion_prince",
    "levels": [
@@ -22518,7 +22369,6 @@
   {
    "key": "meteor_staff",
    "name": "Meteor Staff",
-   "name_zh": null,
    "wiki": "Meteor Staff",
    "hero": "minion_prince",
    "levels": [
@@ -22763,7 +22613,6 @@
   {
    "key": "portal_pendant",
    "name": "Portal Pendant",
-   "name_zh": null,
    "wiki": "Portal Pendant",
    "hero": "minion_prince",
    "levels": [
@@ -23008,7 +22857,6 @@
   {
    "key": "eternal_tome",
    "name": "Eternal Tome",
-   "name_zh": null,
    "wiki": "Eternal Tome",
    "hero": "grand_warden",
    "levels": [
@@ -23170,7 +23018,6 @@
   {
    "key": "life_gem",
    "name": "Life Gem",
-   "name_zh": null,
    "wiki": "Life Gem",
    "hero": "grand_warden",
    "levels": [
@@ -23332,7 +23179,6 @@
   {
    "key": "rage_gem",
    "name": "Rage Gem",
-   "name_zh": null,
    "wiki": "Rage Gem",
    "hero": "grand_warden",
    "levels": [
@@ -23494,7 +23340,6 @@
   {
    "key": "healing_tome",
    "name": "Healing Tome",
-   "name_zh": null,
    "wiki": "Healing Tome",
    "hero": "grand_warden",
    "levels": [
@@ -23656,7 +23501,6 @@
   {
    "key": "fireball",
    "name": "Fireball",
-   "name_zh": null,
    "wiki": "Fireball",
    "hero": "grand_warden",
    "levels": [
@@ -23901,7 +23745,6 @@
   {
    "key": "lavaloon_puppet",
    "name": "Lavaloon Puppet",
-   "name_zh": null,
    "wiki": "Lavaloon Puppet",
    "hero": "grand_warden",
    "levels": [
@@ -24146,7 +23989,6 @@
   {
    "key": "heroic_torch",
    "name": "Heroic Torch",
-   "name_zh": null,
    "wiki": "Heroic Torch",
    "hero": "grand_warden",
    "levels": [
@@ -24391,7 +24233,6 @@
   {
    "key": "royal_gem",
    "name": "Royal Gem",
-   "name_zh": null,
    "wiki": "Royal Gem",
    "hero": "royal_champion",
    "levels": [
@@ -24553,7 +24394,6 @@
   {
    "key": "seeking_shield",
    "name": "Seeking Shield",
-   "name_zh": null,
    "wiki": "Seeking Shield",
    "hero": "royal_champion",
    "levels": [
@@ -24715,7 +24555,6 @@
   {
    "key": "hog_rider_puppet",
    "name": "Hog Rider Puppet",
-   "name_zh": null,
    "wiki": "Hog Rider Puppet",
    "hero": "royal_champion",
    "levels": [
@@ -24877,7 +24716,6 @@
   {
    "key": "haste_vial",
    "name": "Haste Vial",
-   "name_zh": null,
    "wiki": "Haste Vial",
    "hero": "royal_champion",
    "levels": [
@@ -25039,7 +24877,6 @@
   {
    "key": "rocket_spear",
    "name": "Rocket Spear",
-   "name_zh": null,
    "wiki": "Rocket Spear",
    "hero": "royal_champion",
    "levels": [
@@ -25284,7 +25121,6 @@
   {
    "key": "electro_boots",
    "name": "Electro Boots",
-   "name_zh": null,
    "wiki": "Electro Boots",
    "hero": "royal_champion",
    "levels": [
@@ -25529,7 +25365,6 @@
   {
    "key": "frost_flake",
    "name": "Frost Flake",
-   "name_zh": null,
    "wiki": "Frost Flake",
    "hero": "royal_champion",
    "levels": [
@@ -25774,7 +25609,6 @@
   {
    "key": "fire_heart",
    "name": "Fire Heart",
-   "name_zh": null,
    "wiki": "Fire Heart",
    "hero": "dragon_duke",
    "levels": [
@@ -25936,7 +25770,6 @@
   {
    "key": "flame_blower",
    "name": "Flame Blower",
-   "name_zh": null,
    "wiki": "Flame Blower",
    "hero": "dragon_duke",
    "levels": [
@@ -26098,7 +25931,6 @@
   {
    "key": "stun_blaster",
    "name": "Stun Blaster",
-   "name_zh": null,
    "wiki": "Stun Blaster",
    "hero": "dragon_duke",
    "levels": [
@@ -26260,7 +26092,6 @@
   {
    "key": "electro_fangs",
    "name": "Electro Fangs",
-   "name_zh": null,
    "wiki": "Electro Fangs",
    "hero": "dragon_duke",
    "levels": [
@@ -26422,7 +26253,6 @@
   {
    "key": "rocket_backpack",
    "name": "Rocket Backpack",
-   "name_zh": null,
    "wiki": "Rocket Backpack",
    "hero": "dragon_duke",
    "levels": [
@@ -26667,7 +26497,6 @@
   {
    "key": "revenge_deck",
    "name": "Revenge Deck",
-   "name_zh": null,
    "wiki": "Revenge Deck",
    "hero": "dragon_duke",
    "levels": [

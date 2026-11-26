@@ -1,5 +1,6 @@
 /* 計算結果的 HTML（內容只有程式內的固定文字與數字，不含使用者輸入的字串） */
-import { DATA, REQUIRED_BUILDER_HALL, formatNumber as fmt } from './calc.ts';
+import { DATA, REQUIRED_BUILDER_HALL, RESOURCE_NAMES, formatNumber as fmt } from './calc.ts';
+import { zh } from '../i18n.ts';
 import type { Resource, ResourceSummary, Result } from './calc.ts';
 
 const ICONS: Record<Resource, string> = { gold: '🪙', elixir: '💧' };
@@ -28,15 +29,15 @@ function resourceCard(r: ResourceSummary): string {
 
 export function placeholderHtml(): string {
   return '<h2 class="sb-result-title">計算結果</h2>'
-    + `<div class="sb-summary">${placeholderCard('gold', '金幣')}${placeholderCard('elixir', '聖水')}</div>`
+    + `<div class="sb-summary">${placeholderCard('gold', RESOURCE_NAMES.gold)}${placeholderCard('elixir', RESOURCE_NAMES.elixir)}</div>`
     + '<p class="sb-empty">填完左側所有欄位後會自動計算。</p>';
 }
 
 export function resultHtml(result: Result): string {
   const bh = REQUIRED_BUILDER_HALL;
   const bhWarn = result.assumedBuilderHall
-    ? `<p class="sb-warn">⚠️ 目前 Builder Hall Lv${result.builderHall}，以剛升上 Lv${bh}、`
-      + `尚未建造 Lv${bh} 新建築（B.O.B Control）計算，未計入 Builder Hall 升級費用。</p>`
+    ? `<p class="sb-warn">⚠️ 目前${zh('Builder Hall')} Lv${result.builderHall}，以剛升上 Lv${bh}、`
+      + `尚未建造 Lv${bh} 新建築（${zh('B.O.B Control')}）計算，未計入${zh('Builder Hall')}升級費用。</p>`
     : '';
   const heroWarn = result.heroesOk
     ? ''

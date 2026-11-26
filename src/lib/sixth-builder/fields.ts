@@ -3,6 +3,7 @@ import {
   BUILDER_HALL_MAX_LEVEL, BUILDINGS, HEROES, NIGHT_WITCH, NIGHT_WITCH_MAX_LEVEL, STORAGE_MAX_LEVEL,
 } from './calc.ts';
 import type { Input } from './calc.ts';
+import { zh } from '../i18n.ts';
 
 export type NumberKey = Exclude<keyof Input, 'bob_control_built'>;
 
@@ -18,36 +19,36 @@ export interface Field {
 
 const [MACHINE, COPTER] = HEROES;
 
-export const BUILDER_HALL_FIELD: Field = { key: 'builder_hall', label: 'Builder Hall', min: 1, max: BUILDER_HALL_MAX_LEVEL };
+export const BUILDER_HALL_FIELD: Field = { key: 'builder_hall', label: zh('Builder Hall'), min: 1, max: BUILDER_HALL_MAX_LEVEL };
 
 export const BUILDING_FIELDS: Field[] = BUILDINGS.map((b) => ({ key: b.key, label: b.name, min: b.min, max: b.max }));
 
 export const UNIT_FIELDS: Field[] = [
-  { key: 'night_witch', label: 'Night Witch', min: 0, max: NIGHT_WITCH_MAX_LEVEL, unlockMin: NIGHT_WITCH.first_level },
+  { key: 'night_witch', label: zh('Night Witch'), min: 0, max: NIGHT_WITCH_MAX_LEVEL, unlockMin: NIGHT_WITCH.first_level },
   { key: MACHINE.key, label: MACHINE.name, min: 0, max: MACHINE.maxLevel, unlockMin: MACHINE.firstLevel },
   { key: COPTER.key, label: COPTER.name, min: 0, max: COPTER.maxLevel, unlockMin: COPTER.firstLevel },
 ];
 
 export const STORAGE_PAIRS: { label: string; fields: [Field, Field] }[] = [
   {
-    label: '金庫',
+    label: zh('Gold Storage'),
     fields: [
-      { key: 'gold_storage_1', label: '金庫 1', min: 0, max: STORAGE_MAX_LEVEL },
-      { key: 'gold_storage_2', label: '金庫 2', min: 0, max: STORAGE_MAX_LEVEL },
+      { key: 'gold_storage_1', label: `${zh('Gold Storage')} 1`, min: 0, max: STORAGE_MAX_LEVEL },
+      { key: 'gold_storage_2', label: `${zh('Gold Storage')} 2`, min: 0, max: STORAGE_MAX_LEVEL },
     ],
   },
   {
-    label: '聖水瓶',
+    label: zh('Elixir Storage'),
     fields: [
-      { key: 'elixir_storage_1', label: '聖水瓶 1', min: 0, max: STORAGE_MAX_LEVEL },
-      { key: 'elixir_storage_2', label: '聖水瓶 2', min: 0, max: STORAGE_MAX_LEVEL },
+      { key: 'elixir_storage_1', label: `${zh('Elixir Storage')} 1`, min: 0, max: STORAGE_MAX_LEVEL },
+      { key: 'elixir_storage_2', label: `${zh('Elixir Storage')} 2`, min: 0, max: STORAGE_MAX_LEVEL },
     ],
   },
 ];
 
 export const RATE_FIELDS: Field[] = [
-  { key: 'gold_rate', label: '每小時金幣產量', min: 0, max: null },
-  { key: 'elixir_rate', label: '每小時聖水產量', min: 0, max: null },
+  { key: 'gold_rate', label: `每小時${zh('Builder Gold')}產量`, min: 0, max: null },
+  { key: 'elixir_rate', label: `每小時${zh('Builder Elixir')}產量`, min: 0, max: null },
 ];
 
 export const FIELDS: Field[] = [
