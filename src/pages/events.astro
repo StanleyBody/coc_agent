@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import '../styles/events.css';
+import { DATA } from '../lib/events/schedule';
+
+const units = [
+  { key: 'days', label: '天' },
+  { key: 'hours', label: '時' },
+  { key: 'minutes', label: '分' },
+  { key: 'seconds', label: '秒' },
+];
+---
+
+<BaseLayout title="活動公告" description="Clash of Clans 活動公告 - 遊戲活動倒數、時間表">
+  <main class="main-content">
+    <PageHeader tag="📅 活動中心" title="活動公告" subtitle="追蹤所有遊戲活動，不錯過任何獎勵機會" />
+
+    <section class="events-active-section">
+      <h2 class="sub-section-title animate-on-scroll">🔴 限時活動</h2>
+      <div class="active-events-grid" id="specialEvents">
+        {
+          DATA.special.map((event) => (
+            <div class="active-event-card" data-start={event.start} data-end={event.end} hidden>
+              <div class="active-event-status live">LIVE</div>
+              <div class="active-event-icon" aria-hidden="true">{event.icon}</div>
+              <div class="active-event-info">
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+              </div>
+              <div class="active-event-timer">
+                <span class="timer-label">剩餘時間</span>
+                <span class="timer-value" data-target={event.end}>--</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="events-empty" id="specialEmpty">目前沒有進行中的限時活動。</p>
+    </section>
+
+    <section class="events-countdown-section">
+      <h2 class="sub-section-title animate-on-scroll">⏰ 即將到來</h2>
+      <div class="countdown-grid">
+        {
+          DATA.recurring.map((event, i) => (
+            <div class={`countdown-card animate-on-scroll animate-delay-${Math.min(i, 4)}`}>
+              <div class="countdown-icon" aria-hidden="true">{event.icon}</div>
+              <h3>{event.title}</h3>
+              <p class="countdown-desc">{event.schedule}</p>
+              <div class="countdown-timer" data-rule={JSON.stringify(event.rule)} data-format="units" role="timer" aria-label={`距離${event.title}`}>
+                {units.map((unit) => (
+                  <div class="time-unit">
+                    <span class="time-num" data-unit={unit.key}>--</span>
+                    <span class="time-label">{unit.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="events-note">時間以台灣時間（UTC+8）計算。</p>
+    </section>
+
+    <section class="events-calendar-section">
+      <h2 class="sub-section-title animate-on-scroll">📋 活動月曆</h2>
+      <div class="calendar-timeline animate-on-scroll">
+        {
+          DATA.recurring.map((event) => (
+            <div class="timeline-item">
+              <div class="timeline-date">{event.calendar_date}</div>
+              <div class="timeline-content">
+                <span class="timeline-icon" aria-hidden="true">{event.icon}</span>
+                <div><strong>{event.title}</strong><p>{event.calendar_text}</p></div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  import { initCountdowns } from '../lib/events/client';
+  import { specialStatus } from '../lib/events/schedule';
+
+  // 限時活動依目前時間顯示：進行中顯示剩餘時間，即將開始顯示距離開始的時間
+  const cards = [...document.querySelectorAll<HTMLElement>('#specialEvents .active-event-card')];
+  const now = new Date();
+  let shown = 0;
+  for (const card of cards) {
+    const status = specialStatus(
+      { icon: '', title: '', description: '', start: card.dataset.start ?? '', end: card.dataset.end ?? '' }, now,
+    );
+    if (status === 'ended') continue;
+    card.hidden = false;
+    shown += 1;
+    if (status === 'upcoming') {
+      const badge = card.querySelector('.active-event-status');
+      if (badge) {
+        badge.textContent = '即將開始';
+        badge.classList.remove('live');
+      }
+      const label = card.querySelector('.timer-label');
+      if (label) label.textContent = '距離開始';
+      const timer = card.querySelector<HTMLElement>('.timer-value');
+      if (timer) timer.dataset.target = card.dataset.start;
+    }
+  }
+  const empty = document.getElementById('specialEmpty');
+  if (empty) empty.hidden = shown > 0;
+
+  initCountdowns();
+</script>

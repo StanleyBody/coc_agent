@@ -460,7 +460,7 @@
     flex-shrink: 0;
 }
 
-.guide-content h4 {
+.guide-content h3 {
     font-size: 18px;
     font-weight: 600;
     color: var(--text-primary);

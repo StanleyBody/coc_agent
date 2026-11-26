@@ -1,11 +1,146 @@
 ---
-// 暫時的首頁，第 4 步會換成正式內容
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
+import { DATA as EVENTS } from '../lib/events/schedule';
+import { popularGuides } from '../lib/guides/guides';
+import { url } from '../lib/url';
+
+// 活動圖示（src/assets/images/events/）
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/images/events/*.png', { eager: true });
+const imageOf = (name: string) => images[`../assets/images/events/${name}`]?.default.src;
+const specialImage = imageOf('Sour_Elixir.png');
+
+const guides = popularGuides(3);
+const tools = [
+  { icon: '📊', title: '升級資訊', text: '查詢建築、英雄、兵種、法術與攻城機器的升級費用和時間。', path: '/upgrade-info/' },
+  { icon: '🤖', title: '第六工人計算機', text: '計算解鎖第六工人（B.O.B）還缺多少夜世界金幣與聖水。', path: '/sixth-builder/' },
+  { icon: '📅', title: '活動公告', text: '部落競賽、部落聯賽、突襲周末等活動的倒數計時。', path: '/events/' },
+];
 ---
 
 <BaseLayout>
-  <main class="main-content">
-    <PageHeader tag="🚧 建置中" title="Clash of Clans 社區" subtitle="新版網站建置中，各頁面會陸續搬過來" />
+  <main>
+    <section class="hero">
+      <div class="hero-background"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title animate-on-scroll">加入我們，成為<span class="highlight">最強的部落</span>！</h1>
+        <p class="hero-subtitle animate-on-scroll animate-delay-1">探索最新攻略、追蹤遊戲活動、與全球玩家交流。打造屬於你的傳奇！</p>
+        <div class="hero-buttons animate-on-scroll animate-delay-2">
+          <a href={url('/guides/')} class="btn btn-primary">開始探索</a>
+          <a href={url('/upgrade-info/')} class="btn btn-outline">升級資訊</a>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span>向下滾動</span>
+        <div class="arrow"></div>
+      </div>
+    </section>
+
+    <section class="events-section" id="events">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">📅 即時更新</span>
+        <h2 class="section-title animate-on-scroll animate-delay-1">遊戲活動倒數</h2>
+        <p class="section-subtitle animate-on-scroll animate-delay-2">追蹤所有重要活動，不錯過任何獎勵機會！</p>
+      </div>
+      <div class="events-grid">
+        {
+          EVENTS.recurring.map((event, i) => (
+            <a href={url('/events/')} class={`event-card animate-on-scroll animate-delay-${Math.min(i, 5)}`}>
+              <div class="event-icon">
+                <img src={imageOf(event.image)} alt="" width="64" height="64" loading="lazy" />
+              </div>
+              <h3 class="event-name">{event.title}</h3>
+              <div class="event-countdown" data-rule={JSON.stringify(event.rule)} role="timer">計算中...</div>
+            </a>
+          ))
+        }
+        <a href={url('/events/')} class="event-card animate-on-scroll animate-delay-5" id="specialEventCard" hidden>
+          <div class="event-icon">
+            <img src={specialImage} alt="" width="64" height="64" loading="lazy" />
+          </div>
+          <h3 class="event-name" id="specialEventName">特殊活動</h3>
+          <div class="event-countdown active" id="specialEventStatus">限時活動中</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="guides-section" id="guides">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">📘 精選內容</span>
+        <h2 class="section-title animate-on-scroll animate-delay-1">熱門攻略</h2>
+        <p class="section-subtitle animate-on-scroll animate-delay-2">由資深玩家撰寫的專業策略指南</p>
+      </div>
+      <div class="guides-list">
+        {
+          guides.map((guide, i) => (
+            <a href={url('/guides/')} class={`guide-item animate-on-scroll animate-delay-${i}`}>
+              <span class="guide-icon" aria-hidden="true">{guide.icon}</span>
+              <div class="guide-content">
+                <h3>{guide.title}</h3>
+                <p>{guide.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="players-section" id="tools">
+      <div class="section-header">
+        <span class="section-tag animate-on-scroll">🧰 實用工具</span>
+        <h2 class="section-title animate-on-scroll animate-delay-1">網站工具</h2>
+        <p class="section-subtitle animate-on-scroll animate-delay-2">查資料、算資源，規劃你的下一步升級</p>
+      </div>
+      <div class="content-grid">
+        {
+          tools.map((tool, i) => (
+            <a href={url(tool.path)} class={`content-card animate-on-scroll animate-delay-${i}`}>
+              <span class="content-card-icon" aria-hidden="true">{tool.icon}</span>
+              <h3 class="content-card-title">{tool.title}</h3>
+              <p class="content-card-text">{tool.text}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<script>
+  import { initCountdowns } from '../lib/events/client';
+  import { DATA, activeSpecials } from '../lib/events/schedule';
+
+  // 有進行中或即將開始的限時活動時，顯示特殊活動卡片
+  const special = activeSpecials(DATA.special, new Date())[0];
+  const card = document.getElementById('specialEventCard');
+  if (special && card) {
+    card.hidden = false;
+    const name = document.getElementById('specialEventName');
+    const status = document.getElementById('specialEventStatus');
+    if (name) name.textContent = special.title;
+    if (status && special.status === 'upcoming') {
+      status.classList.remove('active');
+      status.dataset.target = special.start;
+    }
+  }
+  initCountdowns();
+</script>
+
+<style>
+  /* 首頁卡片改為連結，保留原本的文字樣式 */
+  a.event-card,
+  a.guide-item,
+  a.content-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.guide-item {
+    display: flex;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/contact.css';
+
+const EMAIL = 'StanleyBody56948@gmail.com';
+---
+
+<BaseLayout title="聯繫我們" description="Clash of Clans 社區 - 聯繫我們">
+  <main class="contact-page">
+    <div class="contact-container animate-on-scroll">
+      <h1 class="contact-title">聯繫我們</h1>
+      <p class="subtitle">有任何問題、建議或反饋？我們很樂意聽取您的意見！</p>
+
+      <div class="contact-info">
+        <h2>聯絡方式</h2>
+        <div class="contact-methods">
+          <a href={`mailto:${EMAIL}`} class="contact-method">
+            <span class="icon" aria-hidden="true">📧</span>
+            <span>{EMAIL}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
