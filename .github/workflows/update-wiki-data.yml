@@ -30,6 +30,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: npm
+
+      - run: npm ci
 
       - name: Test parser
         run: python -m unittest discover -s scripts
@@ -37,8 +40,10 @@ jobs:
       - name: Fetch data from Wiki
         run: python scripts/update_sixth_builder_data.py
 
-      - name: Test calculator with new data
-        run: node --test coc_agent/sixth_builder/js_tests/calc.test.js
+      - name: Test and build with new data
+        run: |
+          npm test
+          npm run build
 
       - name: Show changes
         run: git diff --stat
@@ -48,13 +53,13 @@ jobs:
         with:
           branch: auto/update-wiki-data
           delete-branch: true
-          add-paths: coc_agent/sixth_builder/static/js/sixth_builder_data.js
+          add-paths: src/data/sixth-builder.json
           commit-message: 'chore: update sixth builder data from Fandom Wiki'
           title: 'chore: update sixth builder data from Fandom Wiki'
           body: |
             每週自動從 Clash of Clans Fandom Wiki 抓取的第六工人計算機資料有變動。
 
-            - 解析器測試與計算機測試已通過
-            - 請檢查 `sixth_builder_data.js` 的差異是否合理後再合併
+            - 解析器測試、計算機測試與網站建置已通過
+            - 請檢查 `src/data/sixth-builder.json` 的差異是否合理後再合併
 
             由 `.github/workflows/update-wiki-data.yml` 產生

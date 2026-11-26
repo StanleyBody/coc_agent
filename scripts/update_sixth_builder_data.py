@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 從 Clash of Clans Fandom Wiki 抓取第六工人計算機需要的資料，
-產生 coc_agent/sixth_builder/static/js/sixth_builder_data.js。
+產生 src/data/sixth-builder.json。
 
 抓取內容：
   - 各建築每級升級費用（雙管加農砲、箭塔、多管迫擊砲、星空實驗室、訓練營、金庫、聖水瓶）
@@ -24,8 +24,9 @@ from pathlib import Path
 
 API_URL = 'https://clashofclans.fandom.com/api.php'
 USER_AGENT = 'coc_agent-data-updater/1.0'
-OUTPUT = (Path(__file__).resolve().parent.parent
-          / 'coc_agent' / 'sixth_builder' / 'static' / 'js' / 'sixth_builder_data.js')
+OUTPUT = Path(__file__).resolve().parent.parent / 'src' / 'data' / 'sixth-builder.json'
+GENERATED_BY = 'scripts/update_sixth_builder_data.py（自動產生，請勿手動修改）'
+SOURCE = 'https://clashofclans.fandom.com'
 
 # key → Wiki 頁面
 BUILDING_PAGES = {
@@ -336,21 +337,9 @@ def validate(data):
 # ---------------------------------------------------------------- 輸出
 
 def render(data):
-    body = json.dumps(data, ensure_ascii=False, indent=2)
-    return f"""/*
- * 此檔由 scripts/update_sixth_builder_data.py 自動產生，請勿手動修改。
- * 資料來源：Clash of Clans Fandom Wiki（https://clashofclans.fandom.com）
- */
-(function (root) {{
-    'use strict';
-    var data = {body};
-    if (typeof module !== 'undefined' && module.exports) {{
-        module.exports = data;
-    }} else {{
-        root.SixthBuilderData = data;
-    }}
-}})(this);
-"""
+    """輸出 JSON；不放抓取時間，資料沒變時檔案就不會變"""
+    output = {'generated_by': GENERATED_BY, 'source': SOURCE, **data}
+    return json.dumps(output, ensure_ascii=False, indent=2) + '\n'
 
 
 def main():
@@ -371,6 +360,7 @@ def main():
     if args.check:
         print('資料有變動')
         return 1
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(content, encoding='utf-8')
     print(f'已更新 {OUTPUT}')
     return 0

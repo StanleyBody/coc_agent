@@ -1,0 +1,22 @@
+---
+/** 計算機的單一數字欄位 */
+import type { Field } from '../lib/sixth-builder/fields';
+
+interface Props {
+  field: Field;
+}
+
+const { field } = Astro.props;
+---
+
+<input
+  type="number"
+  class="sb-input"
+  id={`sb-${field.key}`}
+  name={field.key}
+  min={field.min}
+  max={field.max ?? undefined}
+  step="1"
+  inputmode="numeric"
+  aria-label={field.label}
+/>

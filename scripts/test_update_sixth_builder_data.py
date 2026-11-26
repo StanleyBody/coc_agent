@@ -1,6 +1,5 @@
 """執行：python -m unittest discover -s scripts"""
 import json
-import subprocess
 import unittest
 
 import update_sixth_builder_data as u
@@ -215,11 +214,11 @@ class ValidateTests(unittest.TestCase):
 
 
 class RenderTests(unittest.TestCase):
-    def test_render_loads_in_node(self):
+    def test_render_is_json_with_metadata(self):
         data = sample_data()
-        script = u.render(data) + '\nconsole.log(JSON.stringify(module.exports));'
-        out = subprocess.run(['node', '-e', script], capture_output=True, text=True, check=True)
-        self.assertEqual(json.loads(out.stdout), data)
+        rendered = json.loads(u.render(data))
+        self.assertEqual(rendered['generated_by'], u.GENERATED_BY)
+        self.assertEqual({k: v for k, v in rendered.items() if k not in ('generated_by', 'source')}, data)
 
 
 if __name__ == '__main__':
