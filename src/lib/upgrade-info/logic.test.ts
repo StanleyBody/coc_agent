@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  DATA, RESOURCE_NAMES, RESOURCE_SHORT, TABS, applyDiscount, discountSummary, filterItems, formatLarge, formatTime, formatTimeLong,
-  hasGroupFilter, itemsInTab, normalizeDiscount, requirementText, tabByKey, totals,
+  DATA, RESOURCE_NAMES, TABS, applyDiscount, discountSummary, filterItems, formatNumber, formatTime,
+  hasGroupFilter, itemsInTab, normalizeDiscount, requirementText, tabByKey,
 } from './logic.ts';
-import type { Item, UpgradeData } from './logic.ts';
+import type { UpgradeData } from './logic.ts';
 
 const tab = (key: string) => tabByKey(key);
 
@@ -19,7 +19,6 @@ test('資料檔包含各類項目', () => {
 test('資源與分頁名稱使用遊戲內翻譯', () => {
   assert.equal(RESOURCE_NAMES.dark_elixir, '闇黑重油');
   assert.equal(RESOURCE_NAMES.shiny_ore, '閃光礦石');
-  assert.equal(RESOURCE_SHORT.shiny_ore, '閃光');
   assert.equal(tab('sieges').name, '攻城機器');
 });
 
@@ -67,23 +66,6 @@ test('裝備的費用有多種礦石', () => {
   assert.ok(epic.levels.some((lv) => Object.keys(lv.costs).length > 1));
 });
 
-test('totals：各資源分開加總並套用減免', () => {
-  const items: Item[] = [
-    { key: 'a', name: 'A', wiki: 'A', category: 'defense', resources: ['gold'], alt_resource: null,
-      levels: [{ level: 1, costs: { gold: 1000 }, time: 60, required: 1 }, { level: 2, costs: { gold: 3000 }, time: null, required: 2 }] },
-    { key: 'b', name: 'B', wiki: 'B', hero: 'x', resources: ['shiny_ore', 'glowy_ore'], alt_resource: null,
-      levels: [{ level: 1, costs: {}, time: null, required: 1 }, { level: 2, costs: { shiny_ore: 100, glowy_ore: 10 }, time: null, required: 1 }] },
-  ];
-  const t = totals(items);
-  assert.equal(t.cost.gold, 4000);
-  assert.equal(t.cost.shiny_ore, 100);
-  assert.equal(t.cost.glowy_ore, 10);
-  assert.equal(t.time, 60);
-  assert.equal(t.hasTime, true);
-  assert.equal(totals([items[1]]).hasTime, false);
-  assert.equal(totals(items, 10).cost.gold, 3600);
-});
-
 test('filterItems 可以傳入測試資料', () => {
   const data: UpgradeData = { buildings: [], heroes: [], units: [], pets: [], equipment: [] };
   assert.deepEqual(filterItems({ tab: tab('pets'), group: null, search: '' }, data), []);
@@ -95,20 +77,18 @@ test('applyDiscount 無條件捨去', () => {
 });
 
 test('格式化', () => {
-  assert.equal(formatLarge(1_234_567), '1.2M');
-  assert.equal(formatLarge(12_345), '12K');
-  assert.equal(formatLarge(999), '999');
+  assert.equal(formatNumber(1_234_567), '1,234,567');
   assert.equal(formatTime(0), '即時');
   assert.equal(formatTime(null), '—');
-  assert.equal(formatTime(129_600), '1天12時');
-  assert.equal(formatTime(12_000), '3時20分');
-  assert.equal(formatTimeLong(1_054_800), '12 天 5 時');
+  assert.equal(formatTime(129_600), '1天12小時');
+  assert.equal(formatTime(12_000), '3小時20分鐘');
+  assert.equal(formatTime(300), '5分鐘');
 });
 
 test('requirementText', () => {
   const lv = { level: 2, costs: {}, time: 1, required: 3 };
-  assert.equal(requirementText('buildings', lv), 'TH3');
-  assert.equal(requirementText('heroes', lv), 'TH3');
+  assert.equal(requirementText('buildings', lv), '大本營 3');
+  assert.equal(requirementText('heroes', lv), '大本營 3');
   assert.equal(requirementText('units', lv), '實驗室 3');
   assert.equal(requirementText('pets', lv), '戰寵小屋 3');
   assert.equal(requirementText('equipment', lv), '鐵匠鋪 3');

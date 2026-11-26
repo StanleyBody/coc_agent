@@ -4,10 +4,10 @@
  */
 import {
   NO_DISCOUNT, TABS, discountSummary, filterItems, hasGroupFilter, itemIcon, itemsInTab, normalizeDiscount,
-  tabByKey, totalDiscount, totals,
+  tabByKey, totalDiscount,
 } from './logic.ts';
 import type { DiscountSettings, Filters, Item } from './logic.ts';
-import { cardHtml, emptyHtml, escapeHtml, levelTableHtml, modalTitle, summaryValues } from './render.ts';
+import { cardHtml, emptyHtml, escapeHtml, levelTableHtml, modalTitle } from './render.ts';
 
 const DISCOUNT_KEY = 'coc_discount';
 
@@ -99,24 +99,6 @@ export function initUpgradeInfo(root: HTMLElement): void {
     grid.innerHTML = items.length
       ? items.map((item) => cardHtml(state.tab, item, discount)).join('')
       : emptyHtml(`找不到符合條件的${state.tab.name}`);
-
-    const values = summaryValues(totals(items), totals(items, discount));
-    $(root, '#totalCost').innerHTML = values.cost;
-    $(root, '#totalTime').textContent = values.time;
-    const savingsEl = $(root, '#totalSavings');
-    const timeSavingsEl = $(root, '#timeSavings');
-    if (discount > 0) {
-      savingsEl.innerHTML = values.savings;
-      timeSavingsEl.textContent = values.timeSavings;
-    } else {
-      savingsEl.textContent = '-';
-      timeSavingsEl.textContent = '-';
-    }
-    root.querySelectorAll<HTMLElement>('.summary-badge').forEach((badge) => {
-      badge.textContent = `-${discount}%`;
-      badge.hidden = discount === 0;
-    });
-    $(root, '#summaryScope').textContent = `${items.length} 個項目，從 Lv1 升到滿級`;
 
     root.querySelectorAll<HTMLButtonElement>('.tab').forEach((button) => {
       const active = button.dataset.tab === state.tab.key;

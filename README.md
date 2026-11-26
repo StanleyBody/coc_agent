@@ -40,7 +40,7 @@ npm run preview   # 預覽建置結果
 | `src/data/guides.json` | 攻略清單 | 手動編輯 |
 
 - 兩支抓取腳本從 [Clash of Clans Fandom Wiki](https://clashofclans.fandom.com) 抓資料，只使用 Python 標準函式庫；加上 `--check` 只比對不寫入。
-- 遊戲名稱的繁體中文來自 PyPI 上 [coc.py](https://pypi.org/project/coc.py/) 附帶的遊戲語系檔（`texts.csv` 的 CNT 欄），每週隨最新版更新；尚未收錄翻譯的新項目顯示英文原名，不自行翻譯。
+- 遊戲名稱的繁體中文來自 PyPI 上 [coc.py](https://pypi.org/project/coc.py/) 附帶的遊戲語系檔（`texts.csv` 的 CNT 欄），每週隨最新版更新；coc.py 尚未收錄的新項目，改用 [Supercell 官網繁體中文公告](https://supercell.com/en/games/clashofclans/zh/blog/)中的名稱（腳本會核對公告的繁中版與英文版）；兩者都沒有的項目顯示英文原名，不自行翻譯。
 - 抓取腳本的測試：`python -m unittest discover -s scripts`
 - 自動產生的 JSON 請勿手動修改。
 - 限時活動加在 `events.json` 的 `special`，`start`／`end` 使用 ISO 8601 時間，例如 `2026-12-01T16:00:00+08:00`。

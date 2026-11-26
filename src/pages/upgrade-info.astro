@@ -11,40 +11,6 @@ const tabs = TABS.map((tab, i) => ({ ...tab, count: itemsInTab(tab).length, acti
   <main class="main-content" id="upgradeInfoApp">
     <PageHeader tag="📊 升級資料" title="升級資訊" subtitle="查看建築、兵種、英雄、法術、攻城機器、戰寵與裝備的完整升級數據" />
 
-    <div class="summary-dashboard animate-on-scroll">
-      <div class="summary-card">
-        <span class="summary-icon" aria-hidden="true">💰</span>
-        <div class="summary-info">
-          <span class="summary-label">總升級費用</span>
-          <span class="summary-value" id="totalCost">-</span>
-        </div>
-      </div>
-      <div class="summary-card savings">
-        <span class="summary-icon" aria-hidden="true">🟢</span>
-        <div class="summary-info">
-          <span class="summary-label">節省金額</span>
-          <span class="summary-value" id="totalSavings">-</span>
-          <span class="summary-badge" hidden>-0%</span>
-        </div>
-      </div>
-      <div class="summary-card">
-        <span class="summary-icon" aria-hidden="true">⏱️</span>
-        <div class="summary-info">
-          <span class="summary-label">總升級時間</span>
-          <span class="summary-value" id="totalTime">-</span>
-        </div>
-      </div>
-      <div class="summary-card savings">
-        <span class="summary-icon" aria-hidden="true">⚡</span>
-        <div class="summary-info">
-          <span class="summary-label">節省時間</span>
-          <span class="summary-value" id="timeSavings">-</span>
-          <span class="summary-badge" hidden>-0%</span>
-        </div>
-      </div>
-    </div>
-    <p class="summary-scope" id="summaryScope" aria-live="polite"></p>
-
     <div class="discount-panel animate-on-scroll" id="discountPanel">
       <button type="button" class="discount-header" id="discountToggle" aria-expanded="false" aria-controls="discountBody">
         <span class="discount-header-left">

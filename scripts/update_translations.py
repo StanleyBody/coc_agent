@@ -9,13 +9,19 @@
 另外有少數用語只出現在遊戲內的句子裡（例如成就說明），列在 TERMS，
 腳本會檢查這些用語確實出現在指定的遊戲字串中，避免自行翻譯。
 
+coc.py 尚未收錄的新名稱，取自 Supercell 官網的繁體中文公告，列在 OFFICIAL_NOTES。
+腳本會下載公告的繁中版與英文版，確認譯名與英文名稱都出現在同一篇公告中；
+coc.py 之後收錄同一名稱時，以遊戲語系檔為準。
+
 只使用標準函式庫。用法：python scripts/update_translations.py [--check]
 """
 import argparse
+import html
 import io
 import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -42,6 +48,27 @@ TERMS = {
 }
 
 
+# 英文名稱 → (官網繁中公告路徑, 公告中的繁體中文名稱)
+BLOG = 'https://supercell.com/en/games/clashofclans/zh/blog/'
+OFFICIAL_NOTES = {
+    'Spiky Tower': ('release-notes/泰坦-大戰-更新-上線/', '尖刺塔'),
+    'Firecracker Tower': ('release-notes/泰坦-大戰-更新-上線/', '煙火射手塔'),
+    'Heroic Spell': ('release-notes/泰坦-大戰-更新-上線/', '英勇法術'),
+    'Dragon Duke': ('release-notes/泰坦-大戰-更新-上線/', '飛龍公爵'),
+    'Ruin Witch': ('release-notes/泰坦-大戰-更新-上線/', '廢墟女巫'),
+    'Angry Spell': ('release-notes/動漫-狂怒-更新-登場-2/', '憤怒法術'),
+    'Monolith Arrow': ('release-notes/動漫-狂怒-更新-登場-2/', '巨石箭矢'),
+    'Flame Blower': ('release-notes/動漫-狂怒-更新-登場-2/', '助燃器'),
+    'Rocket Backpack': ('release-notes/動漫-狂怒-更新-登場-2/', '火箭背包'),
+    'Sky Wagon': ('release-notes/衝突-之聲-更新/', '空中戰車'),
+    'Electro Fangs': ('release-notes/衝突-之聲-更新/', '雷電獠牙'),
+    'Greedy Raven': ('release-notes/2月-更新-猛獸-出籠-2/', '貪婪渡鴉'),
+    'Portal Pendant': ('news/宇宙-詛咒-裂隙-之亂-降臨/', '傳送吊飾'),
+    'Fire Heart': ('news/2026年-10月-平衡性-調整-即將-登場-2/', '烈焰之心'),
+    'Revenge Deck': ('news/神勇-大陸-等你-來征服/', '復仇牌組'),
+}
+
+
 class TranslationError(Exception):
     pass
 
@@ -50,6 +77,34 @@ def http_get(url):
     req = urllib.request.Request(url, headers={'User-Agent': USER_AGENT})
     with urllib.request.urlopen(req, timeout=120) as resp:
         return resp.read()
+
+
+def page_text(url):
+    return html.unescape(http_get(urllib.parse.quote(url, safe=':/')).decode('utf-8', 'replace'))
+
+
+def fetch_article(path):
+    """回傳 (繁中版內容, 英文版內容)；英文版由繁中頁面的 hrefLang="en" 連結取得"""
+    zh_page = page_text(BLOG + path)
+    m = re.search(r'hrefLang="en" href="([^"]+)"', zh_page)
+    if not m:
+        raise TranslationError(f'官網公告 {path} 找不到英文版連結')
+    return zh_page, page_text(m.group(1))
+
+
+def build_official(fetch=fetch_article):
+    pages = {}
+    names = {}
+    for en, (path, zh) in OFFICIAL_NOTES.items():
+        if path not in pages:
+            pages[path] = fetch(path)
+        zh_page, en_page = pages[path]
+        if zh not in zh_page or en not in en_page:
+            raise TranslationError(f'「{en}」：官網公告 {path} 沒有同時出現「{en}」與「{zh}」')
+        if UNSAFE.search(zh):
+            raise TranslationError(f'「{en}」的譯文含有 HTML 特殊字元：{zh!r}')
+        names[en] = zh
+    return names
 
 
 def download_translations():
@@ -94,12 +149,15 @@ def build_terms(translations):
     return terms
 
 
-def collect(download=download_translations):
+def collect(download=download_translations, fetch=fetch_article):
     version, translations = download()
     names, ambiguous = build_names(translations)
     if len(names) < 200:
         raise TranslationError(f'只取得 {len(names)} 個名稱，少於預期')
     names.update(build_terms(translations))
+    # 遊戲語系檔已有的名稱以遊戲為準
+    for en, zh in build_official(fetch).items():
+        names.setdefault(en, zh)
     return {
         'version': version,
         'names': dict(sorted(names.items())),
@@ -110,7 +168,7 @@ def collect(download=download_translations):
 def render(data):
     output = {
         'generated_by': GENERATED_BY,
-        'source': f'coc.py {data["version"]}（遊戲語系檔 texts.csv 的 CNT 欄）',
+        'source': f'coc.py {data["version"]}（遊戲語系檔 texts.csv 的 CNT 欄）；尚未收錄的名稱取自 Supercell 官網繁體中文公告',
         'names': data['names'],
     }
     return json.dumps(output, ensure_ascii=False, indent=1) + '\n'
@@ -122,7 +180,7 @@ def main():
     args = parser.parse_args()
     try:
         data = collect()
-    except (TranslationError, KeyError, zipfile.BadZipFile) as e:
+    except (TranslationError, KeyError, zipfile.BadZipFile, OSError) as e:
         print(f'取得翻譯失敗：{e}', file=sys.stderr)
         return 2
     if data['ambiguous']:

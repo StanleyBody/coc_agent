@@ -56,6 +56,29 @@ class TermsTests(unittest.TestCase):
             u.build_terms(broken)
 
 
+def fake_fetch(path):
+    """每篇公告都含有所有名稱的繁中版與英文版"""
+    return ' '.join(zh for _, zh in u.OFFICIAL_NOTES.values()), ' '.join(u.OFFICIAL_NOTES)
+
+
+class OfficialNotesTests(unittest.TestCase):
+    def test_names_found_in_both_versions(self):
+        names = u.build_official(fake_fetch)
+        self.assertEqual(names['Spiky Tower'], '尖刺塔')
+        self.assertEqual(len(names), len(u.OFFICIAL_NOTES))
+
+    def test_fetches_each_article_once(self):
+        calls = []
+        u.build_official(lambda path: calls.append(path) or fake_fetch(path))
+        self.assertEqual(len(calls), len(set(calls)))
+
+    def test_missing_name_fails(self):
+        with self.assertRaises(u.TranslationError):
+            u.build_official(lambda path: ('', ' '.join(u.OFFICIAL_NOTES)))
+        with self.assertRaises(u.TranslationError):
+            u.build_official(lambda path: (fake_fetch(path)[0], ''))
+
+
 class CollectTests(unittest.TestCase):
     def test_too_few_names(self):
         with self.assertRaises(u.TranslationError):

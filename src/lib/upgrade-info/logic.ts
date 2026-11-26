@@ -40,18 +40,10 @@ export type UpgradeData = Record<Source, Item[]>;
 
 export const DATA = rawData as unknown as UpgradeData;
 
-export const RESOURCES: Resource[] = ['gold', 'elixir', 'dark_elixir', 'shiny_ore', 'glowy_ore', 'starry_ore'];
 /** 資源名稱（遊戲內翻譯） */
 export const RESOURCE_NAMES: Record<Resource, string> = {
   gold: zh('Gold'), elixir: zh('Elixir'), dark_elixir: zh('Dark Elixir'),
   shiny_ore: zh('Shiny Ore'), glowy_ore: zh('Glowy Ore'), starry_ore: zh('Starry Ore'),
-};
-/** 卡片與摘要用的簡稱（取資源名稱的前幾個字） */
-export const RESOURCE_SHORT: Record<Resource, string> = {
-  gold: RESOURCE_NAMES.gold.slice(0, 1), elixir: RESOURCE_NAMES.elixir.slice(0, 1),
-  dark_elixir: RESOURCE_NAMES.dark_elixir.slice(0, 1),
-  shiny_ore: RESOURCE_NAMES.shiny_ore.slice(0, 2), glowy_ore: RESOURCE_NAMES.glowy_ore.slice(0, 2),
-  starry_ore: RESOURCE_NAMES.starry_ore.slice(0, 2),
 };
 
 /** 需求欄位的名稱（遊戲內翻譯） */
@@ -172,70 +164,27 @@ export function applyDiscount(value: number, percent: number): number {
   return Math.floor(value * (1 - percent / 100));
 }
 
-export type Costs = Record<Resource, number>;
-
-export function emptyCosts(): Costs {
-  return { gold: 0, elixir: 0, dark_elixir: 0, shiny_ore: 0, glowy_ore: 0, starry_ore: 0 };
-}
-
-export interface Totals {
-  cost: Costs;
-  time: number;
-  /** 是否有任何等級提供升級時間（裝備為即時升級，沒有時間資料） */
-  hasTime: boolean;
-}
-
-/** 把每個項目從 Lv1 升到滿級的費用與時間加總，各資源分開計算 */
-export function totals(items: Item[], discount = 0): Totals {
-  const result: Totals = { cost: emptyCosts(), time: 0, hasTime: false };
-  for (const item of items) {
-    for (const lv of item.levels) {
-      for (const [res, amount] of Object.entries(lv.costs) as [Resource, number][]) {
-        result.cost[res] += applyDiscount(amount, discount);
-      }
-      if (lv.time !== null) result.hasTime = true;
-      if (lv.time) result.time += applyDiscount(lv.time, discount);
-    }
-  }
-  return result;
-}
-
-/** 1,234,567 → 1.2M；12,345 → 12K */
-export function formatLarge(num: number): string {
-  if (!num) return '0';
-  if (num >= 1e9) return `${(num / 1e9).toFixed(1)}B`;
-  if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M`;
-  if (num >= 1e3) return `${(num / 1e3).toFixed(0)}K`;
+/** 1234567 → 1,234,567 */
+export function formatNumber(num: number): string {
   return num.toLocaleString('en-US');
 }
 
-/** 卡片與表格用的短格式：1天12時、3時20分、45秒；0 為「即時」 */
+/** 1天12小時、3小時20分鐘、45秒；0 為「即時」 */
 export function formatTime(seconds: number | null): string {
   if (seconds === null) return '—';
   if (seconds === 0) return '即時';
   const days = Math.floor(seconds / 86400);
   const hours = Math.floor((seconds % 86400) / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
-  if (days > 0) return hours > 0 ? `${days}天${hours}時` : `${days}天`;
-  if (hours > 0) return minutes > 0 ? `${hours}時${minutes}分` : `${hours}時`;
-  if (minutes > 0) return `${minutes}分`;
+  if (days > 0) return hours > 0 ? `${days}天${hours}小時` : `${days}天`;
+  if (hours > 0) return minutes > 0 ? `${hours}小時${minutes}分鐘` : `${hours}小時`;
+  if (minutes > 0) return `${minutes}分鐘`;
   return `${seconds}秒`;
-}
-
-/** 摘要用的長格式：12 天 5 時 */
-export function formatTimeLong(seconds: number): string {
-  if (!seconds) return '0';
-  const days = Math.floor(seconds / 86400);
-  const hours = Math.floor((seconds % 86400) / 3600);
-  if (days > 0) return `${days} 天 ${hours} 時`;
-  if (hours > 0) return `${hours} 時`;
-  return `${Math.floor(seconds / 60)} 分`;
 }
 
 /** 需求欄位的文字 */
 export function requirementText(source: Source, level: Level): string {
   if (level.required === null) return '—';
-  if (source === 'buildings' || source === 'heroes') return `TH${level.required}`;
   return `${REQUIREMENT_NAMES[source]} ${level.required}`;
 }
 
