@@ -7,7 +7,7 @@ import {
   tabByKey, totalDiscount, totals,
 } from './logic.ts';
 import type { DiscountSettings, Filters, Item } from './logic.ts';
-import { cardHtml, emptyHtml, levelTableHtml, modalTitle, summaryValues } from './render.ts';
+import { cardHtml, emptyHtml, escapeHtml, levelTableHtml, modalTitle, summaryValues } from './render.ts';
 
 const DISCOUNT_KEY = 'coc_discount';
 
@@ -73,7 +73,7 @@ export function initUpgradeInfo(root: HTMLElement): void {
       counts.set(key, (counts.get(key) ?? 0) + 1);
     }
     groupSelect.innerHTML = '<option value="">全部</option>'
-      + tab.groups.map((g) => `<option value="${g.key}">${g.icon} ${g.name}（${counts.get(g.key) ?? 0}）</option>`).join('');
+      + tab.groups.map((g) => `<option value="${escapeHtml(g.key)}">${g.icon} ${escapeHtml(g.name)}（${counts.get(g.key) ?? 0}）</option>`).join('');
     groupSelect.value = state.group ?? '';
   }
 

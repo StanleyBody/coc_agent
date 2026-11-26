@@ -13,3 +13,9 @@ test('沒有翻譯時回傳英文原名', () => {
   assert.equal(zh('Not A Real Unit'), 'Not A Real Unit');
   assert.equal(hasZh('Not A Real Unit'), false);
 });
+
+test('不會查到物件原型的屬性', () => {
+  assert.equal(zh('constructor'), 'constructor');
+  assert.equal(zh('toString'), 'toString');
+  assert.equal(hasZh('__proto__'), false);
+});

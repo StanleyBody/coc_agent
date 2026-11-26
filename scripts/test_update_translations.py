@@ -23,6 +23,9 @@ SAMPLE = {
     # 同一個英文名稱有兩種譯名：不收錄
     'TID_A': tr('Shared', '甲'),
     'TID_B': tr('Shared', '乙'),
+    # 含 HTML 特殊字元：不收錄
+    'TID_UNSAFE_CNT': tr('Unsafe', '<b>危險</b>'),
+    'TID_UNSAFE_EN': tr("Builder's Hut", '建築工人小屋'),
 }
 
 
@@ -35,6 +38,8 @@ class BuildNamesTests(unittest.TestCase):
         self.assertNotIn('A long description.', names)
         self.assertFalse(any('<number>' in en for en in names))
         self.assertEqual(ambiguous, ['Shared'])
+        self.assertNotIn('Unsafe', names)
+        self.assertEqual(names["Builder's Hut"], '建築工人小屋')
         self.assertNotIn('Shared', names)
 
 

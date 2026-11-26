@@ -1,18 +1,17 @@
-/* 升級資訊的 HTML（名稱來自 Wiki，一律跳脫） */
+/* 升級資訊的 HTML（名稱來自 Wiki 與遊戲語系檔，一律跳脫） */
 import {
   RESOURCE_NAMES, RESOURCE_SHORT, RESOURCES, REQUIREMENT_NAMES, applyDiscount, displayName, emptyCosts,
   formatLarge, formatTime, formatTimeLong, hasChineseName, itemIcon, requirementText,
 } from './logic.ts';
 import type { Costs, Item, Resource, Source, TabConfig, Totals } from './logic.ts';
+import { escapeHtml } from '../html.ts';
+
+export { escapeHtml };
 
 const COST_CLASS: Record<Resource, string> = {
   gold: 'cost-gold', elixir: 'cost-elixir', dark_elixir: 'cost-dark',
   shiny_ore: 'cost-ore', glowy_ore: 'cost-ore', starry_ore: 'cost-ore',
 };
-
-export function escapeHtml(text: string): string {
-  return text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
-}
 
 /** 有減免時顯示「原價（刪除線） 減免後」 */
 function withDiscount(value: number, percent: number, format: (n: number) => string): string {
@@ -30,7 +29,7 @@ export function cardHtml(tab: TabConfig, item: Item, discount: number): string {
   const top = item.levels[item.levels.length - 1];
   const entries = Object.entries(top.costs) as [Resource, number][];
   const cost = entries.length
-    ? entries.map(([res, amount]) => `<span class="stat-line">${withDiscount(amount, discount, formatLarge)} ${RESOURCE_SHORT[res]}</span>`).join('')
+    ? entries.map(([res, amount]) => `<span class="stat-line">${withDiscount(amount, discount, formatLarge)} ${escapeHtml(RESOURCE_SHORT[res])}</span>`).join('')
     : '—';
   const subtitle = hasChineseName(item) ? escapeHtml(item.name) : '';
   const showTime = top.time !== null;
@@ -62,11 +61,11 @@ export function levelTableHtml(source: Source, item: Item, discount: number): { 
   const hasTime = levels.some((lv) => lv.time !== null);
   const hasHp = levels.some((lv) => lv.hp != null);
   const hasDps = levels.some((lv) => lv.dps != null);
-  const altNote = item.alt_resource ? `（也可用${RESOURCE_NAMES[item.alt_resource]}）` : '';
+  const altNote = item.alt_resource ? `（也可用${escapeHtml(RESOURCE_NAMES[item.alt_resource])}）` : '';
   const head = '<th>等級</th>'
-    + item.resources.map((res, i) => `<th>${RESOURCE_NAMES[res]}${i === 0 ? altNote : ''}</th>`).join('')
+    + item.resources.map((res, i) => `<th>${escapeHtml(RESOURCE_NAMES[res])}${i === 0 ? altNote : ''}</th>`).join('')
     + (hasTime ? '<th>升級時間</th>' : '')
-    + `<th>${REQUIREMENT_NAMES[source]}需求</th>`
+    + `<th>${escapeHtml(REQUIREMENT_NAMES[source])}需求</th>`
     + (hasHp ? '<th>HP</th>' : '')
     + (hasDps ? '<th>DPS</th>' : '');
   const number = (n: number) => n.toLocaleString('en-US');
@@ -77,7 +76,7 @@ export function levelTableHtml(source: Source, item: Item, discount: number): { 
       return `<td class="${COST_CLASS[res]}">${amount ? withDiscount(amount, discount, number) : '—'}</td>`;
     }).join('')
     + (hasTime ? `<td class="time">${timeWithDiscount(lv.time, discount)}</td>` : '')
-    + `<td>${requirementText(source, lv)}</td>`
+    + `<td>${escapeHtml(requirementText(source, lv))}</td>`
     + (hasHp ? `<td>${lv.hp != null ? number(lv.hp) : '—'}</td>` : '')
     + (hasDps ? `<td>${lv.dps != null ? number(lv.dps) : '—'}</td>` : '')
     + '</tr>').join('');
@@ -87,7 +86,7 @@ export function levelTableHtml(source: Source, item: Item, discount: number): { 
 /** 摘要卡片：各資源分開列出 */
 export function costLinesHtml(cost: Costs): string {
   const lines = RESOURCES.filter((r) => cost[r] > 0)
-    .map((r) => `<span class="summary-line">${formatLarge(cost[r])} ${RESOURCE_SHORT[r]}</span>`);
+    .map((r) => `<span class="summary-line">${formatLarge(cost[r])} ${escapeHtml(RESOURCE_SHORT[r])}</span>`);
   return lines.length ? lines.join('') : '0';
 }
 

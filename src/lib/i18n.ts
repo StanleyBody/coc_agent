@@ -8,9 +8,10 @@ const NAMES = (rawData as unknown as { names: Record<string, string> }).names;
 
 /** 英文名稱 → 遊戲內繁體中文；沒有翻譯時回傳原文 */
 export function zh(name: string): string {
-  return NAMES[name] ?? name;
+  return hasZh(name) ? NAMES[name] : name;
 }
 
+/** 只查對照表本身的鍵，避免 constructor、toString 等查到物件原型 */
 export function hasZh(name: string): boolean {
-  return name in NAMES;
+  return Object.hasOwn(NAMES, name);
 }

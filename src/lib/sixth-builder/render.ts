@@ -1,6 +1,7 @@
-/* 計算結果的 HTML（內容只有程式內的固定文字與數字，不含使用者輸入的字串） */
+/* 計算結果的 HTML（名稱含遊戲語系檔的譯文，放進 HTML 前一律跳脫；不含使用者輸入的字串） */
 import { DATA, REQUIRED_BUILDER_HALL, RESOURCE_NAMES, formatNumber as fmt } from './calc.ts';
 import { zh } from '../i18n.ts';
+import { escapeHtml } from '../html.ts';
 import type { Resource, ResourceSummary, Result } from './calc.ts';
 
 const ICONS: Record<Resource, string> = { gold: '🪙', elixir: '💧' };
@@ -8,7 +9,7 @@ const ICONS: Record<Resource, string> = { gold: '🪙', elixir: '💧' };
 /** 尚未填完時顯示的空白資源卡片 */
 function placeholderCard(resource: Resource, name: string): string {
   return `<div class="sb-res sb-res-${resource} is-placeholder">`
-    + `<div class="sb-res-head">${ICONS[resource]} ${name}</div><dl>`
+    + `<div class="sb-res-head">${ICONS[resource]} ${escapeHtml(name)}</div><dl>`
     + '<dt>還缺</dt><dd class="sb-num sb-shortage">—</dd>'
     + '<dt>每小時產量</dt><dd class="sb-num">—</dd>'
     + '<dt class="sb-time-label">採集器補足需要</dt><dd class="sb-time">—</dd>'
@@ -18,9 +19,9 @@ function placeholderCard(resource: Resource, name: string): string {
 function resourceCard(r: ResourceSummary): string {
   const warn = r.capacityOk
     ? ''
-    : `<p class="sb-warn">⚠️ ${r.storageName}升到上限仍無法容納單次最高費用 ${fmt(r.maxSingle)}。</p>`;
+    : `<p class="sb-warn">⚠️ ${escapeHtml(r.storageName)}升到上限仍無法容納單次最高費用 ${fmt(r.maxSingle)}。</p>`;
   return `<div class="sb-res sb-res-${r.resource}">`
-    + `<div class="sb-res-head">${ICONS[r.resource]} ${r.name}</div><dl>`
+    + `<div class="sb-res-head">${ICONS[r.resource]} ${escapeHtml(r.name)}</div><dl>`
     + `<dt>還缺</dt><dd class="sb-num sb-shortage">${fmt(r.shortage)}</dd>`
     + `<dt>每小時產量</dt><dd class="sb-num">${fmt(r.rate)}</dd>`
     + `<dt class="sb-time-label">採集器補足需要</dt><dd class="sb-time">${r.timeText}</dd>`
@@ -36,8 +37,8 @@ export function placeholderHtml(): string {
 export function resultHtml(result: Result): string {
   const bh = REQUIRED_BUILDER_HALL;
   const bhWarn = result.assumedBuilderHall
-    ? `<p class="sb-warn">⚠️ 目前${zh('Builder Hall')} Lv${result.builderHall}，以剛升上 Lv${bh}、`
-      + `尚未建造 Lv${bh} 新建築（${zh('B.O.B Control')}）計算，未計入${zh('Builder Hall')}升級費用。</p>`
+    ? `<p class="sb-warn">⚠️ ${escapeHtml(`目前${zh('Builder Hall')} Lv${result.builderHall}，以剛升上 Lv${bh}、`
+      + `尚未建造 Lv${bh} 新建築（${zh('B.O.B Control')}）計算，未計入${zh('Builder Hall')}升級費用。`)}</p>`
     : '';
   const heroWarn = result.heroesOk
     ? ''
@@ -45,14 +46,14 @@ export function resultHtml(result: Result): string {
 
   const todo = result.items.filter((item) => !item.done);
   const done = result.items.filter((item) => item.done);
-  const rows = todo.map((item) => `<tr><td>${item.name}<span class="sb-item-reason">${item.reason}</span></td>`
+  const rows = todo.map((item) => `<tr><td>${escapeHtml(item.name)}<span class="sb-item-reason">${escapeHtml(item.reason)}</span></td>`
     + `<td class="sb-level">Lv${item.current} → Lv${item.target}</td>`
-    + `<td class="sb-num sb-${item.resource}">${fmt(item.cost)} ${item.resourceName}</td></tr>`).join('');
+    + `<td class="sb-num sb-${item.resource}">${fmt(item.cost)} ${escapeHtml(item.resourceName)}</td></tr>`).join('');
   const table = todo.length
     ? `<table class="sb-table"><thead><tr><th>項目</th><th>等級</th><th>費用</th></tr></thead><tbody>${rows}</tbody></table>`
     : '<p class="sb-empty">所有條件都已達標。</p>';
   const doneLine = done.length && todo.length
-    ? `<p class="sb-done">✅ 已達標：${done.map((i) => i.name).join('、')}</p>`
+    ? `<p class="sb-done">✅ 已達標：${escapeHtml(done.map((i) => i.name).join('、'))}</p>`
     : '';
 
   return `<h2 class="sb-result-title">計算結果</h2>${bhWarn}${heroWarn}`

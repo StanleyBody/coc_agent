@@ -25,6 +25,8 @@ GENERATED_BY = 'scripts/update_translations.py（自動產生，請勿手動修�
 PYPI_URL = 'https://pypi.org/pypi/coc.py/json'
 TRANSLATIONS_PATH = 'coc/static/translations.json'
 USER_AGENT = 'coc_agent-data-updater/1.0'
+# 譯文會顯示在網頁上，含 HTML 特殊字元的字串不收錄
+UNSAFE = re.compile(r'[<>&"\']')
 
 # 排除成就與說明文字，只收錄名稱類的短字串（TID 的命名沒有一致規則，不用開頭篩選）
 SKIP_TID = re.compile(r'(ACHIEVEMENT|_INFO|_DESC|_TUTORIAL)')
@@ -71,7 +73,8 @@ def build_names(translations):
         if SKIP_TID.search(tid):
             continue
         en, cnt = (langs.get('EN') or '').strip(), (langs.get('CNT') or '').strip()
-        if not en or not cnt or '<' in en or len(en) > 40 or en[-1] in '.!?':
+        # 英文只當查詢用的鍵；會顯示在網頁上的是譯文，所以只檢查譯文
+        if not en or not cnt or '<' in en or len(en) > 40 or en[-1] in '.!?' or UNSAFE.search(cnt):
             continue
         candidates.setdefault(en, set()).add(cnt)
     names = {en: next(iter(c)) for en, c in candidates.items() if len(c) == 1}
@@ -85,6 +88,8 @@ def build_terms(translations):
         text = (translations.get(tid) or {}).get('CNT') or ''
         if zh not in text:
             raise TranslationError(f'「{en}」：{tid} 的繁體中文不包含「{zh}」（實際：{text!r}）')
+        if UNSAFE.search(zh):
+            raise TranslationError(f'「{en}」的譯文含有 HTML 特殊字元：{zh!r}')
         terms[en] = zh
     return terms
 
