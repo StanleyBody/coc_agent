@@ -1,17 +1,10 @@
-# 將第六工人計算機（純 JS）部署到 GitHub Pages
-# 需先在 Settings → Pages 將 Source 設為「GitHub Actions」
-name: Deploy sixth builder calculator to GitHub Pages
+# 建置 Astro 網站並部署到 GitHub Pages
+# 需在 Settings → Pages 將 Source 設為「GitHub Actions」
+name: Deploy site to GitHub Pages
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'pages/**'
-      - 'coc_agent/sixth_builder/static/**'
-      - 'coc_agent/home/static/css/base.css'
-      - 'coc_agent/home/static/css/home_styles.css'
-      - 'coc_agent/home/static/fonts/**'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -24,36 +17,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  # 建置與部署分成兩個 job（GitHub 官方範例的寫法）
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: node --test coc_agent/sixth_builder/js_tests/calc.test.js
-
-  # 建置與部署分成兩個 job（GitHub 官方範例的寫法），
-  # 同一個 job 內 upload 後馬上 deploy 可能找不到 artifact
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - name: Assemble site
-        run: |
-          mkdir -p _site/css _site/js _site/fonts
-          cp pages/index.html _site/
-          cp coc_agent/home/static/fonts/Clash_Regular.otf _site/fonts/
-          # base.css 用 Django 的絕對路徑載入字體，改成相對路徑
-          sed 's#/static/fonts/#../fonts/#g' coc_agent/home/static/css/base.css > _site/css/base.css
-          cp coc_agent/home/static/css/home_styles.css _site/css/
-          cp coc_agent/sixth_builder/static/css/sixth_builder.css _site/css/
-          cp coc_agent/sixth_builder/static/js/sixth_builder_data.js _site/js/
-          cp coc_agent/sixth_builder/static/js/sixth_builder_calc.js _site/js/
-          cp coc_agent/sixth_builder/static/js/sixth_builder.js _site/js/
+          cache: npm
+      - run: npm ci
+      - name: Type check and build
+        run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
 
   deploy:
     needs: build

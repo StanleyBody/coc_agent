@@ -1,0 +1,40 @@
+---
+/** 子頁面共用的頁首：標籤、標題、副標題 */
+interface Props {
+  tag: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { tag, title, subtitle } = Astro.props;
+---
+
+<header class="page-header">
+  <span class="section-tag animate-on-scroll">{tag}</span>
+  <h1 class="page-title animate-on-scroll animate-delay-1">{title}</h1>
+  {subtitle && <p class="page-subtitle animate-on-scroll animate-delay-2">{subtitle}</p>}
+</header>
+
+<style>
+  .page-header {
+    text-align: center;
+    padding: 120px 20px 40px;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 16px 0 12px;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>
